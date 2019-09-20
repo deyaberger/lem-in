@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/19 19:00:38 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/20 10:15:42 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,22 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef struct  s_struct
+typedef struct		s_struct
 {
-	int		ant_nb;
-	int		room_nb;
-	int		pipe_nb;
-}               t_struct;
+	int				ant_nb;
+	int				room_nb;
+	int				pipe_nb;
+}					t_struct;
+
+typedef struct		s_lst
+{
+	char			*name;
+	int				id;
+	int				x;
+	int				y;
+	int				type;
+	int				*link;
+	struct s_lst	*next;
+}					t_lst;
 
 #endif
