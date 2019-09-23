@@ -6,13 +6,13 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 10:16:12 by dberger           #+#    #+#              #
-#    Updated: 2019/09/16 13:46:11 by ncoursol         ###   ########.fr        #
+#    Updated: 2019/09/23 14:34:59 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 SOURCES = ft_memset.c\
 ft_bzero.c\
 ft_memcpy.c\
@@ -81,23 +81,28 @@ ft_sqrt.c\
 ft_sizenb_l.c\
 ft_sizenb_u.c\
 ft_strlen_l.c\
-ft_strjoinfree.c
 
 HEADERS = libft.h
-OBJECT = $(SOURCES:.c=.o)
+OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
 
-$(NAME):
-	@$(CC) $(FLAGS) -c $(SOURCES)
-	@ar rc $(NAME) $(OBJECT)
-	@ranlib $(NAME)
+.PHONY: all clean fclean re
 
-all: @$(NAME)
+all : $(NAME)
+
+$(NAME): $(OBJECTS) Makefile $(HEADER)
+	$(CC) $(CFLAGS) -c $(SOURCES)
+	ar rc $(NAME) $(OBJECTS)
+	ranlib $(NAME)
+
+%.o:%.c $(H_FILE)
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@rm -rf $(OBJECT)
+	rm -rf $(OBJECTS)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
+.SILENT:
