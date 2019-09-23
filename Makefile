@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/09/23 12:58:47 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/23 15:10:16 by ncoursol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ MINILIBX = $(LIB_DIR)/minilibx
 NAME_PTF = libftprintf.a
 NAME_LIBC = libft.a
 
-SRC = src/ft_test.c \
-	  src/main.c
+SRC = src/ft_main.c \
+	  src/ft_storage.c
 
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
