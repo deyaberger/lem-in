@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 10:16:12 by dberger           #+#    #+#              #
-#    Updated: 2019/09/23 14:34:59 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/23 15:31:17 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ ft_sqrt.c\
 ft_sizenb_l.c\
 ft_sizenb_u.c\
 ft_strlen_l.c\
+get_next_line.c
 
 HEADERS = libft.h
 OBJECTS = $(patsubst %.c,%.o,$(SOURCES))

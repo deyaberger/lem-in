@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 18:04:24 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/25 11:15:41 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/23 15:25:17 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 # define FT_PRINTF_H
 
 # include "../libft/libft.h"
-# include <unistd.h>
 # include <stdarg.h>
 
-# define BUFF_SIZE 71
+# define BUFF_SZ 71
 
 # define F_SPACE	(1 << 0)
 # define F_HASH		(1 << 1)
@@ -59,7 +58,7 @@ typedef struct		s_printf
 	int				ret;
 	int				min;
 	int				p;
-	char			buf[BUFF_SIZE + 1];
+	char			buf[BUFF_SZ + 1];
 }					t_printf;
 
 int					ft_check_char(char *str, int i, int mode);

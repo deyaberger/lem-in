@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 15:29:21 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/17 15:29:24 by ncoursol         ###   ########.fr       */
+/*   Created: 2019/05/12 15:33:24 by ncoursol          #+#    #+#             */
+/*   Updated: 2019/06/19 11:21:10 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			ft_modif(char *str, t_printf *save, int *i)
 		*i += 1;
 	}
 	if (str[*i] == 'h' || str[*i] == 'l' || str[*i] == 'L'
-			|| str[*i] == 'z' || str[*i] == 'j')
+		|| str[*i] == 'z' || str[*i] == 'j')
 		*i += 1;
 	if (!ft_check_char(str, *i, 1))
 		return (0);

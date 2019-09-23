@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 15:31:37 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/17 15:31:38 by ncoursol         ###   ########.fr       */
+/*   Created: 2019/05/15 19:48:39 by dberger           #+#    #+#             */
+/*   Updated: 2019/09/23 15:24:52 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			ft_printf(const char *restrict format, ...)
 	t_printf	save;
 
 	save.ret = 0;
-	save.buf[BUFF_SIZE] = '\0';
+	save.buf[BUFF_SZ] = '\0';
 	va_start(ap, format);
 	save = ft_process(save, format, ap);
 	write(1, save.buf, save.index);
