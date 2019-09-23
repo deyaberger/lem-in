@@ -6,19 +6,19 @@
 #    By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/30 19:03:50 by ncoursol          #+#    #+#              #
-#    Updated: 2019/08/22 10:23:52 by ncoursol         ###   ########.fr        #
+#    Updated: 2019/09/23 14:38:28 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NO_COLOR = \033[0m
-COMP_COLOR = \033[33m
-BIN_COLOR = \033[32m
-BIN2_COLOR = \033[36m
-PROG_COLOR = \033[35m
+YELLOW = \033[33m
+GREEN = \033[32m
+BLUE = \033[36m
+PINK = \033[35m
 
 NAME = libftprintf.a
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 LIB_DIR = ../libft
 
@@ -42,46 +42,26 @@ ft_format_b.c\
 ft_format_o.c\
 ft_color.c\
 ft_float.c\
-ft_mult2.c\
+ft_mult2.c
 
-
-OBJ = ft_format_csp.o\
-ft_format_di.o\
-ft_nan_inf.o\
-ft_print_float.o\
-ft_format_f.o\
-ft_format_u.o\
-ft_format_xx.o\
-ft_check_add.o\
-ft_check_char.o\
-ft_convert.o\
-ft_printf.o\
-ft_ltoa.o\
-ft_ftoa.o\
-ft_utoa.o\
-ft_dtoh.o\
-ft_format_pct.o\
-ft_format_b.o\
-ft_format_o.o\
-ft_color.o\
-ft_float.o\
-ft_mult2.o\
-
+OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
 INCLUDE = ft_printf.h
 
 .PHONY: all clean fclean re norme
 
-$(NAME):
-	@$(CC) $(FLAGS) -c $(SOURCES)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
-
 all: $(NAME)
 
+$(NAME): $(OBJECTS) Makefile $(INCLUDE)
+	ar rc $(NAME) $(OBJECTS)
+	ranlib $(NAME)
+
+%.o:src/%.c $(INCLUDE)
+	$(CC) $(CFLAGS) -o $@ -c $<
+
 clean:
-	@rm -rf $(OBJ)
+	rm -rf $(OBJECTS)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
