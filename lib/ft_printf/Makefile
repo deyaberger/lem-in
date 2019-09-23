@@ -6,7 +6,7 @@
 #    By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/30 19:03:50 by ncoursol          #+#    #+#              #
-#    Updated: 2019/09/23 14:38:28 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/23 14:51:02 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,3 +65,5 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+.SILENT:
