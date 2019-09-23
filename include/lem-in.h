@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/23 17:14:38 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/23 20:52:27 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct		s_struct
 	int				pipe_nb;
 	int				xmax;
 	int				ymax;
-	struct t_room	*first;
+	struct s_room	*first;
 }					t_struct;
 
 typedef struct		s_room
@@ -35,6 +35,7 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
-int					ft_storage(t_struct *t, t_lst *l);
+int					ft_storage(t_struct *t, t_room *r);
+t_room				*init_room(t_room *r);
 
 #endif

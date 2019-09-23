@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/23 15:12:00 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/23 20:55:27 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,27 @@ void			init_var(t_struct *t)
 	t->pipe_nb = 0;
 }
 
-void			init_lst(t_lst *l)
+t_room			*init_room(t_room *r)
 {
-	if (!(l = (t_lst*)malloc(sizeof(*l))))
-		l->type = -1;
-	l->type = 0;
-	l->next = NULL;
+	if (!(r = (t_room*)malloc(sizeof(*r))))
+		r->type = -2;
+	r->type = -1;
+	r->name = NULL;
+	r->next = NULL;
+	return (r);
 }
 
 int		main(void)
 {
 	t_struct	t;
-	t_lst		l;
+	t_room		*r = NULL;
 
 	init_var(&t);
-	init_lst(&l); //free
-	if (l.type == -1)
+	r = init_room(r); //free
+	if (r->type == -2)
 		return (1);
-	ft_storage(&t, &l);
+	t.first = r;
+	ft_storage(&t, r);
 //	algo(t, l);
 	return (0);
 }
