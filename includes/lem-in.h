@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/20 10:15:42 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/23 13:43:04 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ typedef struct		s_struct
 typedef struct		s_lst
 {
 	char			*name;
-	int				id;
-	int				x;
-	int				y;
-	int				type;
-	int				*link;
+	int				type; 	//start(1) | end(2) | rien(0)
+	int				*link;	//liaisons
 	struct s_lst	*next;
 }					t_lst;
 

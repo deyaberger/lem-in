@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/20 10:37:11 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/23 14:22:58 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ t_lst			init_lst(t_lst *l)
 {
 	if (!(l = (t_lst*)malloc(sizeof(*l))))
 		return (NULL);
-	l->id = 0;
-	l->x = 0;
-	l->y = 0;
-	l->type = 2;
+	l->type = 0;
 	l->next = NULL;
 	return (l);
 }
