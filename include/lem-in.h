@@ -6,6 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
+/*   Updated: 2019/09/23 14:51:24 by ncoursol         ###   ########.fr       */
 /*   Updated: 2019/09/23 12:49:20 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -21,6 +22,7 @@
 
 typedef struct		s_struct
 {
+	char			*line;
 	int				ant_nb;
 	int				room_nb;
 	int				pipe_nb;
@@ -29,14 +31,11 @@ typedef struct		s_struct
 typedef struct		s_lst
 {
 	char			*name;
-	int				id;
-	int				x;
-	int				y;
-	int				type;
-	int				*link;
+	int				type; 	//start(1) | end(2) | rien(0)
+	int				*link;	//liaisons
 	struct s_lst	*next;
 }					t_lst;
 
-void			ft_test(int i);
+int					storage(t_struct *t, t_lst *l);
 
 #endif
