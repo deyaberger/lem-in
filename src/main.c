@@ -6,13 +6,11 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/23 14:22:58 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/23 14:39:46 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libraries/get_next_line/get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
+#include "../include/lem-in.h"
 
 void			error_output()
 {
@@ -22,6 +20,7 @@ void			error_output()
 
 t_struct		init_var(t_struct t)
 {
+	t.line = NULL;
 	t.ant_nb = 0;
 	t.room_nb = 0;
 	t.pipe_nb = 0;
@@ -31,7 +30,10 @@ t_struct		init_var(t_struct t)
 t_lst			init_lst(t_lst *l)
 {
 	if (!(l = (t_lst*)malloc(sizeof(*l))))
-		return (NULL);
+	{
+		l->type = -1;
+		return (l);
+	}
 	l->type = 0;
 	l->next = NULL;
 	return (l);
@@ -39,13 +41,14 @@ t_lst			init_lst(t_lst *l)
 
 int		main(void)
 {
-	char		*line;
 	t_struct	t;
 	t_lst		*l;
 
 	t = init_var(t);
+	if (l->type == -1)
+		return (1);
 	l = init_lst(l); //free
-	storage(t, l);
-	algo(t, l);
+	storage(&t, l);
+//	algo(t, l);
 	return (0);
 }

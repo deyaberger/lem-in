@@ -6,22 +6,23 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/23 13:43:04 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/23 14:30:02 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/23 12:49:20 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-//# include "../libraries/ft_printf/ft_printf.h"
-//# include "../libraries/get_next_line/get_next_line.h"
+# include "../lib/ft_printf/ft_printf.h"
+# include "../lib/libft/libft.h"
 # include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
-# include <stdio.h>
 
 typedef struct		s_struct
 {
+	char			*line;
 	int				ant_nb;
 	int				room_nb;
 	int				pipe_nb;
@@ -34,5 +35,7 @@ typedef struct		s_lst
 	int				*link;	//liaisons
 	struct s_lst	*next;
 }					t_lst;
+
+void			ft_test(int i);
 
 #endif
