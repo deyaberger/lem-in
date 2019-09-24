@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/23 21:22:52 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:07:59 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,14 @@ int		ft_storage(t_struct *t, t_room *r)
 {
 	int		i;
 
+	i = -1;
 	get_next_line(0, &t->line);
+	while (t->line[++i])
+		if (!ft_isdigit(t->line[i]))
+			return (0);
 	t->ant_nb = ft_atoi(t->line);
 	if (t->ant_nb <= 0 || t->ant_nb >= 2147483647)
-		return (-1);
+		return (0);
 	free(t->line);
 	while (get_next_line(0, &t->line))
 	{
@@ -59,7 +63,7 @@ int		ft_storage(t_struct *t, t_room *r)
 		free(t->line);
 	}
 	//////////////////////Display liste///////////////////////
-	/*
+	
 	r = t->first;
 	while (r != NULL)
 	{
@@ -67,7 +71,7 @@ int		ft_storage(t_struct *t, t_room *r)
 		ft_printf("type : [%d]\n\n", r->type);
 		r = r->next;
 	}
-	*/
+	
 	//////////////////////////////////////////////////////////
-	return (0);
+	return (1);
 }

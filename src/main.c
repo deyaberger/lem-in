@@ -6,16 +6,29 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/23 20:55:27 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/24 14:07:57 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-void			error_output()
+void			free_all(t_struct *t, t_room **r, int mode)
 {
-	//free all
-	ft_printf("ERROR\n");
+	t_room	*next_one;
+
+	while (*r)
+	{
+		next_one = (*r)->next;
+		if ((*r)->name)
+			free((*r)->name);
+		free(*r);
+		*r = next_one;
+	}
+	*r = NULL;
+	if (t->line)
+		free(t->line);
+	if (mode == 1)
+		ft_printf("ERROR\n");
 }
 
 void			init_var(t_struct *t)
@@ -42,11 +55,24 @@ int		main(void)
 	t_room		*r = NULL;
 
 	init_var(&t);
-	r = init_room(r); //free
+	r = init_room(r);
 	if (r->type == -2)
-		return (1);
+	{
+		free_all(&t, &r, 1);
+		return (-1);
+	}
 	t.first = r;
-	ft_storage(&t, r);
-//	algo(t, l);
+	if (!ft_storage(&t, r))
+	{
+		free_all(&t, &r, 1);
+		return (-1);
+	}
+	free_all(&t, &r, 0);
 	return (0);
 }
+/*
+	__attribute__((destructor))
+void    end()
+{
+	while(1);
+}*/
