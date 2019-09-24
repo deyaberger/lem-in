@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/24 17:19:29 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/24 19:33:39 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 typedef struct		s_struct
 {
 	char			*line;
-	struct s_room	**hash;
 	int				ant_nb;
 	int				room_nb;
 	int				pipe_nb;
