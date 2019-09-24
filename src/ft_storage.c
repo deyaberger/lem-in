@@ -6,11 +6,38 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/24 16:19:38 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/24 17:20:48 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
+
+int     ft_check(t_struct *t, int type, int i)
+{
+	int     j;
+
+	j = 0;
+	if (t->line[0] == 'L')
+		return (3);
+	while (t->line[i] != ' ' && t->line[i])
+	{
+		if (t->line[i] < '0' || t->line[i] > '9')
+			return (3);
+		i++;
+	}
+	i++;
+	while (t->line[i] != ' ' && t->line[i])
+	{
+		if (t->line[i] < '0' || t->line[i] > '9')
+			return (3);
+		i++;
+	}
+	i = -1;
+	while (t->line[++i])
+		if (t->line[i] == ' ')
+			j++;
+	return (j != 2 ? 3 : type);
+}
 
 int		ft_store(t_struct *t, t_room **r, int type)
 {
@@ -30,16 +57,13 @@ int		ft_store(t_struct *t, t_room **r, int type)
 		return (0);
 	(*r)->name[i] = '\0';
 	(*r)->name = ft_strncpy((*r)->name, t->line, i);
-	(*r)->type = type;
+	(*r)->type = ft_check(t, type, i + 1);
 	t->room_nb++;
-	return (1);
+	return ((*r)->type == 3 ? 0 : 1);
 }
 
-int		ft_storage(t_struct *t, t_room *r)
+int		ft_storage(t_struct *t, t_room *r, int i)
 {
-	int		i;
-
-	i = -1;
 	get_next_line(0, &t->line);
 	while (t->line[++i])
 		if (!ft_isdigit(t->line[i]))
@@ -54,7 +78,7 @@ int		ft_storage(t_struct *t, t_room *r)
 			break ;
 		if (t->line[0] != '#')
 			if (!ft_store(t, &r, i))
-				return (-1);
+				return (0);
 		if (ft_strcmp(t->line, "##start") == 0)
 			i = 1;
 		else if (ft_strcmp(t->line, "##end") == 0)
@@ -64,7 +88,7 @@ int		ft_storage(t_struct *t, t_room *r)
 		free(t->line);
 	}
 	//////////////////////Display liste///////////////////////
-	
+
 	r = t->first;
 	while (r != NULL)
 	{
@@ -72,7 +96,7 @@ int		ft_storage(t_struct *t, t_room *r)
 		ft_printf("type : [%d]\n\n", r->type);
 		r = r->next;
 	}
-	
+
 	//////////////////////////////////////////////////////////
-	return (1);
+	return (ft_strcmp("", t->line) == 0 ? 0 : 1);
 }

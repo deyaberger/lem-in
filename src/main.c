@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/24 16:20:04 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/24 17:20:21 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int		main(void)
 {
 	t_struct	t;
 	t_room		*r = NULL;
+	int			i;
 
+	i = -1;
 	init_var(&t);
 	r = init_room(r);
 	if (r->type == -2)
@@ -62,7 +64,7 @@ int		main(void)
 		return (-1);
 	}
 	t.first = r;
-	if (!ft_storage(&t, r))
+	if (!ft_storage(&t, r, i))
 	{
 		free_all(&t, &r, 1);
 		return (-1);

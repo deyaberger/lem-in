@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/24 13:41:52 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/24 17:19:29 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
-int					ft_storage(t_struct *t, t_room *r);
+int					ft_storage(t_struct *t, t_room *r, int i);
 t_room				*init_room(t_room *r);
 int					ft_hashtab(t_struct *t, t_room *r);
 
