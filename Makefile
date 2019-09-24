@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/09/23 15:27:55 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/24 13:34:55 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ NAME_PTF = libftprintf.a
 NAME_LIBC = libft.a
 
 SRC = src/main.c \
-	  src/ft_storage.c
+	  src/ft_storage.c \
+	  src/ft_hashtab.c
 
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
