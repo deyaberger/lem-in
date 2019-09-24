@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/24 14:07:59 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/24 16:19:38 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_store(t_struct *t, t_room **r, int type)
 	(*r)->name[i] = '\0';
 	(*r)->name = ft_strncpy((*r)->name, t->line, i);
 	(*r)->type = type;
+	t->room_nb++;
 	return (1);
 }
 
