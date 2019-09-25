@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/24 19:33:39 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:25:48 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 typedef struct		s_struct
 {
 	char			*line;
+	struct s_room	**tab;
 	int				ant_nb;
-	int				room_nb;
+	unsigned int	room_nb;
 	int				pipe_nb;
 	int				xmax;
 	int				ymax;
@@ -37,6 +38,8 @@ typedef struct		s_room
 
 int					ft_storage(t_struct *t, t_room *r, int i);
 t_room				*init_room(t_room *r);
+unsigned int		ft_hashage(char *name, int hash_size, int len);
 int					ft_hashtab(t_struct *t, t_room *r);
+int					ft_links(t_struct *t);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/09/24 19:31:56 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/25 13:19:19 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ PINK = \033[35m
 
 NAME = lem-in
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror # -fsanitize=address,undefined -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g
 HFILE = ./include/lem-in.h
 LIB_DIR = ./lib
 OBJ_DIR = ./obj
@@ -32,7 +32,8 @@ NAME_LIBC = libft.a
 
 SRC = src/main.c \
 	  src/ft_storage.c \
-	  src/ft_hashtab.c
+	  src/ft_hashtab.c \
+	  src/ft_links.c
 
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
