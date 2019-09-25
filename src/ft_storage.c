@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/25 15:45:08 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/25 16:07:40 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int		ft_coord(t_struct *t)
 	int		i;
 
 	i = 0;
-	if (!(t->coord = (int**)malloc(sizeof(int*) * t->xmax + 1)))
+	if (!(t->coord = (int**)malloc(sizeof(int*) * (t->xmax + 1))))
 		return (0);
 	while (i <= t->xmax)
 	{
-		if (!(t->coord[i] = (int*)malloc(sizeof(int) * t->ymax + 1)))
+		if (!(t->coord[i] = (int*)malloc(sizeof(int) * (t->ymax + 1))))
 			return (0);
-		ft_bzero(t->coord[i], t->xmax + 1);
+		ft_bzero(t->coord[i], (t->ymax + 1) * sizeof(int));
 		i++;
 	}
 //////////////////display coord/////////////////////////
@@ -137,7 +137,7 @@ int		ft_storage(t_struct *t, t_room *r, int i)
 		free(t->line);
 	}
 	//////////////////////Display liste///////////////////////
-
+/*
 	r = t->first;
 	while (r != NULL)
 	{
@@ -145,9 +145,9 @@ int		ft_storage(t_struct *t, t_room *r, int i)
 		ft_printf("type : [%d]\n\n", r->type);
 		r = r->next;
 	}
-//		ft_printf("xmax : [%d]\n", t->xmax);
-//		ft_printf("ymax : [%d]\n\n", t->ymax);
-
+		ft_printf("xmax : [%d]\n", t->xmax);
+		ft_printf("ymax : [%d]\n\n", t->ymax);
+*/
 	//////////////////////////////////////////////////////////
 	return (ft_strcmp("", t->line) == 0 || !ft_coord(t) ? 0 : 1);
 }
