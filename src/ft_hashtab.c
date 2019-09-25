@@ -6,20 +6,20 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/25 13:14:11 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:26:27 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-unsigned int		ft_hashage(char *name, int hash_size)
+unsigned int		ft_hashage(char *name, int hash_size, int len)
 {
 	size_t			i;
 	unsigned int	hash;
 	
 	i = 0;
 	hash = 0;
-	while (i != ft_strlen(name))
+	while (i != (unsigned int) len)
 	{
 		hash += name[i++];
 		hash += hash << 10;
@@ -52,7 +52,7 @@ int			ft_hashtab(t_struct *t, t_room *r)
 	r = t->first;
 	while (r)
 	{
-		i = ft_hashage(r->name, (t->room_nb * 10));
+		i = ft_hashage(r->name, (t->room_nb * 10), ft_strlen(r->name));
 		if (t->tab[i] == NULL && i < (t->room_nb * 10))
 		{
 			t->tab[i] = r;
