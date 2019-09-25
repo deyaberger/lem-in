@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/24 19:30:25 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/25 13:14:11 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,48 @@ unsigned int		ft_hashage(char *name, int hash_size)
 	return (hash % hash_size);
 }
 
+void		ft_init_tab(t_struct *t)
+{
+	unsigned int i;
+
+	i = 0;
+	while (i < t->room_nb * 10)
+	{
+		t->tab[i] = NULL;
+		i++;
+	}
+}
+
 int			ft_hashtab(t_struct *t, t_room *r)
 {
 	unsigned int 	i;
-	t_room	**tab;
 	
-	tab = malloc(sizeof(tab) * t->room_nb * 10);
+	t->tab = malloc(sizeof(t->tab) * t->room_nb * 10);
+	ft_init_tab(t);
 	r = t->first;
-	i = 79;
-	tab[i] = r; 
-	ft_printf("tab[%d]->name=%s\n", i, tab[i]->name);
-/*	while (r)
+	while (r)
 	{
 		i = ft_hashage(r->name, (t->room_nb * 10));
-		ft_printf("pour name = '%s', index = %d\n", r->name, i);
-		if (t->hash[i] == NULL)
-			t->hash[i] = r;
+		if (t->tab[i] == NULL && i < (t->room_nb * 10))
+		{
+			t->tab[i] = r;
+			ft_printf("pour name = %s, index = %d\n", t->tab[i]->name, i); 
+		}
 		else
 		{
-			while (t->hash[i] && ft_strcmp(r->name, t->hash[i]->name))
+			while (i < (t->room_nb * 10) && t->tab[i] != NULL && ft_strcmp(r->name, t->tab[i]->name))
+			{
 				i++;
-			if (t->hash[i] == NULL)
-				t->hash[i] = r;
-			else if (!(ft_strcmp(r->name, t->hash[i]->name)))
+				if (i == (t->room_nb * 10))
+					i = 0;
+			}
+
+			if (t->tab[i] == NULL)
+				t->tab[i] = r;
+			else if (!(ft_strcmp(r->name, t->tab[i]->name)))
 				return (0);
 		}
 		r = r->next;
-	}*/
+	}
 	return (1);
 }
