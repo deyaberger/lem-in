@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/25 15:25:48 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:40:03 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_struct
 	int				pipe_nb;
 	int				xmax;
 	int				ymax;
+	int				**coord;
 	struct s_room	*first;
 }					t_struct;
 
