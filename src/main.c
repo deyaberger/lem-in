@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/25 15:45:09 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:55:21 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,13 @@ int		main(void)
 		return (-1);
 	}
 	ft_hashtab(&t, r);
+	ft_links(&t);
 	free_all(&t, &r, 0);
 	return (0);
 }
-
+/*
 	__attribute__((destructor))
 void    end()
 {
 	while(1);
-}
+}*/

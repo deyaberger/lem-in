@@ -6,20 +6,20 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/25 15:26:27 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/25 19:38:17 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-unsigned int		ft_hashage(char *name, int hash_size, int len)
+unsigned int		ft_hashage(char *name, int hash_size)
 {
 	size_t			i;
 	unsigned int	hash;
 	
 	i = 0;
 	hash = 0;
-	while (i != (unsigned int) len)
+	while (i != ft_strlen(name))
 	{
 		hash += name[i++];
 		hash += hash << 10;
@@ -52,11 +52,14 @@ int			ft_hashtab(t_struct *t, t_room *r)
 	r = t->first;
 	while (r)
 	{
-		i = ft_hashage(r->name, (t->room_nb * 10), ft_strlen(r->name));
+		i = ft_hashage(r->name, (t->room_nb * 10));
 		if (t->tab[i] == NULL && i < (t->room_nb * 10))
 		{
 			t->tab[i] = r;
-			ft_printf("pour name = %s, index = %d\n", t->tab[i]->name, i); 
+			if (!(t->tab[i]->link = (int*)malloc(sizeof(int) * t->room_nb + 1)))
+				return (0);
+			ft_bzero(t->tab[i]->link, t->room_nb);
+			t->tab[i]->link[0] = -1;
 		}
 		else
 		{
