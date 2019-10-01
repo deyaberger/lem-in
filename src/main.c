@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/25 15:55:21 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/01 14:18:00 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void			init_var(t_struct *t)
 	t->pipe_nb = 0;
 	t->xmax = 0;
 	t->ymax = 0;
+	t->start = -1;
+	t->end = -1;
+	t->max_path = -1;
 }
 
 t_room			*init_room(t_room *r)
@@ -48,6 +51,8 @@ t_room			*init_room(t_room *r)
 	r->type = -1;
 	r->name = NULL;
 	r->next = NULL;
+	r->ant = 0;
+	r->nbl = 0;
 	return (r);
 }
 
@@ -77,8 +82,8 @@ int		main(void)
 	return (0);
 }
 /*
-	__attribute__((destructor))
-void    end()
-{
-	while(1);
-}*/
+   __attribute__((destructor))
+   void    end()
+   {
+   while(1);
+   }*/
