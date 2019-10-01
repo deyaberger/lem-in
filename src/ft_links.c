@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/26 19:14:11 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/01 15:13:58 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		ft_fill_links(int h1, int h2, t_struct *t)
 	if (t->tab[h1]->link[i] == h2)
 		return (0);
 	t->tab[h1]->link[i] = h2;
+	t->tab[h1]->nbl += 1;
 	if (i < t->room_nb - 1)
 		t->tab[h1]->link[i + 1] = -1;
 	i = 0;
@@ -32,6 +33,7 @@ int		ft_fill_links(int h1, int h2, t_struct *t)
 	if (t->tab[h2]->link[i] == h1)
 		return (0);
 	t->tab[h2]->link[i] = h1;
+	t->tab[h2]->nbl += 1;
 	if (i < t->room_nb - 1)
 		t->tab[h2]->link[i + 1] = -1;
 	return (1);

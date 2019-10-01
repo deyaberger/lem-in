@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/26 19:13:52 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/01 15:21:31 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ int				ft_init_links_tab(t_struct *t, t_room *r, int i)
 		return (0);
 	ft_bzero(t->tab[i]->link, t->room_nb);
 	t->tab[i]->link[0] = -1;
+	if (r->type == 1)
+		t->start = i;
+	else if (r->type == 2)
+		t->end = i;
 	return (1);
 }
 

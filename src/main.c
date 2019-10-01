@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/01 14:18:00 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/10/01 15:21:41 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			init_var(t_struct *t)
 	t->ymax = 0;
 	t->start = -1;
 	t->end = -1;
-	t->max_path = -1;
+	t->max_paths = -1;
 }
 
 t_room			*init_room(t_room *r)
@@ -78,6 +78,24 @@ int		main(void)
 	}
 	ft_hashtab(&t, r);
 	ft_links(&t);
+/*	i = 0;
+	int j;
+	j = 0;
+	while ((unsigned int)i < t.room_nb * 10)
+	{
+		if (t.tab[i] != NULL)
+		{
+			ft_printf("%s-tab[%d]: nbl = %d, links = [", t.tab[i]->name, i, t.tab[i]->nbl);
+			while (t.tab[i]->link[j] != -1)
+			{
+				ft_printf("%d,", t.tab[i]->link[j]);
+				j++;
+			}
+			j = 0;
+			ft_printf("]\n");
+		}
+		i++;
+	}*/
 	free_all(&t, &r, 0);
 	return (0);
 }
