@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/01 13:53:06 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/10/01 13:54:27 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_struct
 	int				ymax;
 	int				start;
 	int				end;
+	int				max_paths;
 	int				**coord;
 	struct s_room	*first;
 }					t_struct;
