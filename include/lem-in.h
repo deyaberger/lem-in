@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/01 13:59:04 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/10/01 15:24:51 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ t_room				*init_room(t_room *r);
 unsigned int		ft_hashage(char *name, int hash_size);
 int					ft_hashtab(t_struct *t, t_room *r);
 int					ft_links(t_struct *t);
+int					ft_heat(t_struct *t);
 
 #endif

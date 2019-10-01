@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/09/25 13:19:19 by dberger          ###   ########.fr        #
+#    Updated: 2019/10/01 15:23:45 by ncoursol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ NAME_LIBC = libft.a
 SRC = src/main.c \
 	  src/ft_storage.c \
 	  src/ft_hashtab.c \
-	  src/ft_links.c
+	  src/ft_links.c \
+	  src/ft_heat.c
 
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
@@ -49,7 +50,7 @@ $(LIB): FORCE
 	$(MAKE) -C $(FT_PRINTF)
 
 $(NAME): $(LIB) $(OBJ) Makefile $(HFILE)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) $(CGFLAGS)
 	echo "$(YELLOW)	--- $(GREEN)lem-in$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
 $(OBJ_DIR)/%.o:src/%.c $(HFILE)
