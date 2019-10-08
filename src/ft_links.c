@@ -6,36 +6,48 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/01 15:13:58 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/04 11:55:02 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
+t_link		*ft_create_ways(t_room *dest, t_struct *t)
+{
+	t_link	*l;
+
+	if (!(l = (t_link*)malloc(sizeof(t_link) * t->room_nb)))
+		return (NULL);
+	l->dest = dest;
+	l->status = 0;
+	return (l);
+}
+
 int		ft_fill_links(int h1, int h2, t_struct *t)
 {
 	unsigned int i;
+	unsigned int j;
+	t_room		*one;
+	t_room		*two;
 
 	i = 0;
-	while (i < t->room_nb && t->tab[h1]->link[i] != -1
-			&& t->tab[h1]->link[i] != h2)
+	j = 0;
+	one = t->tab[h1];
+	two = t->tab[h2];
+	while (one->ways[i] != NULL && i < t->room_nb && one->ways[i]->dest != two)
 		i++;
-	if (t->tab[h1]->link[i] == h2)
+	if (one->ways[i] == NULL)
+		one->ways[i] = ft_create_ways(two, t);
+	else if (one->ways[i]->dest == two)
 		return (0);
-	t->tab[h1]->link[i] = h2;
-	t->tab[h1]->nbl += 1;
-	if (i < t->room_nb - 1)
-		t->tab[h1]->link[i + 1] = -1;
-	i = 0;
-	while (i < t->room_nb && t->tab[h2]->link[i] != -1
-			&& t->tab[h2]->link[i] != h1)
-		i++;
-	if (t->tab[h2]->link[i] == h1)
+	while (two->ways[j] != NULL && j < t->room_nb && two->ways[j]->dest != one)
+		j++;
+	if (two->ways[j] == NULL)
+		two->ways[j] = ft_create_ways(one, t);
+	else if (two->ways[j]->dest == one)
 		return (0);
-	t->tab[h2]->link[i] = h1;
-	t->tab[h2]->nbl += 1;
-	if (i < t->room_nb - 1)
-		t->tab[h2]->link[i + 1] = -1;
+	one->ways[i]->rev = two->ways[j];
+	two->ways[j]->rev = one->ways[i];
 	return (1);
 }
 
