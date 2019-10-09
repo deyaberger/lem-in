@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/04 20:10:36 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/09 19:45:00 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ typedef struct		s_room
 	struct s_room	*mum;
 	int				type; 	//start(1) | end(2) | rien(0)
 	int				weight;
+	int				opti;
 	int				q;
 	int				used;
+	int				nbl;
 }					t_room;
 
 typedef struct		s_link
@@ -50,17 +52,18 @@ typedef struct		s_link
 	int				status;	
 }					t_link;
 
-typedef struct		s_bfs
+typedef struct		s_ways
 {
-	struct s_room	**steps;
+	struct s_room	***steps;
 	int				len;
-}					t_bfs;
+}					t_ways;
 
 int					ft_storage(t_struct *t, t_room *r, int i);
-t_room				*init_room(t_room *r);
-unsigned int		ft_hashage(char *name, int hash_size);
+t_room					*init_room(t_room *r);
+unsigned int				ft_hashage(char *name, int hash_size);
 int					ft_hashtab(t_struct *t, t_room *r);
 int					ft_links(t_struct *t);
-int					ft_bfs(t_struct *t, t_room *r);
+int8_t					ft_bfs(t_struct *t, t_room *r);
+int8_t					ft_karp(t_struct *t, t_room *r, t_ways *w);
 
 #endif

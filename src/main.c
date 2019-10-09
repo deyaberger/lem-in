@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/08 11:21:50 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/09 20:06:35 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ t_room			*init_room(t_room *r)
 	r->ways = NULL;
 	r->mum = NULL;
 	r->q = 0;
+	r->nbl = 0;
 	r->weight = 0;
+	r->opti = 0;
 	r->used = 0;
 	r->name = NULL;
 	r->next = NULL;
