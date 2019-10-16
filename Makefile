@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/10/09 19:45:25 by dberger          ###   ########.fr        #
+#    Updated: 2019/10/15 16:22:13 by ncoursol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ BLUE = \033[36m
 PINK = \033[35m
 
 NAME = lem-in
+NAME_DISP = display
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g
 HFILE = ./include/lem-in.h
@@ -37,7 +38,11 @@ SRC = src/main.c \
 	  src/ft_links.c \
 	  src/ft_karp.c
 
+SRC_DISP = src/src_display/main.c \
+		   src/src_display/menu.c
+
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
+
 
 LIB = $(FT_PRINTF)/$(NAME_PTF) \
 	  $(LIBC)/$(NAME_LIBC)
@@ -52,6 +57,7 @@ $(LIB): FORCE
 
 $(NAME): $(LIB) $(OBJ) Makefile $(HFILE)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB) $(CGFLAGS)
+	gcc -o $(NAME_DISP) $(SRC_DISP) $(LIB) $(CGFLAGS)  -L lib/sdl -l SDL2-2.0.0 -l SDL2_image -l SDL2_gfx
 	echo "$(YELLOW)	--- $(GREEN)lem-in$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
 $(OBJ_DIR)/%.o:src/%.c $(HFILE)
@@ -67,6 +73,7 @@ fclean: clean
 	$(MAKE) $@ -C $(LIBC)
 	$(MAKE) $@ -C $(FT_PRINTF)
 	@rm -rf $(NAME)
+	@rm -rf $(NAME_DISP)
 	@echo "$(PINK)	--- Programm deleted ! ---	$(NO_COLOR)"
 
 re: fclean all
