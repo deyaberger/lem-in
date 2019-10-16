@@ -32,13 +32,13 @@ void		menu2(t_disp *d, int cursor)
 		error("(menu.c) SDL_RenderDrawRect error : ", d);
 	d->rback.x = 879;
 	d->rback.y = 0;
-	img(d, d->title, "img/title.png", d->rback);
+	img(d, d->title, "img/title.png", 0);
 	d->rback.x = 750;
 	d->rback.y = 600;
 	if (cursor == 1)
-		img(d, d->startW, "img/startW.png", d->rback);
+		img(d, d->startW, "img/startW.png", 0);
 	else
-		img(d, d->start, "img/start.png", d->rback);
+		img(d, d->start, "img/start.png", 0);
 }
 
 void		menu3(t_disp *d, int cursor)
@@ -47,21 +47,21 @@ void		menu3(t_disp *d, int cursor)
 	d->rback.y = 800;
 	if (cursor == 1)
 	{
-		img(d, d->leave, "img/leave.png", d->rback);
+		img(d, d->leave, "img/leave.png", 0);
 		d->rback.x = 1200;
 		d->rback.y = 550;
-		img(d, d->arrow, "img/arrow.png", d->rback);
+		img(d, d->arrow, "img/arrow.png", 0);
 	}
 	else
 	{
-		img(d, d->leaveW, "img/leaveW.png", d->rback);
+		img(d, d->leaveW, "img/leaveW.png", 0);
 		d->rback.x = 1200;
 		d->rback.y = 750;
-		img(d, d->arrow, "img/arrow.png", d->rback);
+		img(d, d->arrow, "img/arrow.png", 0);
 	}
 	d->rback.x = 890;
 	d->rback.y = 400;
-	img(d, d->made, "img/made.png", d->rback);
+	img(d, d->made, "img/made.png", 0);
 	if (SDL_RenderDrawLine(d->rend, 1020, 700, 1550, 700) < 0)
 		error("(menu.c) SDL_RenderDrawLine error : ", d);
 	SDL_RenderPresent(d->rend);
@@ -83,7 +83,7 @@ void        menu(t_disp *d, int *running, int cursor)
 				d->rback.w = -1;
 				d->rback.x = 0;
 				d->rback.y = 0;
-				img(d, d->back, "img/back.xcf", d->rback);
+				img(d, d->back, "img/back.xcf", 0);
 				if (d->event.key.keysym.sym == SDLK_DOWN)
 					cursor = (cursor == 1 ? 0 : 0);
 				if (d->event.key.keysym.sym == SDLK_UP)

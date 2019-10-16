@@ -40,7 +40,7 @@ typedef struct      s_disp
 }					t_disp;
 
 void				menu(t_disp *d, int *running, int cursor);
-void				img(t_disp *d, SDL_Texture *tex, char *filename, SDL_Rect rback);
+void				img(t_disp *d, SDL_Texture *tex, char *filename, int mode);
 void				error(char *src, t_disp *d);
 
 #endif

@@ -38,13 +38,9 @@ void		init(t_disp *d)
 	d->rback.y = 0;
 	d->rback.w = 0;
 	d->rback.h = 0;
-	d->menu.x = 0;
-	d->menu.y = 0;
-	d->menu.w = 0;
-	d->menu.h = 0;
 }
 
-void		img(t_disp *d, SDL_Texture *tex, char *filename, SDL_Rect rback)
+void		img(t_disp *d, SDL_Texture *tex, char *filename, int mode)
 {
 	int		i;
 
@@ -62,7 +58,7 @@ void		img(t_disp *d, SDL_Texture *tex, char *filename, SDL_Rect rback)
 	if (!(tex = SDL_CreateTextureFromSurface(d->rend, d->img)))
 		error("(main.c) SDL_CreateTextureFromSurface : ", d);
 	SDL_FreeSurface(d->img);
-	if (d->rback.w == -1)
+	if (mode == -1)
 		if (SDL_SetTextureBlendMode(tex, SDL_BLENDMODE_BLEND) < 0)
 			error("(main.c) SDL_SetTextureBlendMode : ", d);
 	if (SDL_QueryTexture(tex, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
@@ -81,8 +77,7 @@ void		init_window(t_disp *d, int *running)
 		error("(main.c) SDL_SetWindowFullscreen error : ", d);
 	if (SDL_SetWindowBrightness(d->win, 1.1) < 0)
 		error("(main.c) SDL_SetWindowBrightness error : ", d);
-	d->rback.w = -1;
-	img(d, d->back, "img/back.xcf", d->rback);
+	img(d, d->back, "img/back.xcf", -1);
 	d->menu.w = d->rback.w / 3;
 	d->menu.h = d->rback.h / 2;
 	d->menu.x = d->rback.w / 3;
@@ -91,24 +86,24 @@ void		init_window(t_disp *d, int *running)
 	SDL_RenderClear(d->rend);
 	d->rback.x = 0;
 	d->rback.y = 0;
-	img(d, d->back, "img/back.xcf", d->rback);
+	img(d, d->back, "img/back.xcf", 0);
 	SDL_RenderPresent(d->rend);
 }
 
-void		disp_room(t_disp *d, int *room, int *delay)
+void		disp_room(t_disp *d)
 {
 	//filledCircleRGBA(d->rend, *x, y, 50, 250, 0, 0, 250);
 	SDL_RenderPresent(d->rend);
 }
 
-void		disp_karp(t_disp *d, int *room, int *delay)
+void		disp_karp(t_disp *d)
 {
 
 
 	SDL_RenderPresent(d->rend);
 }
 
-void		disp_lem(t_disp *d, int *room, int *delay)
+void		disp_lem(t_disp *d)
 {
 
 
@@ -119,16 +114,12 @@ int			main(void)
 {
 	t_disp	d;
 	int		running;
-	int		room;
-	int		karp;
-	int		lem;
+	int		mode;
 	int		delay;
 	int		x;
 
 	x = 100;
-	room = 1;
-	karp = 0;
-	lem = 0;
+	mode = 1;
 	delay = 250;
 	init_window(&d, &running);
 	while(running)
@@ -138,12 +129,12 @@ int			main(void)
 			if(d.event.type == SDL_QUIT || d.event.key.keysym.sym == SDLK_q)
 				running = 0;
 		}
-		if (room == 1)
-			disp_room(&d, &room, &delay);
-		else if (karp == 1)
-			disp_karp(&d, &karp, &delay);
-		else if (lem == 1)
-			disp_lem(&d, &lem, &delay);
+		if (mode == 1)
+			disp_room(&d);
+		else if (mode == 2)
+			disp_karp(&d);
+		else if (mode == 3)
+			disp_lem(&d);
 		//SDL_Delay(delay);
 		x += 4;
 	}
