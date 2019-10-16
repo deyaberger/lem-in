@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:26:01 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/15 14:33:40 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/10/16 10:54:35 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define DISPLAY_H
 
 # include "lem-in.h"
-# include "../lib/ft_printf/ft_printf.h"
-# include "../lib/libft/libft.h"
 # include "SDL2/SDL.h"
 # include "SDL2/SDL_image.h"
 # include "SDL2/SDL2_gfxPrimitives.h"
