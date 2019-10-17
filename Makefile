@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/10/16 11:03:26 by dberger          ###   ########.fr        #
+#    Updated: 2019/10/17 17:53:01 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,13 @@ NAME_PTF = libftprintf.a
 NAME_LIBC = libft.a
 
 SRC = src/main.c \
-	  src/ft_storage.c \
-	  src/ft_hashtab.c \
-	  src/ft_bfs.c \
-	  src/ft_links.c \
-	  src/ft_karp.c
+	src/ft_storage.c \
+	src/ft_hashtab.c \
+	src/ft_bfs.c \
+	src/ft_weight.c \
+	src/ft_links.c \
+	src/ft_karp.c \
+	src/ft_stock_steps.c	
 
 SRC_DISP = src/src_display/main.c \
 		   src/src_display/menu.c
@@ -51,7 +53,7 @@ LIB = $(FT_PRINTF)/$(NAME_PTF) \
 
 .PHONY: all clean fclean re
 
-all: $(NAME) $(NAME_DISP)
+all: $(NAME)
 
 $(LIB): FORCE
 	$(MAKE) -C $(LIBC)

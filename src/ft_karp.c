@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/17 17:42:12 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/17 18:16:00 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_ways		*ft_karp(t_struct *t, t_room *r, t_ways *best, t_ways *comp)
 		r = r->mum;
 	}
 	if (best->steps[0] == NULL)
-		best = ft_stock_steps(t, r, best);
+		best = ft_steps(t, r, best);
 	else
-		comp = ft_stock_steps(t, r, comp);
+		comp = ft_steps(t, r, comp);
 	j = 0;
 	k = 0;
 	if (comp->steps[0] != NULL  && comp->total < best->total)

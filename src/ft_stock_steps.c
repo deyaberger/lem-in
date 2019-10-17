@@ -6,13 +6,13 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 11:19:36 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/17 17:42:11 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/17 17:49:44 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-t_ways		*ft_stock_steps(t_struct *t, t_room *r, t_ways *comp)
+t_ways		*ft_steps(t_struct *t, t_room *r, t_ways *comp)
 {
 	int 		i;
 	int 		j;
