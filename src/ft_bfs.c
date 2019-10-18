@@ -6,15 +6,15 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/17 18:07:17 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:28:02 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-t_room	*ft_init_var(t_room *r, t_room *queue)
+t_room		*ft_init_var(t_room *r, t_room *queue)
 {
-	t_room *save;
+	t_room	*save;
 
 	queue = r;
 	save = queue;
@@ -32,24 +32,41 @@ t_room	*ft_init_var(t_room *r, t_room *queue)
 	return (queue);
 }
 
-int8_t	ft_bfs(t_struct *t, t_room *r)
-{	
-	t_room *queue;
-	t_ways	*best;
-	t_ways	*comp;
+void		ft_print_best(t_ways best)
+{
 	int	i;
 	int	j;
 
 	i = 0;
+	j = 0;
+	while (best.steps[i] != NULL)
+	{
+		while (best.steps[i][j] != NULL)
+		{
+			ft_printf("%s, ", best.steps[i][j]->name);
+			j++;
+		}
+		ft_printf("\n");
+		j = 0;
+		i++;
+	}
+}
+
+int8_t		ft_bfs(t_struct *t, t_room *r)
+{
+	t_room	*queue;
+	t_ways	best;
+	t_ways	comp;
+	int	i;
+
+	i = 0;
 	queue = NULL;
-	best = ft_memalloc(sizeof(t_ways));
-	comp = ft_memalloc(sizeof(t_ways));
 	if (t->start->nbl <= t->end->nbl)
 		t->max_paths = t->start->nbl;
 	else
 		t->max_paths = t->end->nbl;
-	best->steps = ft_memalloc(sizeof(t_room*) * t->max_paths);
-	comp->steps = ft_memalloc(sizeof(t_room*) * t->max_paths);
+	best.steps = ft_memalloc(sizeof(t_room*) * t->max_paths);
+	comp.steps = ft_memalloc(sizeof(t_room*) * t->max_paths);
 	while (i < t->max_paths)
 	{
 		r = t->start;
@@ -66,21 +83,9 @@ int8_t	ft_bfs(t_struct *t, t_room *r)
 				queue = ft_weight(t, r, queue);
 			r = r->next;
 		}
-		best = ft_karp(t, r, best, comp);	
+		ft_karp(t, r, &best, &comp);
 		i++;
 	}
-	i = 0;
-	j = 0;
-	while (best->steps[i] != NULL)
-	{
-		while (best->steps[i][j] != NULL)
-		{
-			ft_printf("%s, ", best->steps[i][j]->name);
-			j++;
-		}
-		ft_printf("\n");
-		j = 0;
-		i++;
-	}
+	ft_print_best(best);
 	return (1);
 }

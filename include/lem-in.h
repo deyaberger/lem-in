@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/17 17:52:26 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:17:22 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			ft_hashtab(t_struct *t, t_room *r);
 int			ft_links(t_struct *t);
 t_room			*ft_weight(t_struct *t, t_room *r, t_room *queue);
 int8_t			ft_bfs(t_struct *t, t_room *r);
-t_ways			*ft_steps(t_struct *t, t_room *r, t_ways *comp);
-t_ways			*ft_karp(t_struct *t, t_room *r, t_ways *best, t_ways *comp);
+void			ft_steps(t_struct *t, t_room *r, t_ways *comp);
+void			ft_karp(t_struct *t, t_room *r, t_ways *best, t_ways *comp);
 
 #endif
