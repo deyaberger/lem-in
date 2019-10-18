@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/03 19:30:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:41:47 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ unsigned int	ft_hashage(char *name, int hash_size)
 	return (hash % hash_size);
 }
 
-void			ft_init_tab(t_struct *t, unsigned int s)
+void			ft_init_tab(t_info *t, unsigned int s)
 {
 	unsigned int i;
 
@@ -43,13 +43,13 @@ void			ft_init_tab(t_struct *t, unsigned int s)
 	}
 }
 
-int				ft_init_links_tab(t_struct *t, t_room *r, int i)
+int8_t		ft_init_links_tab(t_info *t, t_room *r, int i)
 {
 	unsigned int		j;
 
 	j = 0;
 	t->tab[i] = r;
-	if (!(r->ways = malloc(sizeof(r->ways) * t->room_nb)))
+	if (!(r->ways = ft_memalloc(sizeof(r->ways) * t->room_nb)))
 		return (0);
 	while (j < t->room_nb)
 	{
@@ -63,7 +63,7 @@ int				ft_init_links_tab(t_struct *t, t_room *r, int i)
 	return (1);
 }
 
-int				ft_coal(t_struct *t, t_room *r, int i, int s)
+int8_t		ft_coal(t_info *t, t_room *r, int i, int s)
 {
 	while (i < s && t->tab[i] != NULL && ft_strcmp(r->name, t->tab[i]->name))
 	{
@@ -81,13 +81,13 @@ int				ft_coal(t_struct *t, t_room *r, int i, int s)
 	return (1);
 }
 
-int				ft_hashtab(t_struct *t, t_room *r)
+int8_t		ft_hashtab(t_info *t, t_room *r)
 {
 	unsigned int	i;
 	unsigned int	s;
 
 	s = t->room_nb * 10;
-	if (!(t->tab = malloc(sizeof(t->tab) * s)))
+	if (!(t->tab = ft_memalloc(sizeof(t->tab) * s)))
 		return (0);
 	ft_init_tab(t, s);
 	r = t->first;

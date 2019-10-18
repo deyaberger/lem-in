@@ -6,13 +6,13 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/09/25 16:07:40 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/10/18 14:41:10 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-int		ft_coord(t_struct *t)
+int8_t		ft_coord(t_info *t)
 {
 	int		i;
 
@@ -46,7 +46,7 @@ int		ft_coord(t_struct *t)
 	return (1);
 }
 
-void	ft_max(t_struct *t, int mode, int i)
+void	ft_max(t_info *t, int mode, int i)
 {
 	int		a;
 
@@ -59,7 +59,7 @@ void	ft_max(t_struct *t, int mode, int i)
 			t->ymax = a;
 }
 
-int     ft_check(t_struct *t, int type, int i)
+int     ft_check(t_info *t, int type, int i)
 {
 	int     j;
 
@@ -88,7 +88,7 @@ int     ft_check(t_struct *t, int type, int i)
 	return (j != 2 ? 3 : type);
 }
 
-int		ft_store(t_struct *t, t_room **r, int type)
+int8_t		ft_store(t_info *t, t_room **r, int type)
 {
 	t_room	*n = NULL;
 	int		i;
@@ -111,7 +111,7 @@ int		ft_store(t_struct *t, t_room **r, int type)
 	return ((*r)->type == 3 ? 0 : 1);
 }
 
-int		ft_storage(t_struct *t, t_room *r, int i)
+int8_t		ft_storage(t_info *t, t_room *r, int i)
 {
 	get_next_line(0, &t->line);
 	while (t->line[++i])

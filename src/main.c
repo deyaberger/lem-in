@@ -6,13 +6,13 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/09 20:06:35 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:44:02 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-void			free_all(t_struct *t, t_room **r, int mode)
+void			free_all(t_info *t, t_room **r, int mode)
 {
 	t_room	*next_one;
 
@@ -31,12 +31,13 @@ void			free_all(t_struct *t, t_room **r, int mode)
 		ft_printf("ERROR\n");
 }
 
-void			init_var(t_struct *t)
+void			init_var(t_info *t)
 {
 	t->line = NULL;
 	t->ant_nb = 0;
 	t->room_nb = 0;
 	t->link_nb = 0;
+	t->max_paths = 0;
 	t->xmax = 0;
 	t->ymax = 0;
 	t->start = NULL;
@@ -62,7 +63,7 @@ t_room			*init_room(t_room *r)
 
 int		main(void)
 {
-	t_struct	t;
+	t_info	t;
 	t_room		*r;
 	int			i;
 
@@ -91,8 +92,8 @@ int		main(void)
 	free_all(&t, &r, 0);
 	return (0);
 }
-/*
-   __attribute__((destructor))
+
+/*   __attribute__((deinfoor))
    void    end()
    {
    while(1);

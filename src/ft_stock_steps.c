@@ -6,13 +6,13 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 11:19:36 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/18 14:17:08 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:45:27 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-void	ft_steps(t_struct *t, t_room *r, t_ways *comp)
+int8_t	ft_steps(t_info *t, t_room *r, t_ways *comp)
 {
 	int 		i;
 	int 		j;
@@ -31,7 +31,8 @@ void	ft_steps(t_struct *t, t_room *r, t_ways *comp)
 		{
 			while (comp->steps[j] != NULL && j < t->max_paths)
 				j++;
-			comp->steps[j] = ft_memalloc(sizeof(t_room) * t->end->weight);
+			if (!(comp->steps[j] = ft_memalloc(sizeof(t_room) * t->end->weight)))
+			return (0);
 			comp->steps[j + 1] = NULL;
 			m = i;
 			while (r != t->end)
@@ -54,4 +55,5 @@ void	ft_steps(t_struct *t, t_room *r, t_ways *comp)
 	}
 	comp->nb_ways = j;
 	comp->total = (comp->total + t->ant_nb - 1) / (comp->nb_ways + 1);
+	return (1);
 }

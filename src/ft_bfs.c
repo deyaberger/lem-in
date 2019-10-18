@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/18 14:28:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:37:35 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		ft_print_best(t_ways best)
 	}
 }
 
-int8_t		ft_bfs(t_struct *t, t_room *r)
+int8_t		ft_bfs(t_info *t, t_room *r)
 {
 	t_room	*queue;
 	t_ways	best;
@@ -65,8 +65,10 @@ int8_t		ft_bfs(t_struct *t, t_room *r)
 		t->max_paths = t->start->nbl;
 	else
 		t->max_paths = t->end->nbl;
-	best.steps = ft_memalloc(sizeof(t_room*) * t->max_paths);
-	comp.steps = ft_memalloc(sizeof(t_room*) * t->max_paths);
+	if (!(best.steps = ft_memalloc(sizeof(t_room*) * t->max_paths)))
+		return (0);
+	if (!(comp.steps = ft_memalloc(sizeof(t_room*) * t->max_paths)))
+		return (0);
 	while (i < t->max_paths)
 	{
 		r = t->start;
@@ -83,7 +85,8 @@ int8_t		ft_bfs(t_struct *t, t_room *r)
 				queue = ft_weight(t, r, queue);
 			r = r->next;
 		}
-		ft_karp(t, r, &best, &comp);
+		if (!(ft_karp(t, r, &best, &comp)))
+			return (0);
 		i++;
 	}
 	ft_print_best(best);

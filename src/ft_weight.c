@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/17 18:13:41 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:44:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_new_in(t_room *r, t_room **queue, t_room **ngb, int weight)
 	(*queue) = *ngb;
 }
 
-t_room	*ft_weight(t_struct *t, t_room *r, t_room *queue)
+t_room	*ft_weight(t_info *t, t_room *r, t_room *queue)
 {
 	t_room	*ngb;
 	int	i;

@@ -6,24 +6,24 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/04 11:55:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:39:01 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-t_link		*ft_create_ways(t_room *dest, t_struct *t)
+t_link		*ft_create_ways(t_room *dest, t_info *t)
 {
 	t_link	*l;
 
-	if (!(l = (t_link*)malloc(sizeof(t_link) * t->room_nb)))
+	if (!(l = ft_memalloc(sizeof(t_link) * t->room_nb)))
 		return (NULL);
 	l->dest = dest;
 	l->status = 0;
 	return (l);
 }
 
-int		ft_fill_links(int h1, int h2, t_struct *t)
+int8_t		ft_fill_links(int h1, int h2, t_info *t)
 {
 	unsigned int i;
 	unsigned int j;
@@ -37,13 +37,19 @@ int		ft_fill_links(int h1, int h2, t_struct *t)
 	while (one->ways[i] != NULL && i < t->room_nb && one->ways[i]->dest != two)
 		i++;
 	if (one->ways[i] == NULL)
+	{
 		one->ways[i] = ft_create_ways(two, t);
+		one->nbl += 1;
+	}	
 	else if (one->ways[i]->dest == two)
 		return (0);
 	while (two->ways[j] != NULL && j < t->room_nb && two->ways[j]->dest != one)
 		j++;
 	if (two->ways[j] == NULL)
+	{
 		two->ways[j] = ft_create_ways(one, t);
+		two->nbl += 1;
+	}
 	else if (two->ways[j]->dest == one)
 		return (0);
 	one->ways[i]->rev = two->ways[j];
@@ -51,7 +57,7 @@ int		ft_fill_links(int h1, int h2, t_struct *t)
 	return (1);
 }
 
-int		ft_coal_links(int h, t_struct *t, char *name, unsigned int s)
+int		ft_coal_links(int h, t_info *t, char *name, unsigned int s)
 {
 	while (t->tab[h] != NULL && ft_strcmp(t->tab[h]->name, name))
 	{
@@ -62,10 +68,10 @@ int		ft_coal_links(int h, t_struct *t, char *name, unsigned int s)
 	return (h);
 }
 
-int		ft_calc_links(char *room1, char *room2, unsigned int s, t_struct *t)
+int8_t		ft_calc_links(char *room1, char *room2, unsigned int s, t_info *t)
 {
-	int				h1;
-	int				h2;
+	int	h1;
+	int	h2;
 
 	h1 = 0;
 	h2 = 0;
@@ -82,7 +88,7 @@ int		ft_calc_links(char *room1, char *room2, unsigned int s, t_struct *t)
 	return (1);
 }
 
-int		ft_cut_room(t_struct *t)
+int8_t		ft_cut_room(t_info *t)
 {
 	char			*room1;
 	char			*room2;
@@ -103,7 +109,7 @@ int		ft_cut_room(t_struct *t)
 	return (1);
 }
 
-int		ft_links(t_struct *t)
+int8_t		ft_links(t_info *t)
 {
 	if (!(ft_cut_room(t)))
 		return (0);

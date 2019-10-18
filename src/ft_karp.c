@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/18 14:27:43 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/18 14:37:17 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_clean_best(t_ways *best)
 
 }
 
-void	ft_new_best(t_struct *t, t_ways *best, t_ways *comp)
+int8_t	ft_new_best(t_info *t, t_ways *best, t_ways *comp)
 {
 	int	j;
 	int	k;
@@ -43,7 +43,8 @@ void	ft_new_best(t_struct *t, t_ways *best, t_ways *comp)
 	{
 		if (j > best->nb_ways)
 		{
-			best->steps[j] = ft_memalloc(sizeof(t_room) * t->end->weight);
+			if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * t->end->weight)))
+			return (0);
 			best->steps[j + 1] = NULL;
 		}
 		while (comp->steps[j][k])
@@ -58,8 +59,7 @@ void	ft_new_best(t_struct *t, t_ways *best, t_ways *comp)
 		j++;
 	}
 	comp->nb_ways = 0;
-
-
+	return (1);
 }
 
 void	ft_link_status(t_room *r)
@@ -84,7 +84,7 @@ void	ft_link_status(t_room *r)
 	}
 }
 
-void	ft_karp(t_struct *t, t_room *r, t_ways *best, t_ways *comp)
+int8_t	ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp)
 {
 	r = t->end;
 	while (r != t->start)
@@ -99,6 +99,8 @@ void	ft_karp(t_struct *t, t_room *r, t_ways *best, t_ways *comp)
 	if (comp->steps[0] != NULL  && comp->total < best->total)
 	{
 		ft_clean_best(best);
-		ft_new_best(t, best, comp);
+		if (!(ft_new_best(t, best, comp)))
+			return (0);
 	}
+	return (1);
 }
