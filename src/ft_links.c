@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 11:37:12 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 12:45:17 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ BOOL	ft_fill_links(size_t h1, size_t h2, t_info *info)
 	while (two->ways[j] != NULL
 			&& j < info->room_nb && two->ways[j]->dest != one)
 		j++;
-	if (two->ways[i] == NULL)
+	if (two->ways[j] == NULL)
 		two->ways[j] = ft_create_ways(two, one, info);
 	else if (two->ways[j]->dest == one)
 		return (FALSE);
