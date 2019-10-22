@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 13:05:57 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 14:38:32 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,25 @@ t_ways		ft_init_steps(size_t size)
 	return (ways);
 }
 
+void		ft_shorter_way(t_info *info, t_room **room, t_room **queue)
+{
+	while (info->end->q == 0 && *room)
+	{
+		*queue = ft_weight(info, *room, *queue);
+		*room = (*room)->next;
+	}
+}
+
+void		ft_finish_queue(t_info *info, t_room **room, t_room **queue)
+{
+	while (info->end->q == 1 && *room)
+	{
+		if ((*room)->weight < info->end->weight - 1)
+			*queue = ft_weight(info, *room, *queue);
+		*room = (*room)->next;
+	}
+}
+
 BOOL		ft_bfs(t_info *info, t_room *room)
 {
 	t_room	*queue;
@@ -77,19 +96,10 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 		room = info->start;
 		if (queue != NULL)
 			queue = ft_init_var(room, queue);
-		while (info->end->q == 0 && room)
-		{
-			queue = ft_weight(info, room, queue);
-			room = room->next;
-		}
+		ft_shorter_way(info, &room, &queue);
 		if (info->end->q == 0)
 			return (NO_MORE_STEPS);
-		while (info->end->q == 1 && room)
-		{
-			if (room->weight < info->end->weight - 1)
-				queue = ft_weight(info, room, queue);
-			room = room->next;
-		}
+		ft_finish_queue(info, &room, &queue);
 		if (!(ft_karp(info, room, &best, &comp)))
 			return (FALSE);
 		i++;
