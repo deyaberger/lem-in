@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/22 11:45:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 13:05:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ void  error_exit(int nb, char *str)
 	exit(nb);
 }
 
+void	ft_start_end(t_info *info)
+{
+	if (info->start->ways[0] == NULL || info->end->ways[0] == NULL)
+		error_exit(6, "No paths possible between start and end");
+	if (info->start->nbl <= info->end->nbl)
+		info->max_paths = info->start->nbl;
+	else
+		info->max_paths = info->end->nbl;
+}
+
 int		main(void)
 {
 	t_info	info;
@@ -67,8 +77,7 @@ int		main(void)
 		error_exit(1, "ft_storage has failed");
 	ft_hashtab(&info, room);
 	ft_links(&info);
-	if (info.start->ways[0] == NULL || info.end->ways[0] == NULL)
-		error_exit(6, "No paths possible between start and end");
+	ft_start_end(&info);
 	ft_bfs(&info, room);
 	return (FALSE);
 }

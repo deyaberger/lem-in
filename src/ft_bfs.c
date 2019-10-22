@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 12:33:43 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 13:05:57 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ void		ft_print_best(t_ways best)
 	}
 }
 
+t_ways		ft_init_steps(size_t size)
+{
+	t_ways	ways;
+
+	if (!(ways.steps = ft_memalloc(sizeof(t_room*) * size)))
+		error_exit(7, "Can't malloc t_ways->steps");
+	return (ways);
+}
+
 BOOL		ft_bfs(t_info *info, t_room *room)
 {
 	t_room	*queue;
@@ -61,14 +70,8 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 
 	i = 0;
 	queue = NULL;
-	if (info->start->nbl <= info->end->nbl)
-		info->max_paths = info->start->nbl;
-	else
-		info->max_paths = info->end->nbl;
-	if (!(best.steps = ft_memalloc(sizeof(t_room*) * info->max_paths)))
-		return (FALSE);
-	if (!(comp.steps = ft_memalloc(sizeof(t_room*) * info->max_paths)))
-		return (FALSE);
+	best = ft_init_steps(info->max_paths);
+	comp = ft_init_steps(info->max_paths);
 	while (i < info->max_paths)
 	{
 		room = info->start;
@@ -80,7 +83,7 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 			room = room->next;
 		}
 		if (info->end->q == 0)
-			i = info->max_paths;
+			return (NO_MORE_STEPS);
 		while (info->end->q == 1 && room)
 		{
 			if (room->weight < info->end->weight - 1)
