@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 14:45:58 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 17:28:24 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ BOOL	ft_links(t_info *info)
 			free(info->line);
 			return (FALSE);
 		}
-		if (info->line[0] != '#')
+		if (info->line[0] == '#' && info->line[1] != '#')
+			free(info->line);
+		else if (info->line[0] != '#')
 			if (!(ft_cut_room(info)))
 				return (FALSE);
 	}
-	if (info->line)
-		free(info->line);
 	return (TRUE);
 }

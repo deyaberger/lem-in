@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/22 13:05:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 17:39:56 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,38 @@ void	ft_start_end(t_info *info)
 		info->max_paths = info->end->nbl;
 }
 
+void		ft_clean_all(t_info *info, t_room *room)
+{
+	size_t 	i;
+	size_t 	j;
+	size_t 	k;
+	
+	i = 0;
+	j = 0;
+	k = 0;
+	while (i < info->room_nb * 10)
+	{
+		if (info->tab[i] != NULL)
+		{
+			room = info->tab[i];
+			free(room->name);
+			while (room->ways[j])
+			{
+				free(room->ways[j]);
+				j++;
+			}
+			free(room->ways);
+			free(room);
+			j = 0;
+		}
+		i++;
+	}
+	if (info->coord)
+		free(info->coord);
+	if (info->tab)
+		free(info->tab);
+}
+
 int		main(void)
 {
 	t_info	info;
@@ -79,10 +111,11 @@ int		main(void)
 	ft_links(&info);
 	ft_start_end(&info);
 	ft_bfs(&info, room);
+	ft_clean_all(&info, room);
 	return (FALSE);
 }
-
-/*   __attribute__((deinfoor))
+/*
+   __attribute__((destructor))
    void    end()
    {
    while(1);

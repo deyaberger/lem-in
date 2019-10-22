@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/22 15:32:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 17:28:20 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,16 @@ typedef struct		s_ways
 }			t_ways;
 
 void			error_exit(int nb, char *str);
-BOOL			ft_storage(t_info *t, t_room *r, int i);
 t_room			*init_room(void);
+BOOL			ft_storage(t_info *t, t_room *r, int i);
 size_t			ft_coll(t_info *info, char *name, size_t i, size_t s);
 size_t			ft_hashage(char *name, int hash_size);
 void			ft_hashtab(t_info *t, t_room *r);
 BOOL			ft_links(t_info *t);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
-BOOL			ft_bfs(t_info *t, t_room *r);
+void			ft_clean_steps(t_ways *ways, int mode);
 BOOL			ft_steps(t_info *t, t_room *r, t_ways *comp);
-BOOL			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
+BOOL			ft_bfs(t_info *t, t_room *r);
+void			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
 
 #endif

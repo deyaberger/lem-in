@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 14:38:32 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 16:15:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,11 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 		if (info->end->q == 0)
 			return (NO_MORE_STEPS);
 		ft_finish_queue(info, &room, &queue);
-		if (!(ft_karp(info, room, &best, &comp)))
-			return (FALSE);
+		ft_karp(info, room, &best, &comp);
 		i++;
 	}
 	ft_print_best(best);
+	ft_clean_steps(&best, 1);
+	ft_clean_steps(&comp, 1);
 	return (TRUE);
 }
