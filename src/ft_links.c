@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 13:02:31 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 14:45:58 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,13 @@ t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 	return (link);
 }
 
-BOOL	ft_fill_links(size_t h1, size_t h2, t_info *info)
+BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
 {
 	size_t	i;
 	size_t	j;
-	t_room	*one;
-	t_room	*two;
 
 	i = 0;
 	j = 0;
-	one = info->tab[h1];
-	two = info->tab[h2];
 	while (one->ways[i] != NULL
 			&& i < info->room_nb && one->ways[i]->dest != two)
 		i++;
@@ -58,12 +54,16 @@ BOOL	ft_calc_links(char *room1, char *room2, size_t s, t_info *info)
 {
 	size_t	h1;
 	size_t	h2;
+	t_room	*one;
+	t_room	*two;
 
 	h1 = ft_coll(info, room1, ft_hashage(room1, s), s);
 	h2 = ft_coll(info, room2, ft_hashage(room2, s), s);
 	if (info->tab[h1] == NULL || info->tab[h2] == NULL)
 		return (FALSE);
-	ft_fill_links(h1, h2, info);
+	one = info->tab[h1];
+	two = info->tab[h2];
+	ft_fill_links(one, two, info);
 	free(info->line);
 	return (TRUE);
 }
