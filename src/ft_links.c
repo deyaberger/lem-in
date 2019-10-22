@@ -6,123 +6,105 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/18 14:39:01 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 11:37:12 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-t_link		*ft_create_ways(t_room *dest, t_info *t)
+t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 {
-	t_link	*l;
+	t_link	*link;
 
-	if (!(l = ft_memalloc(sizeof(t_link) * t->room_nb)))
-		return (NULL);
-	l->dest = dest;
-	l->status = 0;
-	return (l);
+	if (!(link = ft_memalloc(sizeof(t_link) * info->room_nb)))
+		error_exit(7, "Can't malloc t_link");
+	link->dest = dest;
+	link->status = 0;
+	from->nbl += 1;
+	return (link);
 }
 
-int8_t		ft_fill_links(int h1, int h2, t_info *t)
+BOOL	ft_fill_links(size_t h1, size_t h2, t_info *info)
 {
-	unsigned int i;
-	unsigned int j;
-	t_room		*one;
-	t_room		*two;
+	size_t	i;
+	size_t	j;
+	t_room	*one;
+	t_room	*two;
 
 	i = 0;
 	j = 0;
-	one = t->tab[h1];
-	two = t->tab[h2];
-	while (one->ways[i] != NULL && i < t->room_nb && one->ways[i]->dest != two)
+	one = info->tab[h1];
+	two = info->tab[h2];
+	while (one->ways[i] != NULL
+			&& i < info->room_nb && one->ways[i]->dest != two)
 		i++;
 	if (one->ways[i] == NULL)
-	{
-		one->ways[i] = ft_create_ways(two, t);
-		one->nbl += 1;
-	}	
+		one->ways[i] = ft_create_ways(one, two, info);
 	else if (one->ways[i]->dest == two)
-		return (0);
-	while (two->ways[j] != NULL && j < t->room_nb && two->ways[j]->dest != one)
+		return (FALSE);
+	while (two->ways[j] != NULL
+			&& j < info->room_nb && two->ways[j]->dest != one)
 		j++;
-	if (two->ways[j] == NULL)
-	{
-		two->ways[j] = ft_create_ways(one, t);
-		two->nbl += 1;
-	}
+	if (two->ways[i] == NULL)
+		two->ways[j] = ft_create_ways(two, one, info);
 	else if (two->ways[j]->dest == one)
-		return (0);
+		return (FALSE);
 	one->ways[i]->rev = two->ways[j];
 	two->ways[j]->rev = one->ways[i];
-	return (1);
+	return (TRUE);
 }
 
-int		ft_coal_links(int h, t_info *t, char *name, unsigned int s)
+BOOL	ft_calc_links(char *room1, char *room2, size_t s, t_info *info)
 {
-	while (t->tab[h] != NULL && ft_strcmp(t->tab[h]->name, name))
-	{
-		h++;
-		if ((unsigned int)h == s)
-			h = 0;
-	}
-	return (h);
+	size_t	h1;
+	size_t	h2;
+
+	h1 = ft_coll(info, room1, ft_hashage(room1, s), s);
+	h2 = ft_coll(info, room2, ft_hashage(room2, s), s);
+	if (info->tab[h1] == NULL || info->tab[h2] == NULL)
+		return (FALSE);
+	ft_fill_links(h1, h2, info);
+	free(info->line);
+	return (TRUE);
 }
 
-int8_t		ft_calc_links(char *room1, char *room2, unsigned int s, t_info *t)
+BOOL	ft_cut_room(t_info *info)
 {
-	int	h1;
-	int	h2;
-
-	h1 = 0;
-	h2 = 0;
-	h2 = ft_hashage(room2, s);
-	h1 = ft_hashage(room1, s);
-	if (t->tab[h1] == NULL || t->tab[h2] == NULL)
-		return (0);
-	h1 = ft_coal_links(h1, t, room1, s);
-	h2 = ft_coal_links(h2, t, room2, s);
-	if (t->tab[h1] == NULL || t->tab[h2] == NULL)
-		return (0);
-	ft_fill_links(h1, h2, t);
-	free(t->line);
-	return (1);
-}
-
-int8_t		ft_cut_room(t_info *t)
-{
-	char			*room1;
-	char			*room2;
-	unsigned int	s;
+	char	*room1;
+	char	*room2;
+	size_t	s;
 
 	s = 0;
-	room1 = t->line;
-	room2 = t->line;
+	room1 = info->line;
+	room2 = info->line;
 	while (*room2 != '-' && *room2)
 		room2++;
 	room2++;
 	while (room1[s] != '-' && room1[s])
 		s++;
 	room1[s] = '\0';
-	s = t->room_nb * 10;
-	if (!(ft_calc_links(room1, room2, s, t)))
-		return (0);
-	return (1);
+	s = info->room_nb * 10;
+	if (!(ft_calc_links(room1, room2, s, info)))
+		return (FALSE);
+	return (TRUE);
 }
 
-int8_t		ft_links(t_info *t)
+BOOL	ft_links(t_info *info)
 {
-	if (!(ft_cut_room(t)))
-		return (0);
-	while (get_next_line(0, &t->line))
+	if (!(ft_cut_room(info)))
+		return (FALSE);
+	while (get_next_line(0, &info->line))
 	{
-		if (t->line[0] == '#' && t->line[1] == '#')
+		if (info->line[0] == '#' && info->line[1] == '#')
 		{
-			free(t->line);
-			return (0);
+			free(info->line);
+			return (FALSE);
 		}
-		if (t->line[0] != '#')
-			if (!(ft_cut_room(t)))
-				return (0);
+		if (info->line[0] != '#')
+			if (!(ft_cut_room(info)))
+				return (FALSE);
 	}
-	return (1);
+	if (info->line)
+		free(info->line);
+	return (TRUE);
 }

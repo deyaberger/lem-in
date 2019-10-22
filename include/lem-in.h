@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/18 14:41:22 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/21 17:35:19 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
+
+#define BOOL int
+#define TRUE 1
+#define FALSE 0
+#define ROOM_START 1
+#define ROOM_END 2
+#define ROOM_NORMAL 0
 
 typedef struct		s_info
 {
@@ -25,9 +32,9 @@ typedef struct		s_info
 	struct s_room	*end;
 	int		**coord;
 	int		ant_nb;
-	int		max_paths;
-	unsigned int	room_nb;
-	unsigned int	link_nb;
+	size_t		max_paths;
+	size_t		room_nb;
+	size_t		link_nb;
 	int		xmax;
 	int		ymax;
 }			t_info;
@@ -43,14 +50,15 @@ typedef struct		s_room
 	int		opti;
 	int		q;
 	int		used;
-	int		nbl;
+	size_t		nbl;
 }			t_room;
+
 
 typedef struct		s_link
 {
 	struct s_room	*dest;
 	struct s_link	*rev;
-	int		status;	
+	int		status;
 }			t_link;
 
 typedef struct		s_ways
@@ -60,14 +68,16 @@ typedef struct		s_ways
 	int		nb_ways;
 }			t_ways;
 
-int8_t			ft_storage(t_info *t, t_room *r, int i);
-t_room			*init_room(t_room *r);
-unsigned int		ft_hashage(char *name, int hash_size);
-int8_t			ft_hashtab(t_info *t, t_room *r);
-int8_t			ft_links(t_info *t);
+void			error_exit(int nb, char *str);
+BOOL			ft_storage(t_info *t, t_room *r, int i);
+t_room			*init_room(void);
+size_t			ft_coll(t_info *info, char *name, size_t i, size_t s);
+size_t			ft_hashage(char *name, int hash_size);
+void			ft_hashtab(t_info *t, t_room *r);
+BOOL			ft_links(t_info *t);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
-int8_t			ft_bfs(t_info *t, t_room *r);
-int8_t			ft_steps(t_info *t, t_room *r, t_ways *comp);
-int8_t			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
+BOOL			ft_bfs(t_info *t, t_room *r);
+BOOL			ft_steps(t_info *t, t_room *r, t_ways *comp);
+BOOL			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
 
 #endif

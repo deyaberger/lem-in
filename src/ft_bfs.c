@@ -6,24 +6,24 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/18 14:37:35 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 12:33:43 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-t_room		*ft_init_var(t_room *r, t_room *queue)
+t_room		*ft_init_var(t_room *room, t_room *queue)
 {
 	t_room	*save;
 
-	queue = r;
+	queue = room;
 	save = queue;
 	while (queue)
 	{
-		r = queue;
-		r->weight = 0;
-		r->q = 0;
-		r->used = 0;
+		room = queue;
+		room->weight = 0;
+		room->q = 0;
+		room->used = 0;
 		queue = (queue)->next;
 	}
 	queue = save;
@@ -52,43 +52,45 @@ void		ft_print_best(t_ways best)
 	}
 }
 
-int8_t		ft_bfs(t_info *t, t_room *r)
+BOOL		ft_bfs(t_info *info, t_room *room)
 {
 	t_room	*queue;
 	t_ways	best;
 	t_ways	comp;
-	int	i;
+	size_t	i;
 
 	i = 0;
 	queue = NULL;
-	if (t->start->nbl <= t->end->nbl)
-		t->max_paths = t->start->nbl;
+	if (info->start->nbl <= info->end->nbl)
+		info->max_paths = info->start->nbl;
 	else
-		t->max_paths = t->end->nbl;
-	if (!(best.steps = ft_memalloc(sizeof(t_room*) * t->max_paths)))
-		return (0);
-	if (!(comp.steps = ft_memalloc(sizeof(t_room*) * t->max_paths)))
-		return (0);
-	while (i < t->max_paths)
+		info->max_paths = info->end->nbl;
+	if (!(best.steps = ft_memalloc(sizeof(t_room*) * info->max_paths)))
+		return (FALSE);
+	if (!(comp.steps = ft_memalloc(sizeof(t_room*) * info->max_paths)))
+		return (FALSE);
+	while (i < info->max_paths)
 	{
-		r = t->start;
+		room = info->start;
 		if (queue != NULL)
-			queue = ft_init_var(r, queue);
-		while (t->end->q == 0)
+			queue = ft_init_var(room, queue);
+		while (info->end->q == 0 && room)
 		{
-			queue = ft_weight(t, r, queue);
-			r = r->next;
+			queue = ft_weight(info, room, queue);
+			room = room->next;
 		}
-		while (t->end->q == 1 && r)
+		if (info->end->q == 0)
+			i = info->max_paths;
+		while (info->end->q == 1 && room)
 		{
-			if (r->weight < t->end->weight - 1)
-				queue = ft_weight(t, r, queue);
-			r = r->next;
+			if (room->weight < info->end->weight - 1)
+				queue = ft_weight(info, room, queue);
+			room = room->next;
 		}
-		if (!(ft_karp(t, r, &best, &comp)))
-			return (0);
+		if (!(ft_karp(info, room, &best, &comp)))
+			return (FALSE);
 		i++;
 	}
 	ft_print_best(best);
-	return (1);
+	return (TRUE);
 }

@@ -32,7 +32,7 @@ void	ft_clean_best(t_ways *best)
 
 }
 
-int8_t	ft_new_best(t_info *t, t_ways *best, t_ways *comp)
+BOOL	ft_new_best(t_info *info, t_ways *best, t_ways *comp)
 {
 	int	j;
 	int	k;
@@ -43,8 +43,8 @@ int8_t	ft_new_best(t_info *t, t_ways *best, t_ways *comp)
 	{
 		if (j > best->nb_ways)
 		{
-			if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * t->end->weight)))
-			return (0);
+			if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * info->end->weight)))
+			return (FALSE);
 			best->steps[j + 1] = NULL;
 		}
 		while (comp->steps[j][k])
@@ -59,19 +59,19 @@ int8_t	ft_new_best(t_info *t, t_ways *best, t_ways *comp)
 		j++;
 	}
 	comp->nb_ways = 0;
-	return (1);
+	return (TRUE);
 }
 
-void	ft_link_status(t_room *r)
+void	ft_link_status(t_room *room)
 {
 	t_link	*link;
 	int	i;
 
 	i = 0;
 	link = NULL;
-	while (r->ways[i]->dest != r->mum)
+	while (room->ways[i]->dest != room->mum)
 		i++;
-	link = r->ways[i];
+	link = room->ways[i];
 	if (link->status == 0 && link->rev->status == 0)
 	{
 		link->status = -1;
@@ -84,23 +84,23 @@ void	ft_link_status(t_room *r)
 	}
 }
 
-int8_t	ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp)
+BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 {
-	r = t->end;
-	while (r != t->start)
+	room = info->end;
+	while (room != info->start)
 	{
-		ft_link_status(r);
-		r = r->mum;
+		ft_link_status(room);
+		room = room->mum;
 	}
 	if (best->steps[0] == NULL)
-		ft_steps(t, r, best);
+		ft_steps(info, room, best);
 	else
-		ft_steps(t, r, comp);
+		ft_steps(info, room, comp);
 	if (comp->steps[0] != NULL  && comp->total < best->total)
 	{
 		ft_clean_best(best);
-		if (!(ft_new_best(t, best, comp)))
-			return (0);
+		if (!(ft_new_best(info, best, comp)))
+			return (FALSE);
 	}
-	return (1);
+	return (TRUE);
 }

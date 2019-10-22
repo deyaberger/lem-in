@@ -6,91 +6,71 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/18 14:44:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 11:45:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-void			free_all(t_info *t, t_room **r, int mode)
+t_info	init_info(void)
 {
-	t_room	*next_one;
+	t_info	info;
 
-	while (*r)
-	{
-		next_one = (*r)->next;
-		if ((*r)->name)
-			free((*r)->name);
-		free(*r);
-		*r = next_one;
-	}
-	*r = NULL;
-	if (t->line)
-		free(t->line);
-	if (mode == 1)
-		ft_printf("ERROR\n");
+	info.line = NULL;
+	info.ant_nb = 0;
+	info.room_nb = 0;
+	info.link_nb = 0;
+	info.max_paths = 0;
+	info.xmax = 0;
+	info.ymax = 0;
+	info.start = NULL;
+	info.end = NULL;
+	return (info);
 }
 
-void			init_var(t_info *t)
+t_room 	*init_room(void)
 {
-	t->line = NULL;
-	t->ant_nb = 0;
-	t->room_nb = 0;
-	t->link_nb = 0;
-	t->max_paths = 0;
-	t->xmax = 0;
-	t->ymax = 0;
-	t->start = NULL;
-	t->end = NULL;
+	t_room *room;
+
+	if (!(room = ft_memalloc(sizeof(t_room*))))
+		error_exit(2, "Can't malloc t_room");
+	room->type = -1;
+	room->ways = NULL;
+	room->mum = NULL;
+	room->q = 0;
+	room->nbl = 0;
+	room->weight = 0;
+	room->opti = 0;
+	room->used = 0;
+	room->name = NULL;
+	room->next = NULL;
+	return (room);
 }
 
-t_room			*init_room(t_room *r)
+void  error_exit(int nb, char *str)
 {
-	if (!(r = (t_room*)malloc(sizeof(*r))))
-		r->type = -2;
-	r->type = -1;
-	r->ways = NULL;
-	r->mum = NULL;
-	r->q = 0;
-	r->nbl = 0;
-	r->weight = 0;
-	r->opti = 0;
-	r->used = 0;
-	r->name = NULL;
-	r->next = NULL;
-	return (r);
+	ft_printf("Error [%d] : %s\n", nb, str);
+	exit(nb);
 }
 
 int		main(void)
 {
-	t_info	t;
-	t_room		*r;
-	int			i;
+	t_info	info;
+	t_room	*room;
+	int		i;
 
 	i = -1;
-	r = NULL;
-	init_var(&t);
-	r = init_room(r);
-	if (r->type == -2)
-	{
-		free_all(&t, &r, 1);
-		return (-1);
-	}
-	t.first = r;
-	if (!ft_storage(&t, r, i))
-	{
-		free_all(&t, &r, 1);
-		return (-1);
-	}
-	if(!(ft_hashtab(&t, r)))
-	{
-		free_all(&t, &r, 1);
-		return (-1);
-	}
-	ft_links(&t);
-	ft_bfs(&t, r);
-	free_all(&t, &r, 0);
-	return (0);
+	info = init_info();
+	room = init_room();
+	info.first = room;
+	if (!ft_storage(&info, room, i))
+		error_exit(1, "ft_storage has failed");
+	ft_hashtab(&info, room);
+	ft_links(&info);
+	if (info.start->ways[0] == NULL || info.end->ways[0] == NULL)
+		error_exit(6, "No paths possible between start and end");
+	ft_bfs(&info, room);
+	return (FALSE);
 }
 
 /*   __attribute__((deinfoor))
