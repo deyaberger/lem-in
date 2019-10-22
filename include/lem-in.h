@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/22 15:07:59 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 15:32:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@
 #define CLEAN 2
 #define REVERSE 3
 #define CONTINUE_AFTER_REVERSE 4
+#define	UNUSED 0
+#define	BACKWARD -1
+#define	FORWARD 1
+#define	CANCELED 0
+
 
 typedef struct		s_info
 {
@@ -69,8 +74,8 @@ typedef struct		s_link
 typedef struct		s_ways
 {
 	struct s_room	***steps;
-	int		total;
-	int		nb_ways;
+	size_t		total;
+	size_t		nb_ways;
 }			t_ways;
 
 void			error_exit(int nb, char *str);

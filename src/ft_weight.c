@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 15:21:40 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 15:32:45 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, size_t i)
 		mum = i;
 	if (ngb != room->mum && ngb != info->start)
 		i = GOOD_PATH;
-	if (room->opti == 0 && link->status == 0)
+	if (room->opti == 0 && link->status == UNUSED)
 		i += CLEAN;
-	if (room->opti == 1 && link->status == -1)
+	if (room->opti == 1 && link->status == BACKWARD)
 		i += REVERSE;
-	if (room->opti == 1 && link->status == 0 && room->ways[mum]->status == -1)
+	if (room->opti == 1 && link->status == UNUSED
+		&& room->ways[mum]->status == BACKWARD)
 		i += CONTINUE_AFTER_REVERSE;
 	if (i == GOOD_PATH + CLEAN || i == GOOD_PATH + REVERSE
 			|| i == GOOD_PATH + CONTINUE_AFTER_REVERSE)
