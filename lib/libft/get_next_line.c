@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/23 14:33:53 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/23 14:40:31 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	if (!(ret = ft_content(link, fd, line)))
 	{
-		ft_printf("begin = [%p], link = [%p]\n", begin, link);
 		ft_del(link, &begin);
 		return (0);
 	}
