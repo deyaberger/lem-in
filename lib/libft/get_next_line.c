@@ -6,11 +6,12 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/23 15:20:19 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/23 14:33:53 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../../include/lem-in.h"
 
 char		*ft_after_line(char *x, char *tab)
 {
@@ -81,8 +82,10 @@ void		ft_del(t_list *link, t_list **begin)
 {
 	t_list	*tmp;
 	t_list	*prev;
+	int	i;
 
 	prev = 0;
+	i = 0;
 	tmp = *begin;
 	while (tmp && tmp != link)
 	{
@@ -96,6 +99,7 @@ void		ft_del(t_list *link, t_list **begin)
 	else
 		prev->next = tmp->next;
 	free(((t_fd*)tmp->content)->tab);
+	free(((t_fd*)tmp->content));
 	free(tmp);
 }
 
@@ -103,7 +107,7 @@ int			get_next_line(int fd, char **line)
 {
 	static t_list	*begin = NULL;
 	t_list			*link;
-	int				ret;
+	int			ret;
 	t_list			buf[0];
 
 	if (read(fd, buf, 0) == -1)
@@ -114,6 +118,7 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	if (!(ret = ft_content(link, fd, line)))
 	{
+		ft_printf("begin = [%p], link = [%p]\n", begin, link);
 		ft_del(link, &begin);
 		return (0);
 	}
