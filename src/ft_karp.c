@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 17:25:05 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/23 17:12:08 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	ft_clean_steps(t_ways *ways, int mode)
 
 	j = 0;
 	k = 0;
-	(void)mode;
-	while (j <= ways->nb_ways && ways->steps[j] != NULL)
+	while (ways->steps[j] != NULL)
 	{
 		while (ways->steps[j][k] != NULL)
 		{
@@ -57,7 +56,6 @@ void	ft_new_best(t_info *info, t_ways *best, t_ways *comp)
 			comp->steps[j][k] = NULL;
 			k++;
 		}
-		comp->steps[j] = NULL;
 		best->nb_ways = j;
 		k = 0;
 		j++;

@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/21 13:49:44 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/23 12:17:14 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ BOOL		ft_coord(t_info *info)
 	int		i;
 
 	i = 0;
-	if (!(info->coord = (int**)malloc(sizeof(int*) * (info->xmax + 1))))
-		return (FALSE);
+	if (!(info->coord = ft_memalloc(sizeof(int*) * info->xmax + 1)))
+		error_exit(9, "Can't malloc info->coord");
 	while (i <= info->xmax)
 	{
-		if (!(info->coord[i] = (int*)malloc(sizeof(int) * (info->ymax + 1))))
-			return (FALSE);
+		if (!(info->coord[i] = ft_memalloc(sizeof(int) * info->ymax + 1)))
+			error_exit(9, "Can't malloc info->coord");
 		ft_bzero(info->coord[i], (info->ymax + 1) * sizeof(int));
 		i++;
 	}
@@ -102,8 +102,8 @@ BOOL		ft_store(t_info *info, t_room **room, int type)
 	}
 	while (info->line[i] != ' ' && info->line[i])
 		i++;
-	if (!((*room)->name = (char*)malloc(sizeof(char) * i + 1)))
-		return (FALSE);
+	if (!((*room)->name = ft_memalloc(sizeof(char) * i + 1)))
+		error_exit(10, "Can't malloc room->name");
 	(*room)->name[i] = '\0';
 	(*room)->name = ft_strncpy((*room)->name, info->line, i);
 	(*room)->type = ft_check(info, type, i + 1);

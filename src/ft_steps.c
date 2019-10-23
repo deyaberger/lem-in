@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 15:36:12 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/23 17:13:08 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ BOOL	ft_steps(t_info *info, t_room *room, t_ways *comp)
 			while (comp->steps[j] != NULL && j < info->max_paths)
 				j++;
 			if (!(comp->steps[j] = ft_memalloc(sizeof(t_room) * info->end->weight)))
-			return (FALSE);
+				return (FALSE);
 			comp->steps[j + 1] = NULL;
 			m = i;
 			while (room != info->end)

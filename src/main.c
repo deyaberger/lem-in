@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/22 17:39:56 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/23 14:48:43 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ void		ft_clean_all(t_info *info, t_room *room)
 	i = 0;
 	j = 0;
 	k = 0;
-	while (i < info->room_nb * 10)
+	while (i <= info->room_nb * 10)
 	{
-		if (info->tab[i] != NULL)
+		if (info->tab && info->tab[i] != NULL)
 		{
 			room = info->tab[i];
 			free(room->name);
-			while (room->ways[j])
+			while (j <= info->room_nb)
 			{
 				free(room->ways[j]);
 				j++;
@@ -87,6 +87,12 @@ void		ft_clean_all(t_info *info, t_room *room)
 			free(room);
 			j = 0;
 		}
+		i++;
+	}
+	i = 0;
+	while ((int)i <= info->xmax && info->coord[i])
+	{
+		free(info->coord[i]);
 		i++;
 	}
 	if (info->coord)
@@ -114,9 +120,10 @@ int		main(void)
 	ft_clean_all(&info, room);
 	return (FALSE);
 }
-/*
+
+
    __attribute__((destructor))
    void    end()
    {
    while(1);
-   }*/
+   }
