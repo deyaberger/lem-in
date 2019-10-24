@@ -6,16 +6,16 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/03 19:30:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/22 11:38:54 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-unsigned int	ft_hashage(char *name, int hash_size)
+size_t	ft_hashage(char *name, int hash_size)
 {
-	size_t			i;
-	unsigned int	hash;
+	size_t	i;
+	size_t	hash;
 
 	i = 0;
 	hash = 0;
@@ -31,80 +31,74 @@ unsigned int	ft_hashage(char *name, int hash_size)
 	return (hash % hash_size);
 }
 
-void			ft_init_tab(t_struct *t, unsigned int s)
+void	ft_init_tab(t_info *info, size_t s)
 {
-	unsigned int i;
+	size_t	i;
 
 	i = 0;
 	while (i < s)
 	{
-		t->tab[i] = NULL;
+		info->tab[i] = NULL;
 		i++;
 	}
 }
 
-int				ft_init_links_tab(t_struct *t, t_room *r, int i)
+void	ft_init_links_tab(t_info *info, t_room *room, int i)
 {
-	unsigned int		j;
+	size_t	j;
 
 	j = 0;
-	t->tab[i] = r;
-	if (!(r->ways = malloc(sizeof(r->ways) * t->room_nb)))
-		return (0);
-	while (j < t->room_nb)
+	info->tab[i] = room;
+	if (!(room->ways = ft_memalloc(sizeof(room->ways) * info->room_nb)))
+		error_exit(4, "Can't malloc room->ways");
+	while (j < info->room_nb)
 	{
-		r->ways[j] = NULL;
+		room->ways[j] = NULL;
 		j++;
 	}
-	if (r->type == 1)
-		t->start = r;
-	else if (r->type == 2)
-		t->end = r;
-	return (1);
+	if (room->type == ROOM_START)
+		info->start = room;
+	else if (room->type == ROOM_END)
+		info->end = room;
 }
 
-int				ft_coal(t_struct *t, t_room *r, int i, int s)
+size_t	ft_coll(t_info *info, char *name, size_t i, size_t s)
 {
-	while (i < s && t->tab[i] != NULL && ft_strcmp(r->name, t->tab[i]->name))
+	while (i < s && info->tab[i] != NULL
+		&& ft_strcmp(name, info->tab[i]->name))
 	{
 		i++;
 		if (i == s)
 			i = 0;
 	}
-	if (t->tab[i] == NULL)
-	{
-		if (!(ft_init_links_tab(t, r, i)))
-			return (0);
-	}
-	else if (!(ft_strcmp(r->name, t->tab[i]->name)))
-		return (0);
-	return (1);
+	return (i);
 }
 
-int				ft_hashtab(t_struct *t, t_room *r)
+void	ft_hashtab(t_info *info, t_room *room)
 {
-	unsigned int	i;
-	unsigned int	s;
+	size_t	i;
+	size_t	s;
 
-	s = t->room_nb * 10;
-	if (!(t->tab = malloc(sizeof(t->tab) * s)))
-		return (0);
-	ft_init_tab(t, s);
-	r = t->first;
-	while (r)
+	i = 0;
+	s = info->room_nb * 10;
+	if (!(info->tab = ft_memalloc(sizeof(info->tab) * s)))
+		error_exit(3, "Can't malloc info->tab");
+	ft_init_tab(info, s);
+	room = info->first;
+	while (room)
 	{
-		i = ft_hashage(r->name, s);
-		if (i < s && t->tab[i] == NULL)
-		{
-			if (!(ft_init_links_tab(t, r, i)))
-				return (0);
-		}
+		i = ft_hashage(room->name, s);
+		if (i < s && info->tab[i] == NULL)
+			ft_init_links_tab(info, room, i);
 		else
 		{
-			if (!(ft_coal(t, r, i, s)))
-				return (0);
+			i = ft_coll(info, room->name, i, s);
+			if (info->tab[i] != NULL
+			&& !(ft_strcmp(room->name, info->tab[i]->name)))
+				error_exit(5, "Error in ft_coll: same room name twice");
+			else if (info->tab[i] == NULL)
+				ft_init_links_tab(info, room, i);
 		}
-		r = r->next;
+		room = room->next;
 	}
-	return (1);
 }

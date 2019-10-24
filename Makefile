@@ -6,7 +6,11 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2019/10/21 16:43:16 by ncoursol         ###   ########.fr        #
+=======
+#    Updated: 2019/10/22 16:37:49 by dberger          ###   ########.fr        #
+>>>>>>> 52a8b182031adbef4ce23507fa88e265dfbbed26
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +23,7 @@ PINK = \033[35m
 NAME = lem-in
 NAME_DISP = display
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g
+CFLAGS = -Wall -Wextra -Werror
 HFILE = ./include/lem-in.h
 HFILE_DISP = ./include/display.h
 LIB_DIR = ./lib
@@ -33,11 +37,13 @@ NAME_PTF = libftprintf.a
 NAME_LIBC = libft.a
 
 SRC = src/main.c \
-	  src/ft_storage.c \
-	  src/ft_hashtab.c \
-	  src/ft_bfs.c \
-	  src/ft_links.c \
-	  src/ft_karp.c
+	src/ft_storage.c \
+	src/ft_hashtab.c \
+	src/ft_bfs.c \
+	src/ft_weight.c \
+	src/ft_links.c \
+	src/ft_karp.c \
+	src/ft_steps.c 
 
 SRC_DISP = src/src_display/main.c \
 		   src/src_display/menu.c \
@@ -53,7 +59,7 @@ LIB = $(FT_PRINTF)/$(NAME_PTF) \
 
 .PHONY: all clean fclean re
 
-all: $(NAME) $(NAME_DISP)
+all: $(NAME)
 
 $(LIB): FORCE
 	$(MAKE) -C $(LIBC)

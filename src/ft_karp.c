@@ -6,74 +6,100 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/09 20:51:45 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/23 17:12:08 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-t_ways		*ft_stock_steps(t_struct *t, t_room *r, t_ways *w)
+void	ft_clean_steps(t_ways *ways, int mode)
 {
-	int 		i;
-	int 		j;
-	int 		k;
-	int 		m;
-	
-	i = 0;
+	size_t j;
+	size_t k;
+
 	j = 0;
 	k = 0;
-	m = 0;
-	while (i < t->start->nbl && w->steps)
+	while (ways->steps[j] != NULL)
 	{
-		if (r->ways[i]->status == 1)
+		while (ways->steps[j][k] != NULL)
 		{
-			while (w->steps[j] != NULL)
-				j++;
-			w->steps[j] = ft_memalloc(sizeof(t_room) * t->end->weight);
-			m = i;
-			while (r != t->end)
-			{
-				while (r->ways[m]->status != 1)
-					m++;
-				r = r->ways[m]->dest;
-				r->opti = 1;
-				w->steps[j][k] = r;
-				k++;
-				m = 0;
-
-			}
-			k = 0;
-			r = t->start;
-			j++;
+			ways->steps[j][k] = NULL;
+			k++;
 		}
-		i++;
+		if (mode == 1 && ways->steps[j] != NULL)
+			free(ways->steps[j]);
+		k = 0;
+		j++;
 	}
-	return (w);
+	if (mode == 1 && ways->steps != NULL)
+		free(ways->steps);
 }
 
-int8_t		ft_karp(t_struct *t, t_room *r, t_ways *w)
+void	ft_new_best(t_info *info, t_ways *best, t_ways *comp)
 {
-	int	i;
-	
-	i = 0;
-	r = t->end;
-	while (r != t->start)
+	size_t	j;
+	size_t	k;
+
+	j = 0;
+	k = 0;
+	while (comp->steps[j] && j <= comp->nb_ways)
 	{
-		while (r->ways[i]->dest != r->mum)
-			i++;
-		if (r->ways[i]->status == 0 && r->ways[i]->rev->status == 0)
+		if (j > best->nb_ways)
 		{
-			r->ways[i]->status = -1;
-			r->ways[i]->rev->status = 1;
+			if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * info->end->weight)))
+				error_exit(8, "Can't malloc best->steps");
+			best->steps[j + 1] = NULL;
 		}
-		else if (r->ways[i]->status == -1 && r->ways[i]->rev->status == 1)
+		while (comp->steps[j][k])
 		{
-			r->ways[i]->status = 0;
-			r->ways[i]->rev->status = 0;
+			best->steps[j][k] = comp->steps[j][k];
+			comp->steps[j][k] = NULL;
+			k++;
 		}
-		r = r->mum;
+		best->nb_ways = j;
+		k = 0;
+		j++;
 	}
-	w = ft_stock_steps(t, r, w);
-	return (0);
-		
+	comp->nb_ways = 0;
+}
+
+void	ft_update_status(t_room *room)
+{
+	t_link	*link;
+	size_t	i;
+
+	i = 0;
+	link = NULL;
+	while (room->ways[i]->dest != room->mum)
+		i++;
+	link = room->ways[i];
+	if (link->status == UNUSED && link->rev->status == UNUSED)
+	{
+		link->status = BACKWARD;
+		link->rev->status = FORWARD;
+	}
+	else if (link->status == FORWARD && link->rev->status == BACKWARD)
+	{
+		link->status = CANCELED;
+		link->rev->status = CANCELED;
+	}
+}
+
+void	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
+{
+	room = info->end;
+	while (room != info->start)
+	{
+		ft_update_status(room);
+		room = room->mum;
+	}
+	if (best->steps[0] == NULL)
+		ft_steps(info, room, best);
+	else
+		ft_steps(info, room, comp);
+	if (comp->steps[0] != NULL && comp->total < best->total)
+	{
+		ft_clean_steps(best, 0);
+		ft_new_best(info, best, comp);
+	}
 }
