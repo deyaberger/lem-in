@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/10/17 17:53:01 by dberger          ###   ########.fr        #
+#    Updated: 2019/10/22 16:37:49 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ PINK = \033[35m
 NAME = lem-in
 NAME_DISP = display
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g
+CFLAGS = -Wall -Wextra -Werror
 HFILE = ./include/lem-in.h
 HFILE_DISP = ./include/display.h
 LIB_DIR = ./lib
@@ -39,7 +39,7 @@ SRC = src/main.c \
 	src/ft_weight.c \
 	src/ft_links.c \
 	src/ft_karp.c \
-	src/ft_stock_steps.c	
+	src/ft_steps.c 
 
 SRC_DISP = src/src_display/main.c \
 		   src/src_display/menu.c
