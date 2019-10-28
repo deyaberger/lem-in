@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/23 17:12:08 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/28 16:20:52 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,22 @@ void	ft_clean_steps(t_ways *ways, int mode)
 
 	j = 0;
 	k = 0;
-	while (ways->steps[j] != NULL)
+	while (j <= ways->nb_ways && ways->steps[j] != NULL)
 	{
 		while (ways->steps[j][k] != NULL)
 		{
 			ways->steps[j][k] = NULL;
 			k++;
 		}
-		if (mode == 1 && ways->steps[j] != NULL)
+		if (mode == 1 || mode == 2)
+		{	
 			free(ways->steps[j]);
+			ways->steps[j] = NULL;
+		}
 		k = 0;
 		j++;
 	}
+	ways->nb_ways = 0;
 	if (mode == 1 && ways->steps != NULL)
 		free(ways->steps);
 }
@@ -42,25 +46,25 @@ void	ft_new_best(t_info *info, t_ways *best, t_ways *comp)
 
 	j = 0;
 	k = 0;
+	(void)info;
 	while (comp->steps[j] && j <= comp->nb_ways)
 	{
-		if (j > best->nb_ways)
-		{
-			if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * info->end->weight)))
-				error_exit(8, "Can't malloc best->steps");
-			best->steps[j + 1] = NULL;
-		}
+		while (comp->steps[j][k])
+			k++;
+		if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * k)))
+			error_exit(12, "Can't malloc best->steps");
+		k = 0;
 		while (comp->steps[j][k])
 		{
 			best->steps[j][k] = comp->steps[j][k];
-			comp->steps[j][k] = NULL;
 			k++;
 		}
 		best->nb_ways = j;
 		k = 0;
 		j++;
 	}
-	comp->nb_ways = 0;
+	ft_clean_steps(comp, 2);
+
 }
 
 void	ft_update_status(t_room *room)
@@ -99,7 +103,7 @@ void	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 		ft_steps(info, room, comp);
 	if (comp->steps[0] != NULL && comp->total < best->total)
 	{
-		ft_clean_steps(best, 0);
+		ft_clean_steps(best, 2);
 		ft_new_best(info, best, comp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/23 17:12:20 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/28 16:16:51 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ t_room		*ft_init_var(t_room *room, t_room *queue)
 
 void		ft_print_best(t_ways best)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
-	while (best.steps[i] != NULL)
+	while (i <= best.nb_ways && best.steps[i] != NULL)
 	{
 		while (best.steps[i][j] != NULL)
 		{
