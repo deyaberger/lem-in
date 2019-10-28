@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/28 16:20:52 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/28 17:59:18 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ void	ft_clean_steps(t_ways *ways, int mode)
 			ways->steps[j][k] = NULL;
 			k++;
 		}
-		if (mode == 1 || mode == 2)
-		{	
-			free(ways->steps[j]);
-			ways->steps[j] = NULL;
-		}
+		free(ways->steps[j]);
+		ways->steps[j] = NULL;
 		k = 0;
 		j++;
 	}
@@ -39,14 +36,13 @@ void	ft_clean_steps(t_ways *ways, int mode)
 		free(ways->steps);
 }
 
-void	ft_new_best(t_info *info, t_ways *best, t_ways *comp)
+void	ft_new_best(t_ways *best, t_ways *comp)
 {
 	size_t	j;
 	size_t	k;
 
 	j = 0;
 	k = 0;
-	(void)info;
 	while (comp->steps[j] && j <= comp->nb_ways)
 	{
 		while (comp->steps[j][k])
@@ -63,8 +59,7 @@ void	ft_new_best(t_info *info, t_ways *best, t_ways *comp)
 		k = 0;
 		j++;
 	}
-	ft_clean_steps(comp, 2);
-
+	ft_clean_steps(comp, 0);
 }
 
 void	ft_update_status(t_room *room)
@@ -103,7 +98,7 @@ void	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 		ft_steps(info, room, comp);
 	if (comp->steps[0] != NULL && comp->total < best->total)
 	{
-		ft_clean_steps(best, 2);
-		ft_new_best(info, best, comp);
+		ft_clean_steps(best, 0);
+		ft_new_best(best, comp);
 	}
 }
