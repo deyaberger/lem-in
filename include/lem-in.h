@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/22 17:28:20 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 12:57:50 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 #define	BACKWARD -1
 #define	FORWARD 1
 #define	CANCELED 0
-
+#define	INIT 0
+#define	FINISH 1
 
 typedef struct		s_info
 {
@@ -52,7 +53,7 @@ typedef struct		s_info
 typedef struct		s_room
 {
 	char		*name;
-	struct s_link	**ways;
+	struct s_link	**link;
 	struct s_room	*next;
 	struct s_room	*mum;
 	size_t		weight;
@@ -87,7 +88,7 @@ void			ft_hashtab(t_info *t, t_room *r);
 BOOL			ft_links(t_info *t);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
 void			ft_clean_steps(t_ways *ways, int mode);
-BOOL			ft_steps(t_info *t, t_room *r, t_ways *comp);
+void			ft_steps(t_info *t, t_room *r, t_ways *comp);
 BOOL			ft_bfs(t_info *t, t_room *r);
 void			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
 
