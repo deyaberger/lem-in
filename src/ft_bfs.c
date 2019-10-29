@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/29 15:34:01 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 18:00:51 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_ways		ft_init_steps(size_t size)
 	if (!(ways.steps = ft_memalloc(sizeof(t_room*) * size)))
 		error_exit(7, "Can't malloc t_ways->steps");
 	ways.nb_ways = -1;
+	ways.tot_pl = 0;
 	return (ways);
 }
 
@@ -96,8 +97,13 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 	queue = NULL;
 	best = ft_init_steps(info->max_paths);
 	comp = ft_init_steps(info->max_paths);
+	if (!(best.path_info = ft_memalloc(sizeof(size_t*) * info->max_paths)))
+		error_exit(11, "Can't malloc best.way_info");
+	if (!(comp.path_info = ft_memalloc(sizeof(size_t*) * info->max_paths)))
+		error_exit(11, "Can't malloc comp.way_info");
 	while (i < info->max_paths)
 	{
+		ft_printf("\n**************\n");
 		room = info->start;
 		if (queue != NULL)
 			queue = ft_init_var(room, queue);
@@ -108,6 +114,7 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 		ft_karp(info, room, &best, &comp);
 		i++;
 	}
+	ft_printf("\n");
 	ft_print_best(best);
 	ft_clean_steps(&best, 1);
 	ft_clean_steps(&comp, 1);

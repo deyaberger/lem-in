@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/29 15:34:09 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 19:08:54 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_clean_steps(t_ways *ways, int mode)
 			ways->steps[j][k] = NULL;
 			k++;
 		}
+		ways->tot_pl = 0;
 		free(ways->steps[j]);
 		ways->steps[j] = NULL;
 		k = 0;
@@ -100,7 +101,7 @@ void	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 		ft_steps(info, room, best);
 	else
 		ft_steps(info, room, comp);
-	if (comp->nb_ways != (size_t)-1 && comp->total < best->total)
+	if (comp->nb_ways != (size_t)-1 && comp->tot_max < best->tot_max)
 	{
 		ft_clean_steps(best, 0);
 		ft_new_best(best, comp);
