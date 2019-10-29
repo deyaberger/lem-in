@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/28 19:11:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 15:34:33 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ size_t	ft_create_space(t_ways **ways, t_info *info, size_t j)
 
 void	ft_find_room(t_room **room, size_t m)
 {
-	while ((*room)->ways[m]->status != GOOD_PATH)
+	while ((*room)->link[m]->status != GOOD_PATH)
 		m++;
-	(*room) = (*room)->ways[m]->dest;
+	(*room) = (*room)->link[m]->dest;
 	(*room)->opti = 1;
 }
 
@@ -81,7 +81,7 @@ void	ft_steps(t_info *info, t_room *room, t_ways *ways)
 	ft_count_total(&ways, info, j, INIT);
 	while (i < info->start->nbl && ways->steps)
 	{
-		if (room->ways[i]->status == GOOD_PATH)
+		if (room->link[i]->status == GOOD_PATH)
 			j = ft_fill_space(&room, info, &ways, i);
 		i++;
 	}

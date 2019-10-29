@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/23 12:53:33 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 13:11:00 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,22 @@ BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
 
 	i = 0;
 	j = 0;
-	while (one->ways[i] != NULL
-			&& i < info->room_nb && one->ways[i]->dest != two)
+	while (one->link[i] != NULL
+			&& i < info->room_nb && one->link[i]->dest != two)
 		i++;
-	if (one->ways[i] == NULL)
-		one->ways[i] = ft_create_ways(one, two, info);
-	else if (one->ways[i]->dest == two)
+	if (one->link[i] == NULL)
+		one->link[i] = ft_create_ways(one, two, info);
+	else if (one->link[i]->dest == two)
 		return (FALSE);
-	while (two->ways[j] != NULL
-			&& j < info->room_nb && two->ways[j]->dest != one)
+	while (two->link[j] != NULL
+			&& j < info->room_nb && two->link[j]->dest != one)
 		j++;
-	if (two->ways[j] == NULL)
-		two->ways[j] = ft_create_ways(two, one, info);
-	else if (two->ways[j]->dest == one)
+	if (two->link[j] == NULL)
+		two->link[j] = ft_create_ways(two, one, info);
+	else if (two->link[j]->dest == one)
 		return (FALSE);
-	one->ways[i]->rev = two->ways[j];
-	two->ways[j]->rev = one->ways[i];
+	one->link[i]->rev = two->link[j];
+	two->link[j]->rev = one->link[i];
 	return (TRUE);
 }
 

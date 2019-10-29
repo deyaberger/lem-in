@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/28 17:59:18 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 15:34:09 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_clean_steps(t_ways *ways, int mode)
 	{
 		while (ways->steps[j][k] != NULL)
 		{
+			if (mode != 2)
+				ways->steps[j][k]->opti = 0;
 			ways->steps[j][k] = NULL;
 			k++;
 		}
@@ -52,6 +54,7 @@ void	ft_new_best(t_ways *best, t_ways *comp)
 		k = 0;
 		while (comp->steps[j][k])
 		{
+			comp->steps[j][k]->opti = 1;
 			best->steps[j][k] = comp->steps[j][k];
 			k++;
 		}
@@ -59,7 +62,8 @@ void	ft_new_best(t_ways *best, t_ways *comp)
 		k = 0;
 		j++;
 	}
-	ft_clean_steps(comp, 0);
+	comp->nb_ways = -1;
+	ft_clean_steps(comp, 2);
 }
 
 void	ft_update_status(t_room *room)
@@ -69,9 +73,9 @@ void	ft_update_status(t_room *room)
 
 	i = 0;
 	link = NULL;
-	while (room->ways[i]->dest != room->mum)
+	while (room->link[i]->dest != room->mum)
 		i++;
-	link = room->ways[i];
+	link = room->link[i];
 	if (link->status == UNUSED && link->rev->status == UNUSED)
 	{
 		link->status = BACKWARD;
@@ -92,11 +96,11 @@ void	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 		ft_update_status(room);
 		room = room->mum;
 	}
-	if (best->steps[0] == NULL)
+	if (best->nb_ways == (size_t)-1)
 		ft_steps(info, room, best);
 	else
 		ft_steps(info, room, comp);
-	if (comp->steps[0] != NULL && comp->total < best->total)
+	if (comp->nb_ways != (size_t)-1 && comp->total < best->total)
 	{
 		ft_clean_steps(best, 0);
 		ft_new_best(best, comp);

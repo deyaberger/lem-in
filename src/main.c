@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/23 14:48:43 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 13:12:21 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_room 	*init_room(void)
 	if (!(room = ft_memalloc(sizeof(t_room*))))
 		error_exit(2, "Can't malloc t_room");
 	room->type = -1;
-	room->ways = NULL;
+	room->link = NULL;
 	room->mum = NULL;
 	room->q = 0;
 	room->nbl = 0;
@@ -55,7 +55,7 @@ void  error_exit(int nb, char *str)
 
 void	ft_start_end(t_info *info)
 {
-	if (info->start->ways[0] == NULL || info->end->ways[0] == NULL)
+	if (info->start->link[0] == NULL || info->end->link[0] == NULL)
 		error_exit(6, "No paths possible between start and end");
 	if (info->start->nbl <= info->end->nbl)
 		info->max_paths = info->start->nbl;
@@ -68,22 +68,23 @@ void		ft_clean_all(t_info *info, t_room *room)
 	size_t 	i;
 	size_t 	j;
 	size_t 	k;
-	
+
 	i = 0;
 	j = 0;
 	k = 0;
-	while (i <= info->room_nb * 10)
+	room = NULL;
+	while (i < info->room_nb * 10)
 	{
 		if (info->tab && info->tab[i] != NULL)
 		{
 			room = info->tab[i];
 			free(room->name);
-			while (j <= info->room_nb)
+			while (j <= info->room_nb && room->link && room->link[j])
 			{
-				free(room->ways[j]);
+				free(room->link[j]);
 				j++;
 			}
-			free(room->ways);
+			free(room->link);
 			free(room);
 			j = 0;
 		}
@@ -121,9 +122,9 @@ int		main(void)
 	return (FALSE);
 }
 
-
+/*
    __attribute__((destructor))
    void    end()
    {
    while(1);
-   }
+   }*/

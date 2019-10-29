@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/28 16:16:51 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 15:34:01 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_room		*ft_init_var(t_room *room, t_room *queue)
 	return (queue);
 }
 
+// seulement pour faire des tests //
+
 void		ft_print_best(t_ways best)
 {
 	size_t	i;
@@ -52,12 +54,15 @@ void		ft_print_best(t_ways best)
 	}
 }
 
+////
+
 t_ways		ft_init_steps(size_t size)
 {
 	t_ways	ways;
 
 	if (!(ways.steps = ft_memalloc(sizeof(t_room*) * size)))
 		error_exit(7, "Can't malloc t_ways->steps");
+	ways.nb_ways = -1;
 	return (ways);
 }
 

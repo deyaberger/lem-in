@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 15:32:45 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/29 15:33:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ size_t	ft_calc_weight(t_room *room, size_t i)
 	size_t	weight;
 
 	weight = 0;
-	if (room->ways[i]->status == -1)
+	if (room->link[i]->status == BACKWARD)
 		weight = room->weight - 1;
-	else if (room->ways[i]->status == 0)
+	else if (room->link[i]->status == UNUSED)
 		weight = room->weight + 1;
 	return (weight);
 }
@@ -40,7 +40,7 @@ BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, size_t i)
 	size_t	mum;
 
 	mum = 0;
-	link = room->ways[i];
+	link = room->link[i];
 	if (ngb == room->mum)
 		mum = i;
 	if (ngb != room->mum && ngb != info->start)
@@ -50,7 +50,7 @@ BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, size_t i)
 	if (room->opti == 1 && link->status == BACKWARD)
 		i += REVERSE;
 	if (room->opti == 1 && link->status == UNUSED
-		&& room->ways[mum]->status == BACKWARD)
+		&& room->link[mum]->status == BACKWARD)
 		i += CONTINUE_AFTER_REVERSE;
 	if (i == GOOD_PATH + CLEAN || i == GOOD_PATH + REVERSE
 			|| i == GOOD_PATH + CONTINUE_AFTER_REVERSE)
@@ -86,7 +86,7 @@ t_room	*ft_weight(t_info *info, t_room *room, t_room *queue)
 		queue = room;
 	while (i < room->nbl)
 	{
-		ngb = room->ways[i]->dest;
+		ngb = room->link[i]->dest;
 		if (ft_check_link(ngb, info, room, i) == TRUE)
 			ft_add_to_queue(room, &queue, &ngb, i);
 		i++;

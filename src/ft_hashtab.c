@@ -49,11 +49,11 @@ void	ft_init_links_tab(t_info *info, t_room *room, int i)
 
 	j = 0;
 	info->tab[i] = room;
-	if (!(room->ways = ft_memalloc(sizeof(room->ways) * info->room_nb)))
-		error_exit(4, "Can't malloc room->ways");
+	if (!(room->link = ft_memalloc(sizeof(room->link) * info->room_nb)))
+		error_exit(4, "Can't malloc room->link");
 	while (j < info->room_nb)
 	{
-		room->ways[j] = NULL;
+		room->link[j] = NULL;
 		j++;
 	}
 	if (room->type == ROOM_START)
