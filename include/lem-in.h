@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/30 15:43:13 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/30 19:01:22 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #define	ANTS 1
 #define	STEPS 2
 #define	NONE -1
+#define	NEVER_FILLED -1
 
 typedef struct		s_info
 {
@@ -94,9 +95,10 @@ size_t			ft_hashage(char *name, int hash_size);
 void			ft_hashtab(t_info *t, t_room *r);
 BOOL			ft_links(t_info *t);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
+void			ft_init_ways(t_ways **ways);
 void			ft_clean_steps(t_ways *ways, int mode);
 t_ways			*ft_calc_steps(t_ways *ways, t_info *info, size_t j);
-void			ft_steps(t_info *t, t_room *r, t_ways *comp);
+t_ways			*ft_steps(t_info *t, t_room *r, t_ways *comp);
 BOOL			ft_bfs(t_info *t, t_room *r);
 void			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
 

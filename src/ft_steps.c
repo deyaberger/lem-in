@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/30 15:44:41 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/30 19:12:48 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,9 @@ void	ft_init_ways(t_ways **ways)
 	(*ways)->tot_max = 0;
 	(*ways)->min = 4294967295;
 	(*ways)->tot_pl = 0;
-	(*ways)->nb_ways = 0;
 }
 
-void	ft_steps(t_info *info, t_room *room, t_ways *ways)
+t_ways	*ft_steps(t_info *info, t_room *room, t_ways *ways)
 {
 	size_t	i;
 	size_t	j;
@@ -83,4 +82,5 @@ void	ft_steps(t_info *info, t_room *room, t_ways *ways)
 		i++;
 	}
 	ways = ft_calc_steps(ways, info, j);
+	return (ways);
 }

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/30 15:45:09 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/30 19:12:58 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_ways		ft_init_steps(size_t size)
 	if (!(ways.steps = ft_memalloc(sizeof(t_room*) * size)))
 		error_exit(7, "Can't malloc t_ways->steps");
 	ways.nb_ways = -1;
-	ways.tot_pl = 0;
 	return (ways);
 }
 
