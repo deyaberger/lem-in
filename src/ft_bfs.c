@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/29 18:00:51 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/30 15:45:09 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 		error_exit(11, "Can't malloc comp.way_info");
 	while (i < info->max_paths)
 	{
-		ft_printf("\n**************\n");
 		room = info->start;
 		if (queue != NULL)
 			queue = ft_init_var(room, queue);
@@ -114,7 +113,6 @@ BOOL		ft_bfs(t_info *info, t_room *room)
 		ft_karp(info, room, &best, &comp);
 		i++;
 	}
-	ft_printf("\n");
 	ft_print_best(best);
 	ft_clean_steps(&best, 1);
 	ft_clean_steps(&comp, 1);

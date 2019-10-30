@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/29 12:57:50 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/30 15:43:13 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 #define	CANCELED 0
 #define	INIT 0
 #define	FINISH 1
+#define	LENGTH 0
+#define	ANTS 1
+#define	STEPS 2
+#define	NONE -1
 
 typedef struct		s_info
 {
@@ -75,8 +79,11 @@ typedef struct		s_link
 typedef struct		s_ways
 {
 	struct s_room	***steps;
-	size_t		total;
+	size_t		tot_max;
+	size_t		min;
 	size_t		nb_ways;
+	size_t		**path_info;
+	size_t		tot_pl;
 }			t_ways;
 
 void			error_exit(int nb, char *str);
@@ -88,6 +95,7 @@ void			ft_hashtab(t_info *t, t_room *r);
 BOOL			ft_links(t_info *t);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
 void			ft_clean_steps(t_ways *ways, int mode);
+t_ways			*ft_calc_steps(t_ways *ways, t_info *info, size_t j);
 void			ft_steps(t_info *t, t_room *r, t_ways *comp);
 BOOL			ft_bfs(t_info *t, t_room *r);
 void			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);

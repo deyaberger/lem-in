@@ -5,12 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2019/10/21 16:43:16 by ncoursol         ###   ########.fr        #
-=======
-#    Updated: 2019/10/22 16:37:49 by dberger          ###   ########.fr        #
->>>>>>> 52a8b182031adbef4ce23507fa88e265dfbbed26
+#    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
+#    Updated: 2019/10/30 13:08:30 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +19,7 @@ PINK = \033[35m
 NAME = lem-in
 NAME_DISP = display
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g
 HFILE = ./include/lem-in.h
 HFILE_DISP = ./include/display.h
 LIB_DIR = ./lib
@@ -43,7 +39,8 @@ SRC = src/main.c \
 	src/ft_weight.c \
 	src/ft_links.c \
 	src/ft_karp.c \
-	src/ft_steps.c 
+	src/ft_steps.c \
+	src/ft_calc_steps.c 
 
 SRC_DISP = src/src_display/main.c \
 		   src/src_display/menu.c \
