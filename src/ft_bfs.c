@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/30 19:12:58 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/31 15:26:34 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_print_best(t_ways best)
 
 	i = 0;
 	j = 0;
-	while (i <= best.nb_ways && best.steps[i] != NULL)
+	while (i < best.nb_ways && best.steps[i] != NULL)
 	{
 		while (best.steps[i][j] != NULL)
 		{

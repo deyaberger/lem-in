@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/30 19:01:22 by dberger          ###   ########.fr       */
+/*   Updated: 2019/10/31 12:49:54 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ BOOL			ft_links(t_info *t);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
 void			ft_init_ways(t_ways **ways);
 void			ft_clean_steps(t_ways *ways, int mode);
+void			ft_clean_free(t_info *info);
 t_ways			*ft_calc_steps(t_ways *ways, t_info *info, size_t j);
 t_ways			*ft_steps(t_info *t, t_room *r, t_ways *comp);
 BOOL			ft_bfs(t_info *t, t_room *r);
