@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/31 15:15:35 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 16:24:53 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_new_best(t_ways *best, t_ways *comp)
 {
-	size_t	j;
-	size_t	k;
+	int	j;
+	int	k;
 
 	j = 0;
 	k = 0;
@@ -25,7 +25,7 @@ void	ft_new_best(t_ways *best, t_ways *comp)
 			k++;
 		if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * k)))
 			error_exit(12, "Can't malloc best->steps");
-		if (!(best->path_info[j] = ft_memalloc(sizeof(size_t) * 3)))
+		if (!(best->path_info[j] = ft_memalloc(sizeof(int) * 3)))
 			error_exit(12, "Can't malloc best->path_info[j]");
 		k = 0;
 		best->nb_ways = comp->nb_ways;
@@ -52,7 +52,7 @@ void	ft_new_best(t_ways *best, t_ways *comp)
 void	ft_update_status(t_room *room)
 {
 	t_link	*link;
-	size_t	i;
+	int	i;
 
 	i = 0;
 	link = NULL;
@@ -71,7 +71,7 @@ void	ft_update_status(t_room *room)
 	}
 }
 
-void	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
+BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 {
 	room = info->end;
 	while (room != info->start)
@@ -79,14 +79,21 @@ void	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 		ft_update_status(room);
 		room = room->mum;
 	}
-	if (best->nb_ways == (size_t)NEVER_FILLED)
+	if (best->nb_ways == NEVER_FILLED)
 		best = ft_steps(info, room, best);
 	else
 		comp = ft_steps(info, room, comp);
-	if (comp->nb_ways != (size_t)NEVER_FILLED && comp->tot_max < best->tot_max)
+	if (comp->nb_ways != NEVER_FILLED && comp->tot_max < best->tot_max && comp->tot_max != -1)
 	{
 		ft_clean_steps(best, 0);
 		ft_new_best(best, comp);
 		ft_clean_steps(comp, 2);
+		return (KEEP_SEARCHING);
 	}
+	else if (comp->nb_ways != NEVER_FILLED && (comp->tot_max > best->tot_max || comp->tot_max == -1))
+	{
+		ft_clean_steps(comp, 2);
+		return (STOP);
+	}
+	return (KEEP_SEARCHING);
 }

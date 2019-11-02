@@ -6,15 +6,15 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/29 15:33:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 15:24:15 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-size_t	ft_calc_weight(t_room *room, size_t i)
+int	ft_calc_weight(t_room *room, int i)
 {
-	size_t	weight;
+	int	weight;
 
 	weight = 0;
 	if (room->link[i]->status == BACKWARD)
@@ -34,10 +34,10 @@ void	ft_new_in(t_room *room, t_room **queue, t_room **ngb, int weight)
 	(*queue) = *ngb;
 }
 
-BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, size_t i)
+BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, int i)
 {
 	t_link	*link;
-	size_t	mum;
+	int	mum;
 
 	mum = 0;
 	link = room->link[i];
@@ -58,9 +58,9 @@ BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, size_t i)
 	return (FALSE);
 }
 
-void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, size_t i)
+void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, int i)
 {
-	size_t new_weight;
+	int new_weight;
 
 	new_weight = 0;
 	if ((*ngb)->used == 0 && (*ngb)->q == 0)
@@ -76,7 +76,7 @@ void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, size_t i)
 t_room	*ft_weight(t_info *info, t_room *room, t_room *queue)
 {
 	t_room	*ngb;
-	size_t	i;
+	int	i;
 
 	i = 0;
 	ngb = NULL;

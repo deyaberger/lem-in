@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/31 15:26:24 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 15:22:35 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_free_path_info(t_ways *ways)
 {
-	size_t i;
+	int i;
 
 	i = 0;
-	while (i < ways->nb_ways)
+	while (i < ways->nb_ways && ways->path_info && ways->path_info[i])
 	{
 		free(ways->path_info[i]);
 		i++;
@@ -26,8 +26,8 @@ void	ft_free_path_info(t_ways *ways)
 
 void	ft_free_steps(t_ways *ways, int mode)
 {
-	size_t j;
-	size_t k;
+	int j;
+	int k;
 
 	j = 0;
 	k = 0;
@@ -59,11 +59,11 @@ void	ft_clean_steps(t_ways *ways, int mode)
 		free(ways->path_info);
 }
 
-size_t	ft_free_rooms(t_info *info, size_t i)
+int	ft_free_rooms(t_info *info, int i)
 {
 	t_room	*room;
-	size_t	j;
-	size_t	k;
+	int	j;
+	int	k;
 
 	room = NULL;
 	j = 0;
@@ -87,13 +87,13 @@ size_t	ft_free_rooms(t_info *info, size_t i)
 
 void	ft_clean_free(t_info *info)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < info->room_nb * 10)
 		i = ft_free_rooms(info, i);
 	i = 0;
-	while ((int)i <= info->xmax && info->coord[i])
+	while (i <= info->xmax && info->coord[i])
 	{
 		free(info->coord[i]);
 		i++;

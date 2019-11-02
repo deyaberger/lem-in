@@ -6,13 +6,13 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/22 11:38:54 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 15:25:20 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-size_t	ft_hashage(char *name, int hash_size)
+int	ft_hashage(char *name, int hash_size)
 {
 	size_t	i;
 	size_t	hash;
@@ -31,9 +31,9 @@ size_t	ft_hashage(char *name, int hash_size)
 	return (hash % hash_size);
 }
 
-void	ft_init_tab(t_info *info, size_t s)
+void	ft_init_tab(t_info *info, int s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < s)
@@ -45,7 +45,7 @@ void	ft_init_tab(t_info *info, size_t s)
 
 void	ft_init_links_tab(t_info *info, t_room *room, int i)
 {
-	size_t	j;
+	int	j;
 
 	j = 0;
 	info->tab[i] = room;
@@ -62,7 +62,7 @@ void	ft_init_links_tab(t_info *info, t_room *room, int i)
 		info->end = room;
 }
 
-size_t	ft_coll(t_info *info, char *name, size_t i, size_t s)
+int	ft_coll(t_info *info, char *name, int i, int s)
 {
 	while (i < s && info->tab[i] != NULL
 		&& ft_strcmp(name, info->tab[i]->name))
@@ -76,8 +76,8 @@ size_t	ft_coll(t_info *info, char *name, size_t i, size_t s)
 
 void	ft_hashtab(t_info *info, t_room *room)
 {
-	size_t	i;
-	size_t	s;
+	int	i;
+	int	s;
 
 	i = 0;
 	s = info->room_nb * 10;

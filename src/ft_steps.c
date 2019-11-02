@@ -6,19 +6,19 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/31 15:14:13 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 15:49:46 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-size_t	ft_create_space(t_ways **ways, t_info *info, size_t j)
+int	ft_create_space(t_ways **ways, t_info *info, int j)
 {
 	while ((*ways)->steps[j] != NULL && j < info->max_paths)
 		j++;
 	if (!((*ways)->steps[j] = ft_memalloc(sizeof(t_room) * info->end->weight)))
 		error_exit(11, "Can't malloc ways->steps");
-	if (!((*ways)->path_info[j] = ft_memalloc(sizeof(size_t) * 3)))
+	if (!((*ways)->path_info[j] = ft_memalloc(sizeof(int) * 3)))
 		error_exit(11, "Can't malloc way->path_info");
 	(*ways)->path_info[j][LENGTH] = NONE;
 	(*ways)->path_info[j][ANTS] = NONE;
@@ -27,7 +27,7 @@ size_t	ft_create_space(t_ways **ways, t_info *info, size_t j)
 	return (j);
 }
 
-void	ft_find_room(t_room **room, size_t m)
+void	ft_find_room(t_room **room, int m)
 {
 	while ((*room)->link[m]->status != GOOD_PATH)
 		m++;
@@ -35,11 +35,11 @@ void	ft_find_room(t_room **room, size_t m)
 	(*room)->opti = 1;
 }
 
-size_t	ft_fill_space(t_room **room, t_info *info, t_ways **ways, size_t i)
+int	ft_fill_space(t_room **room, t_info *info, t_ways **ways, int i)
 {
-	size_t	m;
-	size_t	j;
-	size_t	k;
+	int	m;
+	int	j;
+	int	k;
 
 	m = i;
 	j = 0;
@@ -62,15 +62,15 @@ size_t	ft_fill_space(t_room **room, t_info *info, t_ways **ways, size_t i)
 
 void	ft_init_ways(t_ways **ways)
 {
-	(*ways)->tot_max = 0;
-	(*ways)->min = 4294967295;
+	(*ways)->tot_max = -2147483648;
+	(*ways)->min = 2147483647;
 	(*ways)->tot_pl = 0;
 }
 
 t_ways	*ft_steps(t_info *info, t_room *room, t_ways *ways)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

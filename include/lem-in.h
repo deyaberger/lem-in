@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/31 12:49:54 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 15:20:42 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-#define BOOL int
+#define BOOL size_t
 #define TRUE 1
 #define FALSE 0
-#define NO_MORE_STEPS 0
 #define ROOM_START 1
 #define ROOM_END 2
 #define ROOM_NORMAL 0
@@ -38,6 +37,8 @@
 #define	STEPS 2
 #define	NONE -1
 #define	NEVER_FILLED -1
+#define KEEP_SEARCHING 1
+#define STOP 0
 
 typedef struct		s_info
 {
@@ -48,9 +49,9 @@ typedef struct		s_info
 	struct s_room	*end;
 	int		**coord;
 	int		ant_nb;
-	size_t		max_paths;
-	size_t		room_nb;
-	size_t		link_nb;
+	int		max_paths;
+	int		room_nb;
+	int		link_nb;
 	int		xmax;
 	int		ymax;
 }			t_info;
@@ -61,8 +62,8 @@ typedef struct		s_room
 	struct s_link	**link;
 	struct s_room	*next;
 	struct s_room	*mum;
-	size_t		weight;
-	size_t		nbl;
+	int		weight;
+	int		nbl;
 	int		type; 	//start(1) | end(2) | rien(0)
 	int		opti;
 	int		q;
@@ -80,27 +81,27 @@ typedef struct		s_link
 typedef struct		s_ways
 {
 	struct s_room	***steps;
-	size_t		tot_max;
-	size_t		min;
-	size_t		nb_ways;
-	size_t		**path_info;
-	size_t		tot_pl;
+	int		**path_info;
+	int		tot_max;
+	int		min;
+	int		nb_ways;
+	int		tot_pl;
 }			t_ways;
 
 void			error_exit(int nb, char *str);
 t_room			*init_room(void);
 BOOL			ft_storage(t_info *t, t_room *r, int i);
-size_t			ft_coll(t_info *info, char *name, size_t i, size_t s);
-size_t			ft_hashage(char *name, int hash_size);
+int			ft_coll(t_info *info, char *name, int i, int s);
+int			ft_hashage(char *name, int hash_size);
 void			ft_hashtab(t_info *t, t_room *r);
 BOOL			ft_links(t_info *t);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
 void			ft_init_ways(t_ways **ways);
 void			ft_clean_steps(t_ways *ways, int mode);
 void			ft_clean_free(t_info *info);
-t_ways			*ft_calc_steps(t_ways *ways, t_info *info, size_t j);
+t_ways			*ft_calc_steps(t_ways *ways, t_info *info, int j);
 t_ways			*ft_steps(t_info *t, t_room *r, t_ways *comp);
-BOOL			ft_bfs(t_info *t, t_room *r);
-void			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
+t_ways			ft_bfs(t_info *t, t_room *r);
+BOOL			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
 
 #endif

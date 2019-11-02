@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/29 13:11:00 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 15:23:29 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 
 BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -50,10 +50,10 @@ BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
 	return (TRUE);
 }
 
-BOOL	ft_calc_links(char *room1, char *room2, size_t s, t_info *info)
+BOOL	ft_calc_links(char *room1, char *room2, int s, t_info *info)
 {
-	size_t	h1;
-	size_t	h2;
+	int	h1;
+	int	h2;
 	t_room	*one;
 	t_room	*two;
 
@@ -72,7 +72,7 @@ BOOL	ft_cut_room(t_info *info)
 {
 	char	*room1;
 	char	*room2;
-	size_t	s;
+	int	s;
 
 	s = 0;
 	room1 = info->line;

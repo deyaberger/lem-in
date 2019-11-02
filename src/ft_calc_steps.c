@@ -6,30 +6,32 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:05:16 by dberger           #+#    #+#             */
-/*   Updated: 2019/10/30 17:15:05 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 16:24:40 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-size_t	ft_calc_ants(t_info *info, t_ways **ways, size_t i)
+long	ft_calc_ants(t_info *info, t_ways **ways, int i)
 {
-	size_t len;
-	size_t ants;
-	size_t a;
-	size_t tpl;
+	long len;
+	long ants;
+	long a;
+	long tpl;
+	long nb_w;
 
 	ants = info->ant_nb;
 	tpl = (*ways)->tot_pl;
 	len = (*ways)->path_info[i][LENGTH];
-	a = ((ants + tpl - ((*ways)->nb_ways * len)) / ((*ways)->nb_ways));
+	nb_w = (*ways)->nb_ways;
+	a = ((ants + tpl - (nb_w * len)) / nb_w);
 	(*ways)->path_info[i][ANTS] = a;
 	return (a);
 }
 
-void	ft_min_max(t_ways **ways, size_t i)
+void	ft_min_max(t_ways **ways, int i)
 {
-	size_t steps;
+	int steps;
 
 	steps = (*ways)->path_info[i][STEPS];
 	if (steps > (*ways)->tot_max)
@@ -38,10 +40,10 @@ void	ft_min_max(t_ways **ways, size_t i)
 		(*ways)->min = steps;
 }
 
-void	ft_one_path_steps(t_ways **ways, size_t i, size_t a)
+void	ft_one_path_steps(t_ways **ways, int i, int a)
 {
-	size_t len;
-	size_t steps;
+	int len;
+	int steps;
 
 	len = (*ways)->path_info[i][LENGTH];
 	steps = len + a - 1;
@@ -50,14 +52,12 @@ void	ft_one_path_steps(t_ways **ways, size_t i, size_t a)
 
 void	ft_left_over(t_info *info, t_ways **ways, int nb)
 {
-	size_t i;
-	size_t a;
-	size_t rest;
-	size_t left;
+	int i;
+	int a;
+	int left;
 
 	i = 0;
 	a = 0;
-	rest = 1;
 	left = info->ant_nb - nb;
 	while (left > 0)
 	{
@@ -65,20 +65,19 @@ void	ft_left_over(t_info *info, t_ways **ways, int nb)
 		while (i < (*ways)->nb_ways
 				&& (*ways)->path_info[i][STEPS] != (*ways)->min)
 			i++;
-		(*ways)->path_info[i][ANTS] += rest;
+		(*ways)->path_info[i][ANTS] += 1;
 		a = (*ways)->path_info[i][ANTS];
 		ft_one_path_steps(ways, i, a);
 		ft_min_max(ways, i);
 		left--;
-		rest++;
 	}
 }
 
-t_ways	*ft_calc_steps(t_ways *ways, t_info *info, size_t j)
+t_ways	*ft_calc_steps(t_ways *ways, t_info *info, int j)
 {
-	size_t	i;
-	size_t	nb;
-	size_t	a;
+	int	i;
+	int	nb;
+	int	a;
 
 	i = 0;
 	nb = 0;
@@ -87,12 +86,17 @@ t_ways	*ft_calc_steps(t_ways *ways, t_info *info, size_t j)
 	while (i < ways->nb_ways)
 	{
 		a = ft_calc_ants(info, &ways, i);
+		if (a < 0)
+		{
+			ways->tot_max = -1;
+			return (ways);
+		}
 		nb = nb + a;
 		ft_one_path_steps(&ways, i, a);
 		ft_min_max(&ways, i);
 		i++;
 	}
-	if ((int)nb < info->ant_nb)
+	if (nb < info->ant_nb)
 		ft_left_over(info, &ways, nb);
 	return (ways);
 }

@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/29 13:12:21 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 16:28:14 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,49 +63,33 @@ void	ft_start_end(t_info *info)
 		info->max_paths = info->end->nbl;
 }
 
-void		ft_clean_all(t_info *info, t_room *room)
+void		ft_print_best(t_ways best)
 {
-	size_t 	i;
-	size_t 	j;
-	size_t 	k;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	k = 0;
-	room = NULL;
-	while (i < info->room_nb * 10)
+	while (i < best.nb_ways && best.steps[i] != NULL)
 	{
-		if (info->tab && info->tab[i] != NULL)
+		ft_printf("\n");	
+		while (best.steps[i][j] != NULL)
 		{
-			room = info->tab[i];
-			free(room->name);
-			while (j <= info->room_nb && room->link && room->link[j])
-			{
-				free(room->link[j]);
-				j++;
-			}
-			free(room->link);
-			free(room);
-			j = 0;
+			ft_printf("%s, ", best.steps[i][j]->name);
+			j++;
 		}
+		ft_printf(" ==> LEN = %d, ANTS = %d, STEPS = %d\n", best.path_info[i][LENGTH], best.path_info[i][ANTS], best.path_info[i][STEPS]);
+		j = 0;
 		i++;
 	}
-	i = 0;
-	while ((int)i <= info->xmax && info->coord[i])
-	{
-		free(info->coord[i]);
-		i++;
-	}
-	if (info->coord)
-		free(info->coord);
-	if (info->tab)
-		free(info->tab);
+	ft_printf("\nTOTAL WAYS = %d, TOTAL  STEPS = %d\n", best.nb_ways, best.tot_max);
 }
 
 int		main(void)
 {
 	t_info	info;
 	t_room	*room;
+	t_ways	best;
 	int		i;
 
 	i = -1;
@@ -117,8 +101,10 @@ int		main(void)
 	ft_hashtab(&info, room);
 	ft_links(&info);
 	ft_start_end(&info);
-	ft_bfs(&info, room);
-	ft_clean_all(&info, room);
+	best = ft_bfs(&info, room);
+	ft_print_best(best);
+	ft_clean_steps(&best, 1);
+	ft_clean_free(&info);
 	return (FALSE);
 }
 
