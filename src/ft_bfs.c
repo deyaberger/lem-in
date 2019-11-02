@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/02 16:01:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 18:33:34 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_ways	ft_bfs(t_info *info, t_room *room)
 		error_exit(11, "Can't malloc best.way_info");
 	if (!(comp.path_info = ft_memalloc(sizeof(int*) * info->max_paths)))
 		error_exit(11, "Can't malloc comp.way_info");
-	while (i < info->max_paths && (int)i < info->ant_nb)
+	while (i < info->max_paths && i < info->ant_nb)
 	{
 		room = info->start;
 		if (queue != NULL)

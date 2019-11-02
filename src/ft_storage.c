@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/23 12:17:14 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 19:21:03 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,13 @@ BOOL		ft_store(t_info *info, t_room **room, int type)
 	return ((*room)->type == 3 ? 0 : 1);
 }
 
-BOOL		ft_storage(t_info *info, t_room *room, int i)
+BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 {
 	get_next_line(0, &info->line);
+	*str = ft_strjoin_f(*str, info->line, 1);
+	*str = ft_strjoin_f(*str, "\n", 1);
+	if (info->line == NULL)
+		error_exit(16, "Can't run Lem-in if entrance is null");
 	while (info->line[++i])
 		if (!ft_isdigit(info->line[i]))
 			return (FALSE);
@@ -134,6 +138,8 @@ BOOL		ft_storage(t_info *info, t_room *room, int i)
 			i = 2;
 		else
 			i = 0;
+		*str = ft_strjoin_f(*str, info->line, 1);
+		*str = ft_strjoin_f(*str, "\n", 1);
 		free(info->line);
 	}
 	//////////////////////Display liste///////////////////////

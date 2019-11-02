@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/02 16:28:14 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 19:57:16 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_room 	*init_room(void)
 	room->mum = NULL;
 	room->q = 0;
 	room->nbl = 0;
+	room->ant_index = 0;
 	room->weight = 0;
 	room->opti = 0;
 	room->used = 0;
@@ -91,17 +92,20 @@ int		main(void)
 	t_room	*room;
 	t_ways	best;
 	int		i;
+	char	*str;
 
 	i = -1;
+	str = ft_strdup("");
 	info = init_info();
 	room = init_room();
 	info.first = room;
-	if (!ft_storage(&info, room, i))
+	if (!ft_storage(&info, room, i, &str))
 		error_exit(1, "ft_storage has failed");
 	ft_hashtab(&info, room);
-	ft_links(&info);
+	ft_links(&info, &str);
 	ft_start_end(&info);
 	best = ft_bfs(&info, room);
+	ft_result(str, info, &best);
 	ft_print_best(best);
 	ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
