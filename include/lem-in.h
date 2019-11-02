@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/02 15:20:42 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/02 19:56:40 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct		s_room
 	struct s_room	*next;
 	struct s_room	*mum;
 	int		weight;
+	int		ant_index;
 	int		nbl;
 	int		type; 	//start(1) | end(2) | rien(0)
 	int		opti;
@@ -90,11 +91,11 @@ typedef struct		s_ways
 
 void			error_exit(int nb, char *str);
 t_room			*init_room(void);
-BOOL			ft_storage(t_info *t, t_room *r, int i);
+BOOL			ft_storage(t_info *t, t_room *r, int i, char **str);
 int			ft_coll(t_info *info, char *name, int i, int s);
 int			ft_hashage(char *name, int hash_size);
 void			ft_hashtab(t_info *t, t_room *r);
-BOOL			ft_links(t_info *t);
+BOOL			ft_links(t_info *t, char **str);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);
 void			ft_init_ways(t_ways **ways);
 void			ft_clean_steps(t_ways *ways, int mode);
@@ -103,5 +104,6 @@ t_ways			*ft_calc_steps(t_ways *ways, t_info *info, int j);
 t_ways			*ft_steps(t_info *t, t_room *r, t_ways *comp);
 t_ways			ft_bfs(t_info *t, t_room *r);
 BOOL			ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
+void			ft_result(char *str, t_info info, t_ways *best);
 
 #endif
