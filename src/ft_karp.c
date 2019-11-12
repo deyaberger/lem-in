@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/02 18:34:08 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/12 12:14:09 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_new_best(t_ways *best, t_ways *comp)
 			k++;
 		if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * k)))
 			error_exit(12, "Can't malloc best->steps");
-		if (!(best->path_info[j] = ft_memalloc(sizeof(int) * 3)))
+		if (!(best->path_info[j] = ft_memalloc(sizeof(int) * 5)))
 			error_exit(12, "Can't malloc best->path_info[j]");
 		k = 0;
 		best->nb_ways = comp->nb_ways;

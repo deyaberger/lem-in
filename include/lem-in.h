@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/02 19:56:40 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/12 13:11:21 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-#define BOOL size_t
+#define BOOL int
 #define TRUE 1
 #define FALSE 0
 #define ROOM_START 1
@@ -35,6 +35,8 @@
 #define	LENGTH 0
 #define	ANTS 1
 #define	STEPS 2
+#define	ANTS_SENT 3
+#define	ANT_ARRIVED 4
 #define	NONE -1
 #define	NEVER_FILLED -1
 #define KEEP_SEARCHING 1

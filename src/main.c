@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/02 19:57:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/12 14:35:22 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		main(void)
 	ft_start_end(&info);
 	best = ft_bfs(&info, room);
 	ft_result(str, info, &best);
-	ft_print_best(best);
+//	ft_print_best(best);
 	ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
 	return (FALSE);
