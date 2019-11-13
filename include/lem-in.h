@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/12 13:11:21 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/13 17:15:16 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../lib/libft/libft.h"
 
 #define BOOL int
+#define BUF 200
 #define TRUE 1
 #define FALSE 0
 #define ROOM_START 1
@@ -50,6 +51,9 @@ typedef struct		s_info
 	struct s_room	*start;
 	struct s_room	*end;
 	int		**coord;
+	int		stop_str;
+	int		len_str;
+	int		lines_rqd;
 	int		ant_nb;
 	int		max_paths;
 	int		room_nb;
@@ -92,6 +96,7 @@ typedef struct		s_ways
 }			t_ways;
 
 void			error_exit(int nb, char *str);
+char			*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info);
 t_room			*init_room(void);
 BOOL			ft_storage(t_info *t, t_room *r, int i, char **str);
 int			ft_coll(t_info *info, char *name, int i, int s);

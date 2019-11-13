@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/02 19:26:48 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/13 16:34:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,25 @@ BOOL	ft_cut_room(t_info *info)
 
 BOOL	ft_links(t_info *info, char **str)
 {
-	*str = ft_strjoin_f(*str, info->line, 1);
-	*str = ft_strjoin_f(*str, "\n", 1);
+	*str = ft_strjoin_nf(*str, info->line, 1, info);
+	*str = ft_strjoin_nf(*str, "\n", 1, info);
 	if (!(ft_cut_room(info)))
 		return (FALSE);
 	while (get_next_line(0, &info->line))
 	{
-		*str = ft_strjoin_f(*str, info->line, 1);
-		*str = ft_strjoin_f(*str, "\n", 1);
+		*str = ft_strjoin_nf(*str, info->line, 1, info);
+		*str = ft_strjoin_nf(*str, "\n", 1, info);
 		if (info->line[0] == '#' && info->line[1] == '#')
 		{
 			free(info->line);
 			return (FALSE);
 		}
 		if (info->line[0] == '#' && info->line[1] != '#')
+		{
+			if (!ft_strncmp(info->line, "#Here is the number of lines required: ", 39))
+				info->lines_rqd = ft_atoi(info->line + 39);
 			free(info->line);
+		}
 		else if (info->line[0] != '#')
 			if (!(ft_cut_room(info)))
 			{

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/12 12:14:27 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/13 14:41:40 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ft_create_space(t_ways **ways, t_info *info, int j)
 	(*ways)->path_info[j][LENGTH] = NONE;
 	(*ways)->path_info[j][ANTS] = NONE;
 	(*ways)->path_info[j][STEPS] = NONE;
-	(*ways)->path_info[j][ANTS_SENT] = NONE;
-	(*ways)->path_info[j][ANT_ARRIVED] = NONE;
+	(*ways)->path_info[j][ANTS_SENT] = INIT;
+	(*ways)->path_info[j][ANT_ARRIVED] = INIT;
 	(*ways)->steps[j + 1] = NULL;
 	return (j);
 }
@@ -81,6 +81,8 @@ t_ways	*ft_steps(t_info *info, t_room *room, t_ways *ways)
 	{
 		if (room->link[i]->status == GOOD_PATH)
 			j = ft_fill_space(&room, info, &ways, i);
+		if (j == info->max_paths)
+			return (ft_calc_steps(ways, info, j));
 		i++;
 	}
 	ways = ft_calc_steps(ways, info, j);

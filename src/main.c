@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/12 14:35:22 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/13 17:13:04 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ t_info	init_info(void)
 	t_info	info;
 
 	info.line = NULL;
+	info.stop_str = 0;
+	info.len_str = BUF;
 	info.ant_nb = 0;
 	info.room_nb = 0;
 	info.link_nb = 0;
+	info.lines_rqd = 0;
 	info.max_paths = 0;
 	info.xmax = 0;
 	info.ymax = 0;
@@ -95,7 +98,7 @@ int		main(void)
 	char	*str;
 
 	i = -1;
-	str = ft_strdup("");
+	str = ft_memalloc(BUF);
 	info = init_info();
 	room = init_room();
 	info.first = room;
