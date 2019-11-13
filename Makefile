@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/11/02 19:52:34 by dberger          ###   ########.fr        #
+#    Updated: 2019/11/13 17:17:33 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC = src/main.c \
 	src/ft_steps.c \
 	src/ft_clean_free.c \
 	src/ft_calc_steps.c \
+	src/ft_strjoin_nf.c \
 	src/ft_result.c
 
 SRC_DISP = src/src_display/main.c \
