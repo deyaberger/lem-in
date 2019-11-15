@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/02 15:24:15 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/15 18:57:06 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_calc_weight(t_room *room, int i)
 void	ft_new_in(t_room *room, t_room **queue, t_room **ngb, int weight)
 {
 	(*ngb)->weight = weight;
-	(*ngb)->q = 1;
+	(*ngb)->stat = (*ngb)->stat | IN_Q;
 	(*ngb)->mum = room;
 	(*ngb)->next = NULL;
 	(*queue)->next = *ngb;
@@ -52,9 +52,9 @@ BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, int i)
 	if (room->opti == 1 && link->status == UNUSED
 		&& room->link[mum]->status == BACKWARD)
 		i += CONTINUE_AFTER_REVERSE;
-	if (i == GOOD_PATH + CLEAN || i == GOOD_PATH + REVERSE
-			|| i == GOOD_PATH + CONTINUE_AFTER_REVERSE)
-		return (TRUE);
+	if ((i == GOOD_PATH + CLEAN || i == GOOD_PATH + REVERSE
+			|| i == GOOD_PATH + CONTINUE_AFTER_REVERSE) /*&& ngb != info->start*/)
+			return (TRUE);
 	return (FALSE);
 }
 
@@ -63,9 +63,9 @@ void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, int i)
 	int new_weight;
 
 	new_weight = 0;
-	if ((*ngb)->used == 0 && (*ngb)->q == 0)
+	if (!((*ngb)->stat & USED) && !((*ngb)->stat & IN_Q))
 		ft_new_in(room, queue, ngb, ft_calc_weight(room, i));
-	else if ((*ngb)->used == 1 || (*ngb)->q == 1)
+	else if (((*ngb)->stat & USED)|| ((*ngb)->stat & IN_Q))
 	{
 		new_weight = ft_calc_weight(room, i);
 		if (new_weight < (*ngb)->weight)
@@ -80,8 +80,8 @@ t_room	*ft_weight(t_info *info, t_room *room, t_room *queue)
 
 	i = 0;
 	ngb = NULL;
-	room->q = 1;
-	room->used = 1;
+	room->stat = room->stat | IN_Q;
+	room->stat = room->stat | USED;
 	if (queue == NULL)
 		queue = room;
 	while (i < room->nbl)

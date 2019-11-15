@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/12 12:14:09 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/15 18:57:03 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_new_best(t_ways *best, t_ways *comp)
 		best->tot_max = comp->tot_max;
 		best->tot_pl = comp->tot_pl;
 		best->min = comp->min;
-		while (k < 3)
+		while (k < 5)
 		{
 			best->path_info[j][k] = comp->path_info[j][k];
 			k++;
@@ -56,7 +56,7 @@ void	ft_update_status(t_room *room)
 
 	i = 0;
 	link = NULL;
-	while (room->link[i]->dest != room->mum)
+	while (room->link[i] && room->link[i]->dest != room->mum)
 		i++;
 	link = room->link[i];
 	if (link->status == UNUSED && link->rev->status == UNUSED)

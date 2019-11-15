@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 13:13:51 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/13 13:55:06 by dberger          ###   ########.fr       */
+/*   Created: 2019/11/14 16:59:22 by dberger           #+#    #+#             */
+/*   Updated: 2019/11/15 18:55:46 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_room		*ft_init_var(t_room *room, t_room *queue)
 	while (queue)
 	{
 		room = queue;
+		room->stat = 0;
 		room->weight = 0;
-		room->q = 0;
-		room->used = 0;
+		room->mum = NULL;
 		queue = (queue)->next;
 	}
 	queue = save;
@@ -44,7 +44,7 @@ t_ways		ft_init_steps(int size)
 
 void		ft_shorter_way(t_info *info, t_room **room, t_room **queue)
 {
-	while (info->end->q == 0 && *room)
+	while (!(info->end->stat & IN_Q) && *room)
 	{
 		*queue = ft_weight(info, *room, *queue);
 		*room = (*room)->next;
@@ -53,7 +53,7 @@ void		ft_shorter_way(t_info *info, t_room **room, t_room **queue)
 
 void		ft_finish_queue(t_info *info, t_room **room, t_room **queue)
 {
-	while (info->end->q == 1 && *room)
+	while ((info->end->stat & IN_Q) && *room)
 	{
 		if ((*room)->weight < info->end->weight - 1)
 			*queue = ft_weight(info, *room, *queue);
@@ -82,7 +82,7 @@ t_ways	ft_bfs(t_info *info, t_room *room)
 		if (queue != NULL)
 			queue = ft_init_var(room, queue);
 		ft_shorter_way(info, &room, &queue);
-		if (info->end->q == 0)
+		if (!(info->end->stat & IN_Q))
 			return (best);
 		ft_finish_queue(info, &room, &queue);
 		if (ft_karp(info, room, &best, &comp) == KEEP_SEARCHING)

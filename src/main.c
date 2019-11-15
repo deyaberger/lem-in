@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/13 17:13:04 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/15 18:47:09 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ t_room 	*init_room(void)
 	room->type = -1;
 	room->link = NULL;
 	room->mum = NULL;
-	room->q = 0;
 	room->nbl = 0;
 	room->ant_index = 0;
+	room->stat = 0;
 	room->weight = 0;
 	room->opti = 0;
-	room->used = 0;
 	room->name = NULL;
 	room->next = NULL;
 	return (room);

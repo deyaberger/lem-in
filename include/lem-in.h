@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/13 17:15:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/15 16:54:40 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
+# define USED	(1 << 1)
+# define REV	(1 << 3)
+# define IN_Q	(1 << 4)
+
 #define BOOL int
 #define BUF 200
 #define TRUE 1
@@ -24,9 +28,10 @@
 #define ROOM_END 2
 #define ROOM_NORMAL 0
 #define GOOD_PATH 1
-#define CLEAN 2
-#define REVERSE 3
-#define CONTINUE_AFTER_REVERSE 4
+#define CLEAN 37
+#define REVERSE 164
+#define CONTINUE_AFTER_REVERSE 9
+#define ALREADY_BACK 81
 #define	UNUSED 0
 #define	BACKWARD -1
 #define	FORWARD 1
@@ -60,6 +65,7 @@ typedef struct		s_info
 	int		link_nb;
 	int		xmax;
 	int		ymax;
+	int		fd;
 }			t_info;
 
 typedef struct		s_room
@@ -68,13 +74,13 @@ typedef struct		s_room
 	struct s_link	**link;
 	struct s_room	*next;
 	struct s_room	*mum;
+	struct s_room	*mum2;
 	int		weight;
 	int		ant_index;
+	int		stat;
 	int		nbl;
 	int		type; 	//start(1) | end(2) | rien(0)
 	int		opti;
-	int		q;
-	int		used;
 }			t_room;
 
 
