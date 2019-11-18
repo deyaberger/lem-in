@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/15 18:57:06 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/18 16:55:30 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,41 @@ int	ft_calc_weight(t_room *room, int i)
 
 void	ft_new_in(t_room *room, t_room **queue, t_room **ngb, int weight)
 {
+	if (!((*ngb)->stat & IN_Q))
+	{
+		(*ngb)->stat = (*ngb)->stat | IN_Q;
+		(*ngb)->next = NULL;
+		(*queue)->next = *ngb;
+		(*queue) = *ngb;
+	}
 	(*ngb)->weight = weight;
-	(*ngb)->stat = (*ngb)->stat | IN_Q;
 	(*ngb)->mum = room;
-	(*ngb)->next = NULL;
-	(*queue)->next = *ngb;
-	(*queue) = *ngb;
 }
 
 BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, int i)
 {
 	t_link	*link;
 	int	mum;
+	int k;
+	int	m;
 
 	mum = 0;
+	k = 0;
+	m = 0;
+	while (room->mum && room->link[m]->dest != room->mum)
+		m++;
 	link = room->link[i];
 	if (ngb == room->mum)
 		mum = i;
 	if (ngb != room->mum && ngb != info->start)
-		i = GOOD_PATH;
+		k = k | GOOD_PATH;
 	if (room->opti == 0 && link->status == UNUSED)
-		i += CLEAN;
-	if (room->opti == 1 && link->status == BACKWARD)
-		i += REVERSE;
-	if (room->opti == 1 && link->status == UNUSED
-		&& room->link[mum]->status == BACKWARD)
-		i += CONTINUE_AFTER_REVERSE;
-	if ((i == GOOD_PATH + CLEAN || i == GOOD_PATH + REVERSE
-			|| i == GOOD_PATH + CONTINUE_AFTER_REVERSE) /*&& ngb != info->start*/)
+		k = k | CLEAN;
+	if (room->opti == 1 && link->status == BACKWARD && room->link[m]->status == UNUSED)
+		k = k | REVERSE;
+	if (room->opti == 1 && room->link[m]->status == FORWARD)
+		k = k | OUT;
+	if ((k & GOOD_PATH) && ((k & CLEAN) || (k & REVERSE) || (k & OUT)))
 			return (TRUE);
 	return (FALSE);
 }
@@ -63,9 +70,9 @@ void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, int i)
 	int new_weight;
 
 	new_weight = 0;
-	if (!((*ngb)->stat & USED) && !((*ngb)->stat & IN_Q))
+	if (!((*ngb)->stat & IN_Q))
 		ft_new_in(room, queue, ngb, ft_calc_weight(room, i));
-	else if (((*ngb)->stat & USED)|| ((*ngb)->stat & IN_Q))
+	else if ((*ngb)->stat & IN_Q)
 	{
 		new_weight = ft_calc_weight(room, i);
 		if (new_weight < (*ngb)->weight)
@@ -80,8 +87,6 @@ t_room	*ft_weight(t_info *info, t_room *room, t_room *queue)
 
 	i = 0;
 	ngb = NULL;
-	room->stat = room->stat | IN_Q;
-	room->stat = room->stat | USED;
 	if (queue == NULL)
 		queue = room;
 	while (i < room->nbl)

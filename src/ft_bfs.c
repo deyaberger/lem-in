@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:59:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/15 18:55:46 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/18 16:55:10 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_ways		ft_init_steps(int size)
 
 	if (!(ways.steps = ft_memalloc(sizeof(t_room*) * size)))
 		error_exit(7, "Can't malloc t_ways->steps");
-	ways.nb_ways = -1;
+	ways.nb_ways = NEVER_FILLED;
 	return (ways);
 }
 
@@ -53,10 +53,14 @@ void		ft_shorter_way(t_info *info, t_room **room, t_room **queue)
 
 void		ft_finish_queue(t_info *info, t_room **room, t_room **queue)
 {
-	while ((info->end->stat & IN_Q) && *room)
+	while (*room && (info->end->stat & IN_Q))
 	{
-		if ((*room)->weight < info->end->weight - 1)
+		if ((*room) == info->end && (*room)->next)
+			*room = (*room)->next;
+		if ((*room)->weight <= info->end->weight - 1)
 			*queue = ft_weight(info, *room, *queue);
+		else
+			return ;
 		*room = (*room)->next;
 	}
 }
@@ -81,6 +85,7 @@ t_ways	ft_bfs(t_info *info, t_room *room)
 		room = info->start;
 		if (queue != NULL)
 			queue = ft_init_var(room, queue);
+		room->stat = room->stat | IN_Q;
 		ft_shorter_way(info, &room, &queue);
 		if (!(info->end->stat & IN_Q))
 			return (best);

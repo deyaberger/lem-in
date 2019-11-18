@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/15 16:54:40 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/18 14:05:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-# define USED	(1 << 1)
-# define REV	(1 << 3)
-# define IN_Q	(1 << 4)
+# define IN_Q	(1 << 1)
+# define REV	(1 << 2)
+
+# define GOOD_PATH	(1 << 3)
+# define CLEAN		(1 << 4)
+# define REVERSE	(1 << 5)
+# define OUT		(1 << 6)
 
 #define BOOL int
 #define BUF 200
@@ -27,11 +31,6 @@
 #define ROOM_START 1
 #define ROOM_END 2
 #define ROOM_NORMAL 0
-#define GOOD_PATH 1
-#define CLEAN 37
-#define REVERSE 164
-#define CONTINUE_AFTER_REVERSE 9
-#define ALREADY_BACK 81
 #define	UNUSED 0
 #define	BACKWARD -1
 #define	FORWARD 1
@@ -74,7 +73,7 @@ typedef struct		s_room
 	struct s_link	**link;
 	struct s_room	*next;
 	struct s_room	*mum;
-	struct s_room	*mum2;
+//	struct s_room	*mum2;
 	int		weight;
 	int		ant_index;
 	int		stat;
@@ -105,8 +104,8 @@ void			error_exit(int nb, char *str);
 char			*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info);
 t_room			*init_room(void);
 BOOL			ft_storage(t_info *t, t_room *r, int i, char **str);
-int			ft_coll(t_info *info, char *name, int i, int s);
-int			ft_hashage(char *name, int hash_size);
+int				ft_coll(t_info *info, char *name, int i, int s);
+int				ft_hashage(char *name, int hash_size);
 void			ft_hashtab(t_info *t, t_room *r);
 BOOL			ft_links(t_info *t, char **str);
 t_room			*ft_weight(t_info *t, t_room *r, t_room *queue);

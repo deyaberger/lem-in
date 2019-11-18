@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/13 16:28:44 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/13 17:46:19 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ BOOL		ft_store(t_info *info, t_room **room, int type)
 
 BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 {
+//	info->fd = open("/Users/dberger/Documents/lem-in/maps_test/easy", O_RDONLY);
+//	get_next_line(info->fd, &info->line);
 	get_next_line(0, &info->line);
 	*str = ft_strjoin_nf(*str, info->line, 1, info);
 	*str = ft_strjoin_nf(*str, "\n", 1, info);
@@ -125,6 +127,7 @@ BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 	if (info->ant_nb <= 0 || info->ant_nb >= 2147483647)
 		return (FALSE);
 	free(info->line);
+//	while (get_next_line(info->fd, &info->line))
 	while (get_next_line(0, &info->line))
 	{
 		if (ft_strchr(info->line, ' ') == NULL && info->line[0] != '#')
