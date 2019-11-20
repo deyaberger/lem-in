@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/18 16:55:27 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:16:45 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_room 	*init_room(void)
 	room->mum = NULL;
 	room->nbl = 0;
 	room->ant_index = 0;
-	room->stat = 0;
+	room->in_q = 0;
 	room->weight = 0;
 	room->opti = 0;
 	room->name = NULL;

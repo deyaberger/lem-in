@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/13 17:46:19 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:22:44 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ BOOL		ft_coord(t_info *info)
 	int		i;
 
 	i = 0;
-	if (!(info->coord = ft_memalloc(sizeof(int*) * info->xmax + 1)))
+	if (!(info->coord = (int**)malloc(sizeof(int*) * info->xmax + 1)))
 		error_exit(9, "Can't malloc info->coord");
 	while (i <= info->xmax)
 	{
-		if (!(info->coord[i] = ft_memalloc(sizeof(int) * info->ymax + 1)))
+		if (!(info->coord[i] = (int*)malloc(sizeof(int) * info->ymax + 1)))
 			error_exit(9, "Can't malloc info->coord");
-		ft_bzero(info->coord[i], (info->ymax + 1) * sizeof(int));
+//		ft_bzero(info->coord[i], (info->ymax + 1) * sizeof(int));
 		i++;
 	}
 //////////////////display coord/////////////////////////
@@ -102,7 +102,7 @@ BOOL		ft_store(t_info *info, t_room **room, int type)
 	}
 	while (info->line[i] != ' ' && info->line[i])
 		i++;
-	if (!((*room)->name = ft_memalloc(sizeof(char) * i + 1)))
+	if (!((*room)->name = (char*)malloc(sizeof(char) * i + 1)))
 		error_exit(10, "Can't malloc room->name");
 	(*room)->name[i] = '\0';
 	(*room)->name = ft_strncpy((*room)->name, info->line, i);
@@ -113,9 +113,9 @@ BOOL		ft_store(t_info *info, t_room **room, int type)
 
 BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 {
-//	info->fd = open("/Users/dberger/Documents/lem-in/maps_test/easy", O_RDONLY);
-//	get_next_line(info->fd, &info->line);
-	get_next_line(0, &info->line);
+//	get_next_line(0, &info->line);
+	info->fd = open("/Users/dberger/Documents/lem-in/bigsup", O_RDONLY);
+	get_next_line(info->fd, &info->line);
 	*str = ft_strjoin_nf(*str, info->line, 1, info);
 	*str = ft_strjoin_nf(*str, "\n", 1, info);
 	if (info->line == NULL)
@@ -127,8 +127,8 @@ BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 	if (info->ant_nb <= 0 || info->ant_nb >= 2147483647)
 		return (FALSE);
 	free(info->line);
-//	while (get_next_line(info->fd, &info->line))
-	while (get_next_line(0, &info->line))
+	while (get_next_line(info->fd, &info->line))
+//	while (get_next_line(0, &info->line))
 	{
 		if (ft_strchr(info->line, ' ') == NULL && info->line[0] != '#')
 			break ;
@@ -136,11 +136,11 @@ BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 			if (!ft_store(info, &room, i))
 				return (FALSE);
 		if (ft_strcmp(info->line, "##start") == 0)
-			i = 1;
+			i = ROOM_START;
 		else if (ft_strcmp(info->line, "##end") == 0)
-			i = 2;
+			i = ROOM_END;
 		else
-			i = 0;
+			i = ROOM_NORMAL;
 		*str = ft_strjoin_nf(*str, info->line, 1, info);
 		*str = ft_strjoin_nf(*str, "\n", 1, info);
 		free(info->line);

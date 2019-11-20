@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/02 15:25:20 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:28:37 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_init_links_tab(t_info *info, t_room *room, int i)
 
 	j = 0;
 	info->tab[i] = room;
-	if (!(room->link = ft_memalloc(sizeof(room->link) * info->room_nb)))
+	if (!(room->link = malloc(sizeof(room->link) * info->room_nb)))
 		error_exit(4, "Can't malloc room->link");
 	while (j < info->room_nb)
 	{
@@ -81,7 +81,7 @@ void	ft_hashtab(t_info *info, t_room *room)
 
 	i = 0;
 	s = info->room_nb * 10;
-	if (!(info->tab = ft_memalloc(sizeof(info->tab) * s)))
+	if (!(info->tab = malloc(sizeof(info->tab) * s)))
 		error_exit(3, "Can't malloc info->tab");
 	ft_init_tab(info, s);
 	room = info->first;

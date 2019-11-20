@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/18 16:55:30 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/19 18:11:33 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_calc_weight(t_room *room, int i)
 
 void	ft_new_in(t_room *room, t_room **queue, t_room **ngb, int weight)
 {
-	if (!((*ngb)->stat & IN_Q))
+	if ((*ngb)->in_q == NOT_IN_QUEUE)
 	{
-		(*ngb)->stat = (*ngb)->stat | IN_Q;
+		(*ngb)->in_q = IN_QUEUE;
 		(*ngb)->next = NULL;
 		(*queue)->next = *ngb;
 		(*queue) = *ngb;
@@ -70,9 +70,9 @@ void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, int i)
 	int new_weight;
 
 	new_weight = 0;
-	if (!((*ngb)->stat & IN_Q))
+	if ((*ngb)->in_q == NOT_IN_QUEUE)
 		ft_new_in(room, queue, ngb, ft_calc_weight(room, i));
-	else if ((*ngb)->stat & IN_Q)
+	else if ((*ngb)->in_q == IN_QUEUE)
 	{
 		new_weight = ft_calc_weight(room, i);
 		if (new_weight < (*ngb)->weight)

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/13 17:46:59 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:24:26 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 {
 	t_link	*link;
 
-	if (!(link = ft_memalloc(sizeof(t_link) * info->room_nb)))
+	if (!(link = (t_link*)malloc(sizeof(t_link) * info->room_nb)))
 		error_exit(7, "Can't malloc t_link");
 	link->dest = dest;
 	link->status = 0;
@@ -95,8 +95,8 @@ BOOL	ft_links(t_info *info, char **str)
 	*str = ft_strjoin_nf(*str, "\n", 1, info);
 	if (!(ft_cut_room(info)))
 		return (FALSE);
-//	while (get_next_line(info->fd, &info->line))
-	while (get_next_line(0, &info->line))
+	while (get_next_line(info->fd, &info->line))
+//	while (get_next_line(0, &info->line))
 	{
 		*str = ft_strjoin_nf(*str, info->line, 1, info);
 		*str = ft_strjoin_nf(*str, "\n", 1, info);
