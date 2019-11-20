@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/19 17:08:18 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/20 12:39:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
+# define VISU 0
 # define GOOD_PATH (1 << 1)
 # define CLEAN (1 << 2)
 # define REVERSE (1 << 3)
@@ -62,6 +63,7 @@ typedef struct		s_info
 	int				link_nb;
 	int				xmax;
 	int				ymax;
+//	int				fd;
 }					t_info;
 
 typedef struct		s_room
@@ -72,17 +74,17 @@ typedef struct		s_room
 	struct s_room	*mum;
 	int				weight;
 	int				ant_index;
-	int				in_q;
 	int				nbl;
 	int				type; 	//start(1) | end(2) | rien(0)
-	int				opti;
+	size_t			opti;
+	size_t			in_q;
 }					t_room;
 
 typedef struct		s_link
 {
 	struct s_room	*dest;
 	struct s_link	*rev;
-	int				status;
+	int8_t			status;
 }					t_link;
 
 typedef struct		s_ways
