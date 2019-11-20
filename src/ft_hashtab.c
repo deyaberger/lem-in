@@ -6,13 +6,13 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/20 12:28:37 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/20 13:29:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-int	ft_hashage(char *name, int hash_size)
+int		ft_hashage(char *name, int hash_size)
 {
 	size_t	i;
 	size_t	hash;
@@ -62,7 +62,7 @@ void	ft_init_links_tab(t_info *info, t_room *room, int i)
 		info->end = room;
 }
 
-int	ft_coll(t_info *info, char *name, int i, int s)
+int		ft_coll(t_info *info, char *name, int i, int s)
 {
 	while (i < s && info->tab[i] != NULL
 		&& ft_strcmp(name, info->tab[i]->name))
