@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/20 12:39:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:48:11 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define BUF 200
 # define TRUE 1
 # define FALSE 0
+# define BAD -1
 # define ROOM_START 1
 # define ROOM_END 2
 # define ROOM_NORMAL 0
@@ -98,13 +99,12 @@ typedef struct		s_ways
 	int				tot_pl;
 }					t_ways;
 
-void				error_exit(int nb, char *str);
 char				*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info);
 t_room				*init_room(void);
 BOOL				ft_storage(t_info *t, t_room *r, char **str);
 int					ft_coll(t_info *info, char *name, int i, int s);
 int					ft_hashage(char *name, int hash_size);
-void				ft_hashtab(t_info *t, t_room *r);
+BOOL				ft_hashtab(t_info *t, t_room *r);
 BOOL				ft_links(t_info *t, char **str);
 t_room				*ft_weight(t_info *t, t_room *r, t_room *queue);
 void				ft_init_ways(t_ways **ways);
