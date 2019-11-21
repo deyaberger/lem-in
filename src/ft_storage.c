@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/20 12:39:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 12:59:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ BOOL		ft_coord(t_info *info)
 	int		i;
 
 	i = 0;
-	if (!(info->coord = (int**)malloc(sizeof(int*) * info->xmax + 1)))
+	if (!(info->coord = ft_memalloc(sizeof(int*) * info->xmax + 1)))
 		error_exit(9, "Can't malloc info->coord");
 	while (i <= info->xmax)
 	{
-		if (!(info->coord[i] = (int*)malloc(sizeof(int) * info->ymax + 1)))
+		if (!(info->coord[i] = ft_memalloc(sizeof(int) * info->ymax + 1)))
 			error_exit(9, "Can't malloc info->coord");
-//		ft_bzero(info->coord[i], (info->ymax + 1) * sizeof(int));
 		i++;
 	}
 //////////////////display coord/////////////////////////
