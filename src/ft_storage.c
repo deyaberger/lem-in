@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/21 12:59:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 13:05:31 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ BOOL		ft_coord(t_info *info)
 
 	i = 0;
 	if (!(info->coord = ft_memalloc(sizeof(int*) * info->xmax + 1)))
-		error_exit(9, "Can't malloc info->coord");
+		return (FALSE);
 	while (i <= info->xmax)
 	{
 		if (!(info->coord[i] = ft_memalloc(sizeof(int) * info->ymax + 1)))
-			error_exit(9, "Can't malloc info->coord");
+			return (FALSE);
 		i++;
 	}
 //////////////////display coord/////////////////////////
@@ -87,7 +87,7 @@ int     ft_check(t_info *info, int type, int i)
 	return (j != 2 ? 3 : type);
 }
 
-BOOL		ft_store(t_info *info, t_room **room, int type)
+BOOL	ft_store(t_info *info, t_room **room, int type)
 {
 	t_room	*new;
 	int	i;
@@ -102,12 +102,12 @@ BOOL		ft_store(t_info *info, t_room **room, int type)
 	while (info->line[i] != ' ' && info->line[i])
 		i++;
 	if (!((*room)->name = (char*)malloc(sizeof(char) * i + 1)))
-		error_exit(10, "Can't malloc room->name");
+		return (FALSE);
 	(*room)->name[i] = '\0';
 	(*room)->name = ft_strncpy((*room)->name, info->line, i);
 	(*room)->type = ft_check(info, type, i + 1);
 	info->room_nb++;
-	return ((*room)->type == 3 ? 0 : 1);
+	return ((*room)->type == 3 ? FALSE : TRUE);
 }
 
 BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
@@ -156,5 +156,5 @@ BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 //		ft_printf("ymax : [%d]\n\n", info->ymax);
 
 	//////////////////////////////////////////////////////////
-*/	return (ft_strcmp("", info->line) == 0 || !ft_coord(info) ? 0 : 1);
+*/	return (ft_strcmp("", info->line) == 0 || !ft_coord(info) ? FALSE : TRUE);
 }
