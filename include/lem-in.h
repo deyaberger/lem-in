@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/21 16:44:38 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:36:40 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct		s_ways
 }					t_ways;
 
 char				*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info);
+void				ft_print_ways(t_ways *ways);
 t_room				*init_room(void);
 BOOL				ft_storage(t_info *t, t_room *r, char **str);
 int					ft_coll(t_info *info, char *name, int i, int s);

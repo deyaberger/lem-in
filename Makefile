@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/11/13 17:17:33 by dberger          ###   ########.fr        #
+#    Updated: 2019/11/21 17:33:00 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ PINK = \033[35m
 NAME = lem-in
 NAME_DISP = display
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address,undefined -g
+CFLAGS = -Wall -Wextra -Werror
 HFILE = ./include/lem-in.h
 HFILE_DISP = ./include/display.h
 LIB_DIR = ./lib
@@ -34,6 +34,7 @@ NAME_LIBC = libft.a
 
 SRC = src/main.c \
 	src/ft_storage.c \
+	src/ft_print_ways.c \
 	src/ft_hashtab.c \
 	src/ft_bfs.c \
 	src/ft_weight.c \
