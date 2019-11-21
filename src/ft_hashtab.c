@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/20 13:29:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:41:31 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	ft_init_tab(t_info *info, int s)
 	}
 }
 
-void	ft_init_links_tab(t_info *info, t_room *room, int i)
+BOOL	ft_init_links_tab(t_info *info, t_room *room, int i)
 {
 	int	j;
 
 	j = 0;
 	info->tab[i] = room;
 	if (!(room->link = malloc(sizeof(room->link) * info->room_nb)))
-		error_exit(4, "Can't malloc room->link");
+		return (FALSE);
 	while (j < info->room_nb)
 	{
 		room->link[j] = NULL;
@@ -60,6 +60,7 @@ void	ft_init_links_tab(t_info *info, t_room *room, int i)
 		info->start = room;
 	else if (room == info->end)
 		info->end = room;
+	return (TRUE);
 }
 
 int		ft_coll(t_info *info, char *name, int i, int s)
@@ -74,7 +75,7 @@ int		ft_coll(t_info *info, char *name, int i, int s)
 	return (i);
 }
 
-void	ft_hashtab(t_info *info, t_room *room)
+BOOL	ft_hashtab(t_info *info, t_room *room)
 {
 	int	i;
 	int	s;
@@ -82,23 +83,28 @@ void	ft_hashtab(t_info *info, t_room *room)
 	i = 0;
 	s = info->room_nb * 10;
 	if (!(info->tab = malloc(sizeof(info->tab) * s)))
-		error_exit(3, "Can't malloc info->tab");
+		return (FALSE);
 	ft_init_tab(info, s);
 	room = info->first;
 	while (room)
 	{
 		i = ft_hashage(room->name, s);
 		if (i < s && info->tab[i] == NULL)
-			ft_init_links_tab(info, room, i);
+		{
+			if (ft_init_links_tab(info, room, i) == FALSE)
+				return (FALSE);
+		}
 		else
 		{
 			i = ft_coll(info, room->name, i, s);
 			if (info->tab[i] != NULL
 			&& !(ft_strcmp(room->name, info->tab[i]->name)))
-				error_exit(5, "Error in ft_coll: same room name twice");
+				return (FALSE);
 			else if (info->tab[i] == NULL)
-				ft_init_links_tab(info, room, i);
+				if (ft_init_links_tab(info, room, i) == FALSE)
+					return (FALSE);
 		}
 		room = room->next;
 	}
+	return (TRUE);
 }

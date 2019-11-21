@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/20 13:44:06 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:45:14 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_ways	*ft_copy_comp(int j, t_ways *best, t_ways *comp)
 	return (best);
 }
 
-void	ft_new_best(t_ways *best, t_ways *comp)
+BOOL	ft_new_best(t_ways *best, t_ways *comp)
 {
 	int	j;
 	int	k;
@@ -43,12 +43,13 @@ void	ft_new_best(t_ways *best, t_ways *comp)
 	{
 		k = comp->path_info[j][LENGTH];
 		if (!(best->steps[j] = ft_memalloc(sizeof(t_room) * k)))
-			error_exit(12, "Can't malloc best->steps");
+			return (FALSE);
 		if (!(best->path_info[j] = ft_memalloc(sizeof(int) * 5)))
-			error_exit(12, "Can't malloc best->path_info[j]");
+			return (FALSE);
 		best = ft_copy_comp(j, best, comp);
 		j++;
 	}
+	return (TRUE);
 }
 
 void	ft_update_status(t_room *room)
@@ -82,14 +83,27 @@ BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 		room = room->mum;
 	}
 	if (best->nb_ways == NEVER_FILLED)
-		best = ft_steps(info, room, best);
+	{
+		if (!(best = ft_steps(info, room, best)))
+			return (STOP);
+	}
 	else
-		comp = ft_steps(info, room, comp);
+	{
+		if (!(comp = ft_steps(info, room, comp)))
+		{
+			ft_clean_steps(comp, 2);
+			return (STOP);
+		}
+	}
 	if (comp->nb_ways != NEVER_FILLED
 		&& comp->tot_max < best->tot_max && comp->tot_max != -1)
 	{
 		ft_clean_steps(best, 0);
-		ft_new_best(best, comp);
+		if (ft_new_best(best, comp) == FALSE)
+		{
+			ft_clean_steps(comp, 2);
+			return (STOP);
+		}
 		ft_clean_steps(comp, 2);
 		return (KEEP_SEARCHING);
 	}

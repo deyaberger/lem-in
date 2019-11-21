@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:59:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/20 13:28:51 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:44:10 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ t_ways	ft_init_steps(int size)
 	t_ways	ways;
 
 	if (!(ways.steps = ft_memalloc(sizeof(t_room*) * size)))
-		error_exit(7, "Can't malloc t_ways->steps");
+		return (ways);
 	ways.nb_ways = NEVER_FILLED;
 	if (!(ways.path_info = ft_memalloc(sizeof(int*) * size)))
-		error_exit(11, "Can't malloc best.way_info");
+		return (ways);
 	return (ways);
 }
 
@@ -83,6 +83,8 @@ t_ways	ft_bfs(t_info *info, t_room *room)
 	queue = NULL;
 	best = ft_init_steps(info->max_paths);
 	comp = ft_init_steps(info->max_paths);
+	if (!best.steps || !comp.steps)
+		return (best);
 	while (i < info->max_paths && i < info->ant_nb)
 	{
 		room = info->start;

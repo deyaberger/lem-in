@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/18 16:54:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:26:59 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ft_create_space(t_ways **ways, t_info *info, int j)
 	while ((*ways)->steps[j] != NULL && j < info->max_paths)
 		j++;
 	if (!((*ways)->steps[j] = ft_memalloc(sizeof(t_room) * info->end->weight)))
-		error_exit(11, "Can't malloc ways->steps");
+		return (BAD);
 	if (!((*ways)->path_info[j] = ft_memalloc(sizeof(int) * 5)))
-		error_exit(11, "Can't malloc way->path_info");
+		return (BAD);
 	(*ways)->path_info[j][LENGTH] = NONE;
 	(*ways)->path_info[j][ANTS] = NONE;
 	(*ways)->path_info[j][STEPS] = NONE;
@@ -47,6 +47,8 @@ int	ft_fill_space(t_room **room, t_info *info, t_ways **ways, int i)
 	j = 0;
 	k = 0;
 	j = ft_create_space(ways, info, j);
+	if (j == BAD)
+		return (BAD);
 	while (*room != info->end)
 	{
 		ft_find_room(room, m);
@@ -81,6 +83,8 @@ t_ways	*ft_steps(t_info *info, t_room *room, t_ways *ways)
 	{
 		if (room->link[i]->status == FORWARD)
 			j = ft_fill_space(&room, info, &ways, i);
+		if (j == BAD)
+			return (NULL);
 		if (j == info->max_paths)
 			return (ft_calc_steps(ways, info, j));
 		i++;

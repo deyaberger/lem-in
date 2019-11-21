@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/20 12:16:45 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:24:16 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ t_info	init_info(void)
 	info.max_paths = 0;
 	info.xmax = 0;
 	info.ymax = 0;
+	info.xmin = 0;
+	info.ymin = 0;
 	info.start = NULL;
+	info.coord = NULL;
 	info.end = NULL;
 	return (info);
 }
@@ -36,8 +39,7 @@ t_room 	*init_room(void)
 	t_room *room;
 
 	if (!(room = ft_memalloc(sizeof(t_room*))))
-		error_exit(2, "Can't malloc t_room");
-	room->type = -1;
+		return (NULL);
 	room->link = NULL;
 	room->mum = NULL;
 	room->nbl = 0;
@@ -50,21 +52,18 @@ t_room 	*init_room(void)
 	return (room);
 }
 
-void  error_exit(int nb, char *str)
-{
-	ft_printf("Error [%d] : %s\n", nb, str);
-	exit(nb);
-}
-
-void	ft_start_end(t_info *info)
+BOOL	ft_start_end(t_info *info)
 {
 	if (info->start->link[0] == NULL || info->end->link[0] == NULL)
-		error_exit(6, "No paths possible between start and end");
+		return (FALSE);
 	if (info->start->nbl <= info->end->nbl)
 		info->max_paths = info->start->nbl;
 	else
 		info->max_paths = info->end->nbl;
+	return (TRUE);
 }
+
+////// just pour les test:
 
 void		ft_print_best(t_ways best)
 {
@@ -87,31 +86,63 @@ void		ft_print_best(t_ways best)
 	}
 	ft_printf("\nTOTAL WAYS = %d, TOTAL  STEPS = %d\n", best.nb_ways, best.tot_max);
 }
+/////////
+
+void	ft_error(t_info info, char *str)
+{
+	free(str);
+	ft_clean_free(&info);
+	ft_printf("ERROR\n");
+}
 
 int		main(void)
 {
 	t_info	info;
 	t_room	*room;
 	t_ways	best;
-	int		i;
 	char	*str;
 
-	i = -1;
-	str = ft_memalloc(BUF);
+	if (!(str = ft_memalloc(BUF)))
+		return (FALSE);
 	info = init_info();
-	room = init_room();
+	if (!(room = init_room()))
+		return (FALSE);
 	info.first = room;
-	if (!ft_storage(&info, room, i, &str))
-		error_exit(1, "ft_storage has failed");
-	ft_hashtab(&info, room);
-	ft_links(&info, &str);
-	ft_start_end(&info);
+	if (ft_storage(&info, room, &str) == FALSE)
+	{
+		ft_error(info, str);
+		if (room)
+			free(room);
+		return (FALSE);
+	}
+	if (ft_hashtab(&info, room) == FALSE)
+	{
+		ft_error(info, str);
+		return (FALSE);
+	}
+	if (ft_links(&info, &str) == FALSE)
+	{
+		ft_error(info, str);
+		return (FALSE);
+	}	
+	if (ft_start_end(&info) == FALSE)
+	{
+		ft_error(info, str);
+		return (FALSE);
+	}	
 	best = ft_bfs(&info, room);
+	if (best.steps == NULL)
+	{
+		ft_clean_steps(&best, 1);
+		ft_error(info, str);
+		return (FALSE);
+	}	
 	ft_result(str, info, &best);
 //	ft_print_best(best);
+	free(str);
 	ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
-	return (FALSE);
+	return (TRUE);
 }
 
 /*

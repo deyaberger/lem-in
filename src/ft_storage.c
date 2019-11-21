@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/21 13:05:31 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:17:27 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,20 @@ BOOL	ft_store(t_info *info, t_room **room, int type)
 BOOL		ft_storage(t_info *info, t_room *room, char **str)
 {
 	int		type;
+	int		ret;
 
 	type = -1;
-	get_next_line(0, &info->line);
+	ret = get_next_line(0, &info->line);
+	if (ret == -1 || ret == 0)
+		return (FALSE);
 //	info->fd = open("/Users/dberger/Documents/lem-in/bigsup", O_RDONLY);
 //	get_next_line(info->fd, &info->line);
-	*str = ft_strjoin_nf(*str, info->line, 1, info);
-	*str = ft_strjoin_nf(*str, "\n", 1, info);
+	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
+		return (FALSE);
+	if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
+		return (FALSE);
 	if (info->line == NULL)
-		error_exit(16, "Can't run Lem-in if entrance is null");
+		return (FALSE);
 	while (info->line[++type])
 		if (!ft_isdigit(info->line[type]))
 			return (FALSE);
@@ -156,8 +161,10 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 			type = ROOM_END;
 		else
 			type = ROOM_NORMAL;
-		*str = ft_strjoin_nf(*str, info->line, 1, info);
-		*str = ft_strjoin_nf(*str, "\n", 1, info);
+		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
+			return (FALSE);
+		if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
+			return (FALSE);
 		free(info->line);
 	}
 	//////////////////////Display liste///////////////////////

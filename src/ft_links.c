@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/20 12:39:11 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 15:44:55 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 	t_link	*link;
 
 	if (!(link = (t_link*)malloc(sizeof(t_link) * info->room_nb)))
-		error_exit(7, "Can't malloc t_link");
+		return (NULL);
 	link->dest = dest;
 	link->status = 0;
 	from->nbl += 1;
@@ -35,14 +35,20 @@ BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
 			&& i < info->room_nb && one->link[i]->dest != two)
 		i++;
 	if (one->link[i] == NULL)
-		one->link[i] = ft_create_ways(one, two, info);
+	{
+		if (!(one->link[i] = ft_create_ways(one, two, info)))
+			return (FALSE);
+	}
 	else if (one->link[i]->dest == two)
 		return (FALSE);
 	while (two->link[j] != NULL
 			&& j < info->room_nb && two->link[j]->dest != one)
 		j++;
 	if (two->link[j] == NULL)
-		two->link[j] = ft_create_ways(two, one, info);
+	{
+		if (!(two->link[j] = ft_create_ways(two, one, info)))
+			return (FALSE);
+	}
 	else if (two->link[j]->dest == one)
 		return (FALSE);
 	one->link[i]->rev = two->link[j];
@@ -52,8 +58,8 @@ BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
 
 BOOL	ft_calc_links(char *room1, char *room2, int s, t_info *info)
 {
-	int	h1;
-	int	h2;
+	int		h1;
+	int		h2;
 	t_room	*one;
 	t_room	*two;
 
@@ -72,7 +78,7 @@ BOOL	ft_cut_room(t_info *info)
 {
 	char	*room1;
 	char	*room2;
-	int	s;
+	int		s;
 
 	s = 0;
 	room1 = info->line;
@@ -91,11 +97,15 @@ BOOL	ft_cut_room(t_info *info)
 
 BOOL	ft_links(t_info *info, char **str)
 {
-	*str = ft_strjoin_nf(*str, info->line, 1, info);
-	*str = ft_strjoin_nf(*str, "\n", 1, info);
-	if (!(ft_cut_room(info)))
+	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
 		return (FALSE);
-//	while (get_next_line(info->fd, &info->line))
+	if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
+		return (FALSE);
+	if (!(ft_cut_room(info)))
+	{
+		free(info->line);
+		return (FALSE);
+	}
 	while (get_next_line(0, &info->line))
 	{
 		*str = ft_strjoin_nf(*str, info->line, 1, info);

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/02 15:22:35 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:02:21 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_free_steps(t_ways *ways, int mode)
 
 	j = 0;
 	k = 0;
-	while (j < ways->nb_ways && ways->steps[j] != NULL)
+	while (ways->steps && j < ways->nb_ways && ways->steps[j] != NULL)
 	{
 		while (ways->steps[j][k] != NULL)
 		{
@@ -93,7 +93,7 @@ void	ft_clean_free(t_info *info)
 	while (i < info->room_nb * 10)
 		i = ft_free_rooms(info, i);
 	i = 0;
-	while (i <= info->xmax && info->coord[i])
+	while (i <= info->xmax && info->coord != NULL && info->coord[i])
 	{
 		free(info->coord[i]);
 		i++;
