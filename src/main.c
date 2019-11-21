@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/21 17:17:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:50:21 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_info	init_info(void)
 	info.max_paths = 0;
 	info.xmax = 0;
 	info.ymax = 0;
-	info.xmin = 0;
-	info.ymin = 0;
+	info.xmin = 2147483647;
+	info.ymin = 2147483647;
 	info.start = NULL;
 	info.coord = NULL;
 	info.end = NULL;
@@ -63,40 +63,12 @@ BOOL	ft_start_end(t_info *info)
 	return (TRUE);
 }
 
-////// just pour les test:
-
-void		ft_print_best(t_ways best)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	ft_printf("#F\n");
-	while (i < best.nb_ways && best.steps[i] != NULL)
-	{
-		ft_printf("*");
-		while (best.steps[i][j] != NULL)
-		{
-			ft_printf("%s", best.steps[i][j]->name);
-			if (j < best.path_info[i][LENGTH] - 1)
-				ft_printf("-");	
-			else
-				ft_printf("\n");
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	ft_printf("#0\n\n");
-}
-/////////
-
-void	ft_error(t_info info, char *str)
+BOOL	ft_error(t_info info, char *str)
 {
 	free(str);
 	ft_clean_free(&info);
 	ft_printf("ERROR\n");
+	return (FALSE);
 }
 
 int		main(void)
@@ -120,22 +92,19 @@ int		main(void)
 		return (FALSE);
 	}
 	if (ft_hashtab(&info, room) == FALSE)
-	{
-		ft_error(info, str);
-		return (FALSE);
-	}
+		if (ft_error(info, str) == FALSE)
+			return (FALSE);
 	if (ft_links(&info, &str) == FALSE)
-	{
-		ft_error(info, str);
-		return (FALSE);
-	}	
+		if (ft_error(info, str) == FALSE)
+			return (FALSE);
 	if (ft_start_end(&info) == FALSE)
-	{
-		ft_error(info, str);
-		return (FALSE);
-	}	
+		if (ft_error(info, str) == FALSE)
+			return (FALSE);
 	if (VISU == 1)
+	{
+		ft_printf("#%d %d %d %d %d %d\n", info.room_nb, info.xmax, info.ymax, info.xmin, info.ymin, info.link_nb);
 		ft_printf("%s\n", str);
+	}
 	best = ft_bfs(&info, room);
 	if (best.steps == NULL)
 	{
@@ -144,7 +113,12 @@ int		main(void)
 		return (FALSE);
 	}
 	if (VISU == 1)
-		ft_print_best(best);
+	{
+		ft_printf("#F\n");
+		ft_print_ways(&best);
+		ft_printf("#0\n\n");
+		
+	}
 	ft_result(str, info, &best);
 	free(str);
 	ft_clean_steps(&best, 1);

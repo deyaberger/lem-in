@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 15:44:55 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:50:14 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 	link->dest = dest;
 	link->status = 0;
 	from->nbl += 1;
+	info->link_nb = info->link_nb + 1;
 	return (link);
 }
 
@@ -128,5 +129,6 @@ BOOL	ft_links(t_info *info, char **str)
 				return (FALSE);
 			}
 	}
+	info->link_nb = info->link_nb / 2;
 	return (TRUE);
 }

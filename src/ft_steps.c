@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 17:13:35 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:35:59 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,7 @@ t_ways	*ft_steps(t_info *info, t_room *room, t_ways *ways)
 	if (VISU == 1)
 	{
 		ft_printf("#W\n");
-		i = 0;
-		j = 0;
-		while (ways->steps[i])
-		{
-			ft_printf("*");
-			while (ways->steps[i][j])
-			{
-				ft_printf("%s", ways->steps[i][j]->name);
-				if (j < ways->path_info[i][LENGTH] - 1)
-					ft_printf("-");
-				else
-					ft_printf("\n");
-				j++;
-			}
-			j = 0;
-			i++;
-		}
+		ft_print_ways(ways);
 	}
 	return (ways);
 }
