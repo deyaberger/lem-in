@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:17:03 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 13:07:56 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:51:25 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	ft_result(char *str, t_info info, t_ways *best)
 	j = 0;
 	a = 1;
 	total = 0;
-	ft_printf("%s\n", str);
+	if (VISU == 0)
+		ft_printf("%s\n", str);
 	while (info.end->ant_index != info.ant_nb)
 	{
 		while (i < best->nb_ways)

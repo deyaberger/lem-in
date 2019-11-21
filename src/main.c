@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/21 16:24:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:17:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,23 @@ void		ft_print_best(t_ways best)
 
 	i = 0;
 	j = 0;
+	ft_printf("#F\n");
 	while (i < best.nb_ways && best.steps[i] != NULL)
 	{
-		ft_printf("\n");	
+		ft_printf("*");
 		while (best.steps[i][j] != NULL)
 		{
-			ft_printf("%s, ", best.steps[i][j]->name);
+			ft_printf("%s", best.steps[i][j]->name);
+			if (j < best.path_info[i][LENGTH] - 1)
+				ft_printf("-");	
+			else
+				ft_printf("\n");
 			j++;
 		}
-		ft_printf(" ==> LEN = %d, ANTS = %d, STEPS = %d\n", best.path_info[i][LENGTH], best.path_info[i][ANTS], best.path_info[i][STEPS]);
 		j = 0;
 		i++;
 	}
-	ft_printf("\nTOTAL WAYS = %d, TOTAL  STEPS = %d\n", best.nb_ways, best.tot_max);
+	ft_printf("#0\n\n");
 }
 /////////
 
@@ -130,15 +134,18 @@ int		main(void)
 		ft_error(info, str);
 		return (FALSE);
 	}	
+	if (VISU == 1)
+		ft_printf("%s\n", str);
 	best = ft_bfs(&info, room);
 	if (best.steps == NULL)
 	{
 		ft_clean_steps(&best, 1);
 		ft_error(info, str);
 		return (FALSE);
-	}	
+	}
+	if (VISU == 1)
+		ft_print_best(best);
 	ft_result(str, info, &best);
-//	ft_print_best(best);
 	free(str);
 	ft_clean_steps(&best, 1);
 	ft_clean_free(&info);

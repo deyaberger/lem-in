@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/19 18:11:33 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:09:04 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_new_in(t_room *room, t_room **queue, t_room **ngb, int weight)
 {
 	if ((*ngb)->in_q == NOT_IN_QUEUE)
 	{
+		if (VISU == 1)
+			ft_printf("%s-", (*ngb)->name);
 		(*ngb)->in_q = IN_QUEUE;
 		(*ngb)->next = NULL;
 		(*queue)->next = *ngb;
@@ -89,6 +91,8 @@ t_room	*ft_weight(t_info *info, t_room *room, t_room *queue)
 	ngb = NULL;
 	if (queue == NULL)
 		queue = room;
+	if (VISU == 1)
+		ft_printf("%s:", room->name);
 	while (i < room->nbl)
 	{
 		ngb = room->link[i]->dest;
@@ -96,5 +100,7 @@ t_room	*ft_weight(t_info *info, t_room *room, t_room *queue)
 			ft_add_to_queue(room, &queue, &ngb, i);
 		i++;
 	}
+	if (VISU == 1)
+		ft_printf("\n");
 	return (queue);
 }

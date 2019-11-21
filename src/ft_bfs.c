@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:59:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 15:44:10 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:13:14 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ t_ways	ft_bfs(t_info *info, t_room *room)
 		return (best);
 	while (i < info->max_paths && i < info->ant_nb)
 	{
+		if (VISU == 1)
+			ft_printf("#B\n");
 		room = info->start;
 		if (queue != NULL)
 			queue = ft_init_var(room, queue);

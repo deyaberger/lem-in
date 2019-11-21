@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 15:45:14 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:12:57 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,19 @@ void	ft_update_status(t_room *room)
 	while (room->link[i] && room->link[i]->dest != room->mum)
 		i++;
 	link = room->link[i];
+	if (VISU == 1)
+		ft_printf("%s-%s:", room->name, room->link[i]->dest->name);
 	if (link->status == UNUSED && link->rev->status == UNUSED)
 	{
+		if (VISU == 1)
+			ft_printf("1\n");
 		link->status = BACKWARD;
 		link->rev->status = FORWARD;
 	}
 	else if (link->status == FORWARD && link->rev->status == BACKWARD)
 	{
+		if (VISU == 1)
+			ft_printf("0\n");
 		link->status = CANCELED;
 		link->rev->status = CANCELED;
 	}
@@ -77,6 +83,8 @@ void	ft_update_status(t_room *room)
 BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 {
 	room = info->end;
+	if (VISU == 1)
+		ft_printf("#K\n");
 	while (room != info->start)
 	{
 		ft_update_status(room);
