@@ -45,17 +45,25 @@ BOOL		ft_coord(t_info *info)
 	return (TRUE);
 }
 
-void	ft_max(t_info *info, int mode, int i)
+void	ft_max_min(t_info *info, int mode, int i)
 {
 	int		a;
 
 	a = ft_atoi(info->line + i);
 	if (mode == 1)
+	{
 		if (info->xmax < a)
 			info->xmax = a;
+		if (info->xmin > a)
+			info->xmin = a;
+	}
 	if (mode == 2)
+	{
 		if (info->ymax < a)
 			info->ymax = a;
+		if (info->ymin > a)
+			info->ymin = a;
+	}
 }
 
 int     ft_check(t_info *info, int type, int i)
@@ -63,7 +71,7 @@ int     ft_check(t_info *info, int type, int i)
 	int     j;
 
 	j = 0;
-	ft_max(info, 1, i);
+	ft_max_min(info, 1, i);
 	if (info->line[0] == 'L')
 		return (3);
 	while (info->line[i] != ' ' && info->line[i])
@@ -73,7 +81,7 @@ int     ft_check(t_info *info, int type, int i)
 		i++;
 	}
 	i++;
-	ft_max(info, 2, i);
+	ft_max_min(info, 2, i);
 	while (info->line[i] != ' ' && info->line[i])
 	{
 		if (info->line[i] < '0' || info->line[i] > '9')
@@ -93,7 +101,7 @@ BOOL	ft_store(t_info *info, t_room **room, int type)
 	int	i;
 
 	i = 0;
-	if ((*room)->type != -1)
+	if ((*room)->name != NULL)
 	{
 		new = init_room();
 		(*room)->next = new;
@@ -105,13 +113,20 @@ BOOL	ft_store(t_info *info, t_room **room, int type)
 		return (FALSE);
 	(*room)->name[i] = '\0';
 	(*room)->name = ft_strncpy((*room)->name, info->line, i);
-	(*room)->type = ft_check(info, type, i + 1);
+	i = ft_check(info, type, i + 1);
+	if (i == ROOM_START)
+		info->start = (*room);
+	if (i == ROOM_END)
+		info->end = (*room);
 	info->room_nb++;
-	return ((*room)->type == 3 ? FALSE : TRUE);
+	return (i == 3 ? FALSE : TRUE);
 }
 
-BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
+BOOL		ft_storage(t_info *info, t_room *room, char **str)
 {
+	int		type;
+
+	type = -1;
 	get_next_line(0, &info->line);
 //	info->fd = open("/Users/dberger/Documents/lem-in/bigsup", O_RDONLY);
 //	get_next_line(info->fd, &info->line);
@@ -119,9 +134,10 @@ BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 	*str = ft_strjoin_nf(*str, "\n", 1, info);
 	if (info->line == NULL)
 		error_exit(16, "Can't run Lem-in if entrance is null");
-	while (info->line[++i])
-		if (!ft_isdigit(info->line[i]))
+	while (info->line[++type])
+		if (!ft_isdigit(info->line[type]))
 			return (FALSE);
+	type = -1;
 	info->ant_nb = ft_atoi(info->line);
 	if (info->ant_nb <= 0 || info->ant_nb >= 2147483647)
 		return (FALSE);
@@ -132,14 +148,14 @@ BOOL		ft_storage(t_info *info, t_room *room, int i, char **str)
 		if (ft_strchr(info->line, ' ') == NULL && info->line[0] != '#')
 			break ;
 		if (info->line[0] != '#')
-			if (!ft_store(info, &room, i))
+			if (!ft_store(info, &room, type))
 				return (FALSE);
 		if (ft_strcmp(info->line, "##start") == 0)
-			i = ROOM_START;
+			type = ROOM_START;
 		else if (ft_strcmp(info->line, "##end") == 0)
-			i = ROOM_END;
+			type = ROOM_END;
 		else
-			i = ROOM_NORMAL;
+			type = ROOM_NORMAL;
 		*str = ft_strjoin_nf(*str, info->line, 1, info);
 		*str = ft_strjoin_nf(*str, "\n", 1, info);
 		free(info->line);

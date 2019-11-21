@@ -56,9 +56,9 @@ void	ft_init_links_tab(t_info *info, t_room *room, int i)
 		room->link[j] = NULL;
 		j++;
 	}
-	if (room->type == ROOM_START)
+	if (room == info->start)
 		info->start = room;
-	else if (room->type == ROOM_END)
+	else if (room == info->end)
 		info->end = room;
 }
 

@@ -63,6 +63,8 @@ typedef struct		s_info
 	int				link_nb;
 	int				xmax;
 	int				ymax;
+	int				xmin;
+	int				ymin;
 //	int				fd;
 }					t_info;
 
@@ -75,7 +77,6 @@ typedef struct		s_room
 	int				weight;
 	int				ant_index;
 	int				nbl;
-	int				type; 	//start(1) | end(2) | rien(0)
 	size_t			opti;
 	size_t			in_q;
 }					t_room;
@@ -100,7 +101,7 @@ typedef struct		s_ways
 void				error_exit(int nb, char *str);
 char				*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info);
 t_room				*init_room(void);
-BOOL				ft_storage(t_info *t, t_room *r, int i, char **str);
+BOOL				ft_storage(t_info *t, t_room *r, char **str);
 int					ft_coll(t_info *info, char *name, int i, int s);
 int					ft_hashage(char *name, int hash_size);
 void				ft_hashtab(t_info *t, t_room *r);
