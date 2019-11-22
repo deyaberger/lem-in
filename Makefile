@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/11/21 17:33:00 by dberger          ###   ########.fr        #
+#    Updated: 2019/11/22 11:08:03 by ncoursol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,12 @@ SRC = src/main.c \
 
 SRC_DISP = src/src_display/main.c \
 		   src/src_display/menu.c \
-		   src/src_display/disp.c \
-		   src/src_display/input.c
+           src/src_display/disp.c \
+           src/src_display/input.c \
+           src/src_display/trace_line.c \
+           src/src_display/ft_init.c \
+           src/src_display/disp_karp.c
+
 
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
 OBJ_DISP = $(patsubst src/src_display/%.c,$(OBJ_DIR)/obj_disp/%.o,$(SRC_DISP))
@@ -71,7 +75,7 @@ $(NAME): $(LIB) $(OBJ) Makefile $(HFILE)
 	echo "$(YELLOW)	--- $(GREEN)lem-in$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
 $(NAME_DISP): $(LIB) $(OBJ_DISP) Makefile $(HFILE_DISP)
-	$(CC) -o $(NAME_DISP) $(OBJ_DISP) $(LIB) -L lib/sdl -l SDL2-2.0.0 -l SDL2_image -l SDL2_gfx -l SDL2_mixer
+	$(CC) -o $(NAME_DISP) $(OBJ_DISP) $(LIB) -L lib/sdl -l SDL2-2.0.0 -l SDL2_image -l SDL2_mixer
 	echo "$(YELLOW)	--- $(GREEN)lem-in display$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 		
 

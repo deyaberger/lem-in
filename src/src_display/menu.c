@@ -6,15 +6,39 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 13:39:28 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/10/23 17:35:03 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:43:37 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/display.h"
 
+void		init_menu(t_disp *d, int cursor)
+{
+	d->rback.x = 900;
+	d->rback.y = 780;
+	if (cursor == 1)
+	{
+		if (SDL_QueryTexture(d->startW, NULL, NULL,
+		&d->rback.w, &d->rback.h) < 0)
+			error("(menu.c) SDL_QueryTexture : ", d);
+		if (SDL_RenderCopy(d->rend, d->startW, NULL, &d->rback) < 0)
+			error("(menu.c) SDL_RenderCopy : ", d);
+	}
+	else
+	{
+		if (SDL_QueryTexture(d->start, NULL, NULL,
+		&d->rback.w, &d->rback.h) < 0)
+			error("(menu.c) SDL_QueryTexture : ", d);
+		if (SDL_RenderCopy(d->rend, d->start, NULL, &d->rback) < 0)
+			error("(menu.c) SDL_RenderCopy : ", d);
+	}
+	if (SDL_SetRenderDrawBlendMode(d->rend, SDL_BLENDMODE_NONE) < 0)
+		error("(menu.c) SDL_SetRenderDrawBlendMode error : ", d);
+}
+
 void		menu2(t_disp *d, int cursor)
 {
-	if (SDL_SetRenderDrawBlendMode(d->rend,SDL_BLENDMODE_BLEND) < 0)
+	if (SDL_SetRenderDrawBlendMode(d->rend, SDL_BLENDMODE_BLEND) < 0)
 		error("(menu.c) SDL_SetRenderDrawBlendMode error : ", d);
 	if (SDL_SetRenderDrawColor(d->rend, 0, 0, 0, 120) < 0)
 		error("(menu.c) SDL_SetRenderDrawColor error : ", d);
@@ -31,24 +55,38 @@ void		menu2(t_disp *d, int cursor)
 	d->rback.x = 879;
 	d->rback.y = 0;
 	if (SDL_QueryTexture(d->title, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-		error("(main.c) SDL_QueryTexture : ", d);
-	SDL_RenderCopy(d->rend, d->title, NULL, &d->rback);
-	d->rback.x = 900;
-	d->rback.y = 780;
-	if (cursor == 1)
+		error("(menu.c) SDL_QueryTexture : ", d);
+	if (SDL_RenderCopy(d->rend, d->title, NULL, &d->rback) < 0)
+		error("(menu.c) SDL_RenderCopy : ", d);
+	init_menu(d, cursor);
+}
+
+void		cursor_choice(t_disp *d, int cursor)
+{
+	if (cursor != 1)
 	{
-if (SDL_QueryTexture(d->startW, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-		SDL_RenderCopy(d->rend, d->startW, NULL, &d->rback);
+		if (SDL_QueryTexture(d->leaveW, NULL, NULL,
+		&d->rback.w, &d->rback.h) < 0)
+			error("(menu.c) SDL_QueryTexture : ", d);
+		if (SDL_RenderCopy(d->rend, d->leaveW, NULL, &d->rback) < 0)
+			error("(menu.c) SDL_RenderCopy : ", d);
+		d->rback.x = 1450;
+		d->rback.y = 990;
+		if (SDL_QueryTexture(d->arrow, NULL, NULL,
+		&d->rback.w, &d->rback.h) < 0)
+			error("(menu.c) SDL_QueryTexture : ", d);
+		if (SDL_RenderCopy(d->rend, d->arrow, NULL, &d->rback) < 0)
+			error("(menu.c) SDL_RenderCopy : ", d);
 	}
-	else
-	{
-		if (SDL_QueryTexture(d->start, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-		SDL_RenderCopy(d->rend, d->start, NULL, &d->rback);
-	}
-	if (SDL_SetRenderDrawBlendMode(d->rend,SDL_BLENDMODE_NONE) < 0)
-		error("(menu.c) SDL_SetRenderDrawBlendMode error : ", d);
+	d->rback.x = 890;
+	d->rback.y = 420;
+	if (SDL_QueryTexture(d->made, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
+		error("(menu.c) SDL_QueryTexture : ", d);
+	if (SDL_RenderCopy(d->rend, d->made, NULL, &d->rback) < 0)
+		error("(menu.c) SDL_RenderCopy : ", d);
+	if (SDL_RenderDrawLine(d->rend, 1020, 720, 1550, 720) < 0)
+		error("(menu.c) SDL_RenderDrawLine error : ", d);
+	SDL_RenderPresent(d->rend);
 }
 
 void		menu3(t_disp *d, int cursor)
@@ -57,40 +95,56 @@ void		menu3(t_disp *d, int cursor)
 	d->rback.y = 980;
 	if (cursor == 1)
 	{
-		if (SDL_QueryTexture(d->leave, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-		SDL_RenderCopy(d->rend, d->leave, NULL, &d->rback);
+		if (SDL_QueryTexture(d->leave, NULL, NULL,
+		&d->rback.w, &d->rback.h) < 0)
+			error("(menu.c) SDL_QueryTexture : ", d);
+		if (SDL_RenderCopy(d->rend, d->leave, NULL, &d->rback) < 0)
+			error("(menu.c) SDL_RenderCopy : ", d);
 		d->rback.x = 1450;
 		d->rback.y = 790;
-		if (SDL_QueryTexture(d->arrow, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-		SDL_RenderCopy(d->rend, d->arrow, NULL, &d->rback);
+		if (SDL_QueryTexture(d->arrow, NULL, NULL,
+		&d->rback.w, &d->rback.h) < 0)
+			error("(menu.c) SDL_QueryTexture : ", d);
+		if (SDL_RenderCopy(d->rend, d->arrow, NULL, &d->rback) < 0)
+			error("(menu.c) SDL_RenderCopy : ", d);
 	}
-	else
-	{
-		if (SDL_QueryTexture(d->leaveW, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-		SDL_RenderCopy(d->rend, d->leaveW, NULL, &d->rback);
-		d->rback.x = 1450;
-		d->rback.y = 990;
-		if (SDL_QueryTexture(d->arrow, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-		SDL_RenderCopy(d->rend, d->arrow, NULL, &d->rback);
-	}
-	d->rback.x = 890;
-	d->rback.y = 420;
-		if (SDL_QueryTexture(d->made, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-	SDL_RenderCopy(d->rend, d->made, NULL, &d->rback);
-	if (SDL_RenderDrawLine(d->rend, 1020, 720, 1550, 720) < 0)
-		error("(menu.c) SDL_RenderDrawLine error : ", d);
-	SDL_RenderPresent(d->rend);
+	cursor_choice(d, cursor);
 }
 
-void        menu(t_disp *d, int *running, int cursor, int i)
+int			input_case(t_disp *d, int *running, int cursor, int i)
 {
-	d->menu1 = Mix_LoadWAV("img/low.wav");
-	d->menu2 = Mix_LoadWAV("img/scratch.wav");
+	if (d->event.type == SDL_QUIT)
+		error("(menu.c) SDL_QUIT : ", d);
+	if ((d->event.key.keysym.sym == SDLK_DOWN
+				|| d->event.key.keysym.sym == SDLK_UP)
+			&& d->event.type == SDL_KEYDOWN && i == 0)
+	{
+		if ((cursor == 1 && d->event.key.keysym.sym == SDLK_DOWN)
+				|| (cursor == 0 && d->event.key.keysym.sym == SDLK_UP))
+			if (Mix_PlayChannel(-1, d->menu1, 0) == -1)
+				error("(menu.c) Mix_PlayChannel : ", d);
+		d->rback.x = 0;
+		d->rback.y = 0;
+		if (SDL_QueryTexture(d->back, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
+			error("(menu.c) SDL_QueryTexture : ", d);
+		if (SDL_RenderCopy(d->rend, d->back, NULL, &d->rback) < 0)
+			error("(menu.c) SDL_RenderCopy : ", d);
+		if (d->event.key.keysym.sym == SDLK_DOWN)
+			cursor = (cursor == 1 ? 0 : 0);
+		if (d->event.key.keysym.sym == SDLK_UP)
+			cursor = (cursor == 0 ? 1 : 1);
+		menu(d, running, cursor, 1);
+		return (0);
+	}
+	return (1);
+}
+
+void		menu(t_disp *d, int *running, int cursor, int i)
+{
+	if ((d->menu1 = Mix_LoadWAV("img/low.wav")) == NULL)
+		error("(menu.c) Mix_LoadWAV : ", d);
+	if ((d->menu2 = Mix_LoadWAV("img/scratch.wav")) == NULL)
+		error("(menu.c) Mix_LoadWAV : ", d);
 	Mix_VolumeChunk(d->menu1, 20);
 	Mix_VolumeChunk(d->menu2, 20);
 	menu2(d, cursor);
@@ -99,29 +153,12 @@ void        menu(t_disp *d, int *running, int cursor, int i)
 	{
 		while (SDL_PollEvent(&d->event))
 		{
-			if (d->event.type == SDL_QUIT)
-				error("(menu.c) SDL_QUIT : ", d);
-			if ((d->event.key.keysym.sym == SDLK_DOWN
-					|| d->event.key.keysym.sym == SDLK_UP) && d->event.type == SDL_KEYDOWN && i == 0)
-			{
-				if ((cursor == 1 && d->event.key.keysym.sym == SDLK_DOWN)
-					|| (cursor == 0 && d->event.key.keysym.sym == SDLK_UP))
-				Mix_PlayChannel(-1, d->menu1, 0);
-				d->rback.x = 0;
-				d->rback.y = 0;
-		if (SDL_QueryTexture(d->back, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
-          error("(main.c) SDL_QueryTexture : ", d);
-				SDL_RenderCopy(d->rend, d->back, NULL, &d->rback);
-				if (d->event.key.keysym.sym == SDLK_DOWN)
-					cursor = (cursor == 1 ? 0 : 0);
-				if (d->event.key.keysym.sym == SDLK_UP)
-					cursor = (cursor == 0 ? 1 : 1);
-				menu(d, running, cursor, 1);
+			if (!input_case(d, running, cursor, i))
 				break ;
-			}
 			if (d->event.key.keysym.sym == SDLK_RETURN)
 			{
-				Mix_PlayChannel(-1, d->menu2, 0);
+				if (Mix_PlayChannel(-1, d->menu2, 0) == -1)
+					error("(menu.c) Mix_PLayChannel : ", d);
 				*running = (cursor == 0 ? 0 : 1);
 				break ;
 			}
