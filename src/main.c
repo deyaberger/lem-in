@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/25 14:29:00 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 15:40:31 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_info	init_info(void)
 	return (info);
 }
 
-t_room 	*init_room(void)
+t_room	*init_room(void)
 {
 	t_room *room;
 
@@ -52,12 +52,29 @@ t_room 	*init_room(void)
 	return (room);
 }
 
-BOOL	ft_error(t_info info, char *str)
+BOOL	ft_error(t_info info, char *str, t_ways best, int mode)
 {
 	free(str);
+	if (mode == 1)
+		ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
 	ft_printf("ERROR\n");
 	return (FALSE);
+}
+
+void	ft_visu(t_info info, char *str, t_ways best, int mode)
+{
+	if (VISU == 1 && mode == 1 && best.steps == NULL)
+	{
+		ft_printf("#%d %d %d ", info.room_nb, info.xmax, info.ymax);
+		ft_printf("%d %d %d\n%s\n", info.xmin, info.ymin, info.link_nb, str);
+	}
+	if (VISU == 1 && mode == 2)
+	{
+		ft_printf("#F\n");
+		ft_print_ways(&best);
+		ft_printf("#0\n\n");
+	}
 }
 
 int		main(void)
@@ -69,36 +86,19 @@ int		main(void)
 
 	str = ft_memalloc(BUF);
 	info = init_info();
+	best.steps = NULL;
 	if (!(room = init_room()) || !str)
 		return (FALSE);
 	info.first = room;
-	if (ft_storage(&info, room, &str) == FALSE)
-	{
-		ft_clean_list(&info);
-		ft_error(info, str);
-		return (FALSE);
-	}
+	if (ft_storage(&info, room, &str) == FALSE && ((info.room_nb = BAD) == BAD))
+		return (ft_error(info, str, best, 0));
 	if (ft_hashtab(&info, room) == FALSE || ft_links(&info, &str) == FALSE)
-		return(ft_error(info, str));
-	if (VISU == 1)
-	{
-		ft_printf("#%d %d %d %d %d %d\n", info.room_nb, info.xmax, info.ymax, info.xmin, info.ymin, info.link_nb);
-		ft_printf("%s\n", str);
-	}
+		return (ft_error(info, str, best, 0));
+	ft_visu(info, str, best, 1);
 	best = ft_bfs(&info, room);
 	if (best.steps == NULL)
-	{
-		ft_clean_steps(&best, 1);
-		ft_error(info, str);
-		return (FALSE);
-	}
-	if (VISU == 1)
-	{
-		ft_printf("#F\n");
-		ft_print_ways(&best);
-		ft_printf("#0\n\n");
-		
-	}
+		return (ft_error(info, str, best, 1));
+	ft_visu(info, str, best, 2);
 	ft_result(str, info, &best);
 	free(str);
 	ft_clean_steps(&best, 1);
@@ -106,9 +106,9 @@ int		main(void)
 	return (TRUE);
 }
 
-
-   __attribute__((destructor))
-   void    end()
-   {
-   while(1);
-   }
+/*
+__attribute__((destructor))
+void    end()
+{
+	while(1);
+}*/
