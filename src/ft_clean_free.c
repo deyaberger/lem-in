@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 16:02:21 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 18:28:54 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,17 @@ int	ft_free_rooms(t_info *info, int i)
 	if (info->tab && info->tab[i] != NULL)
 	{
 		room = info->tab[i];
-		free(room->name);
+		if (room->name)
+			free(room->name);
 		while (j <= info->room_nb && room->link && room->link[j])
 		{
 			free(room->link[j]);
 			j++;
 		}
-		free(room->link);
-		free(room);
+		if (room->link)
+			free(room->link);
+		if (room)
+			free(room);
 		j = 0;
 	}
 	i++;

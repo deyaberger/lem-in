@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 17:50:14 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:54:37 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,17 @@ BOOL	ft_cut_room(t_info *info)
 	return (TRUE);
 }
 
+BOOL	ft_start_end(t_info *info)
+{
+	if (info->start->link[0] == NULL || info->end->link[0] == NULL)
+		return (FALSE);
+	if (info->start->nbl <= info->end->nbl)
+		info->max_paths = info->start->nbl;
+	else
+		info->max_paths = info->end->nbl;
+	return (TRUE);
+}
+
 BOOL	ft_links(t_info *info, char **str)
 {
 	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
@@ -130,5 +141,7 @@ BOOL	ft_links(t_info *info, char **str)
 			}
 	}
 	info->link_nb = info->link_nb / 2;
+	if (ft_start_end(info) == FALSE)
+			return (FALSE);
 	return (TRUE);
 }

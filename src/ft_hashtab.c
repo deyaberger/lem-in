@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 15:41:31 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/21 18:34:36 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,30 @@ int		ft_coll(t_info *info, char *name, int i, int s)
 	return (i);
 }
 
+void	ft_clean_list(t_info *info)
+{
+	t_room *room;
+	t_room *save;
+	
+	room = info->first;
+	save = room;
+	while (room)
+	{
+		ft_printf("room->name= %s\n", room->name);
+		if (room->next)
+			save = room->next;
+		if (room->link)
+		{
+			ft_printf("link\n");
+			free(room->link);
+		}
+	
+		free(room->name);
+		free(room);
+		room = save;
+	}
+}
+
 BOOL	ft_hashtab(t_info *info, t_room *room)
 {
 	int	i;
@@ -99,7 +123,10 @@ BOOL	ft_hashtab(t_info *info, t_room *room)
 			i = ft_coll(info, room->name, i, s);
 			if (info->tab[i] != NULL
 			&& !(ft_strcmp(room->name, info->tab[i]->name)))
+			{
+				ft_clean_list(info);
 				return (FALSE);
+			}
 			else if (info->tab[i] == NULL)
 				if (ft_init_links_tab(info, room, i) == FALSE)
 					return (FALSE);
