@@ -6,23 +6,11 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 14:07:57 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 14:58:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
-
-void	ft_free_path_info(t_ways *ways)
-{
-	int i;
-
-	i = 0;
-	while (i < ways->nb_ways && ways->path_info && ways->path_info[i])
-	{
-		free(ways->path_info[i]);
-		i++;
-	}
-}
 
 void	ft_free_steps(t_ways *ways, int mode)
 {
@@ -49,8 +37,15 @@ void	ft_free_steps(t_ways *ways, int mode)
 
 void	ft_clean_steps(t_ways *ways, int mode)
 {
+	int i;
+
+	i = 0;
 	ft_free_steps(ways, mode);
-	ft_free_path_info(ways);
+	while (i < ways->nb_ways && ways->path_info && ways->path_info[i])
+	{
+		free(ways->path_info[i]);
+		i++;
+	}
 	ways->nb_ways = 0;
 	ways->tot_max = 0;
 	if (mode == 1 && ways->steps != NULL)
@@ -116,6 +111,8 @@ void	ft_clean_free(t_info *info)
 	int	i;
 
 	i = 0;
+	if (info->room_nb == -1)
+		ft_clean_list(info);
 	while (i < info->room_nb * 10)
 		i = ft_free_rooms(info, i);
 	i = 0;

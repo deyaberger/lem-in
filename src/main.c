@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/25 15:40:31 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 17:10:58 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_info	init_info(void)
 	info.end = NULL;
 	info.ant_nb = 0;
 	info.room_nb = 0;
+	info.size_tab = 0;
 	info.link_nb = 0;
 	info.lines_rqd = 0;
 	info.max_paths = 0;
@@ -56,6 +57,8 @@ BOOL	ft_error(t_info info, char *str, t_ways best, int mode)
 {
 	free(str);
 	if (mode == 1)
+		ft_clean_list(&info);
+	if (mode == 2)
 		ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
 	ft_printf("ERROR\n");
@@ -92,12 +95,12 @@ int		main(void)
 	info.first = room;
 	if (ft_storage(&info, room, &str) == FALSE && ((info.room_nb = BAD) == BAD))
 		return (ft_error(info, str, best, 0));
-	if (ft_hashtab(&info, room) == FALSE || ft_links(&info, &str) == FALSE)
-		return (ft_error(info, str, best, 0));
+	if (ft_hashtab(&info, room, 0) == FALSE || ft_links(&info, &str) == FALSE)
+		return (ft_error(info, str, best, 1));
 	ft_visu(info, str, best, 1);
 	best = ft_bfs(&info, room);
 	if (best.steps == NULL)
-		return (ft_error(info, str, best, 1));
+		return (ft_error(info, str, best, 2));
 	ft_visu(info, str, best, 2);
 	ft_result(str, info, &best);
 	free(str);

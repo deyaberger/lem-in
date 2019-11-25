@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/25 14:08:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 17:10:04 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../lib/libft/libft.h"
 
 # define VISU 0
+# define SIZE_HASH 10
 # define GOOD_PATH (1 << 1)
 # define CLEAN (1 << 2)
 # define REVERSE (1 << 3)
@@ -61,6 +62,7 @@ typedef struct		s_info
 	int				ant_nb;
 	int				max_paths;
 	int				room_nb;
+	int				size_tab;
 	int				link_nb;
 	int				xmax;
 	int				ymax;
@@ -105,7 +107,7 @@ t_room				*init_room(void);
 BOOL				ft_storage(t_info *t, t_room *r, char **str);
 int					ft_coll(t_info *info, char *name, int i, int s);
 int					ft_hashage(char *name, int hash_size);
-BOOL				ft_hashtab(t_info *t, t_room *r);
+BOOL				ft_hashtab(t_info *t, t_room *r, int i);
 BOOL				ft_links(t_info *t, char **str);
 t_room				*ft_weight(t_info *t, t_room *r, t_room *queue);
 void				ft_init_ways(t_ways **ways);

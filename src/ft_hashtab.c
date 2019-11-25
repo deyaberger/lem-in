@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 14:09:30 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 17:10:39 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,22 @@ int		ft_hashage(char *name, int hash_size)
 	return (hash % hash_size);
 }
 
-void	ft_init_tab(t_info *info, int s)
+t_room	*ft_init_tab(t_info *info)
 {
-	int	i;
+	int		i;
+	t_room	*room;
 
 	i = 0;
-	while (i < s)
+	info->size_tab = info->room_nb * SIZE_HASH;
+	if (!(info->tab = malloc(sizeof(info->tab) * info->size_tab)))
+		return (NULL);
+	room = info->first;
+	while (i < info->size_tab)
 	{
 		info->tab[i] = NULL;
 		i++;
 	}
+	return (room);
 }
 
 BOOL	ft_init_links_tab(t_info *info, t_room *room, int i)
@@ -75,34 +81,25 @@ int		ft_coll(t_info *info, char *name, int i, int s)
 	return (i);
 }
 
-BOOL	ft_hashtab(t_info *info, t_room *room)
+BOOL	ft_hashtab(t_info *info, t_room *room, int i)
 {
-	int	i;
-	int	s;
-
 	i = 0;
-	s = info->room_nb * 10;
-	if (!(info->tab = malloc(sizeof(info->tab) * s)))
+	if ((room = ft_init_tab(info)) == NULL)
 		return (FALSE);
-	ft_init_tab(info, s);
-	room = info->first;
 	while (room)
 	{
-		i = ft_hashage(room->name, s);
-		if (i < s && info->tab[i] == NULL)
+		i = ft_hashage(room->name, info->size_tab);
+		if (i < info->size_tab && info->tab[i] == NULL)
 		{
 			if (ft_init_links_tab(info, room, i) == FALSE)
 				return (FALSE);
 		}
 		else
 		{
-			i = ft_coll(info, room->name, i, s);
+			i = ft_coll(info, room->name, i, info->size_tab);
 			if (info->tab[i] != NULL
 			&& !(ft_strcmp(room->name, info->tab[i]->name)))
-			{
-				ft_clean_list(info);
 				return (FALSE);
-			}
 			else if (info->tab[i] == NULL)
 				if (ft_init_links_tab(info, room, i) == FALSE)
 					return (FALSE);
