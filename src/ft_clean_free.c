@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 18:28:54 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 14:07:57 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,29 @@ void	ft_clean_steps(t_ways *ways, int mode)
 		free(ways->path_info);
 }
 
+void	ft_clean_list(t_info *info)
+{
+	t_room *room;
+	t_room *save;
+
+	room = info->first;
+	save = room;
+	while (room != NULL)
+	{
+		if (room->next != NULL)
+			save = room->next;
+		else
+			save = NULL;
+		if (room->link)
+			free(room->link);
+		free(room->name);
+		free(room);
+		room = save;
+	}
+	info->room_nb = 0;
+	free(info->line);
+}
+
 int	ft_free_rooms(t_info *info, int i)
 {
 	t_room	*room;
@@ -68,7 +91,7 @@ int	ft_free_rooms(t_info *info, int i)
 	room = NULL;
 	j = 0;
 	k = 0;
-	if (info->tab && info->tab[i] != NULL)
+	if (info->tab && info->tab[i] != NULL && info->room_nb != 0)
 	{
 		room = info->tab[i];
 		if (room->name)

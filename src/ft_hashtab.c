@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 13:17:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 18:34:36 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 14:09:30 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,30 +73,6 @@ int		ft_coll(t_info *info, char *name, int i, int s)
 			i = 0;
 	}
 	return (i);
-}
-
-void	ft_clean_list(t_info *info)
-{
-	t_room *room;
-	t_room *save;
-	
-	room = info->first;
-	save = room;
-	while (room)
-	{
-		ft_printf("room->name= %s\n", room->name);
-		if (room->next)
-			save = room->next;
-		if (room->link)
-		{
-			ft_printf("link\n");
-			free(room->link);
-		}
-	
-		free(room->name);
-		free(room);
-		room = save;
-	}
 }
 
 BOOL	ft_hashtab(t_info *info, t_room *room)

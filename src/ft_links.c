@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 17:54:37 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 13:11:38 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ BOOL	ft_cut_room(t_info *info)
 		s++;
 	room1[s] = '\0';
 	s = info->room_nb * 10;
+	if (!room2 || !room1)
+		return (FALSE);
 	if (!(ft_calc_links(room1, room2, s, info)))
 		return (FALSE);
 	return (TRUE);
@@ -120,8 +122,10 @@ BOOL	ft_links(t_info *info, char **str)
 	}
 	while (get_next_line(0, &info->line))
 	{
-		*str = ft_strjoin_nf(*str, info->line, 1, info);
-		*str = ft_strjoin_nf(*str, "\n", 1, info);
+		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
+			return (FALSE);
+		if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
+			return (FALSE);
 		if (info->line[0] == '#' && info->line[1] == '#')
 		{
 			free(info->line);

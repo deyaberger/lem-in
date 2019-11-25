@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/21 18:05:56 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 14:37:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,14 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 {
 	int		type;
 	int		ret;
+	int		start;
+	int		end;
 
 	type = -1;
+	start = 0;
+	end = 0;
 	ret = get_next_line(0, &info->line);
-	if (ret == -1 || ret == 0)
+	if (ret == -1 || ret == 0 || info->line == NULL)
 		return (FALSE);
 //	info->fd = open("/Users/dberger/Documents/lem-in/bigsup", O_RDONLY);
 //	get_next_line(info->fd, &info->line);
@@ -156,9 +160,21 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 			if (!ft_store(info, &room, type))
 				return (FALSE);
 		if (ft_strcmp(info->line, "##start") == 0)
+		{
 			type = ROOM_START;
+			if (start == 0)
+				start = 1;
+			else
+				return (FALSE);
+		}
 		else if (ft_strcmp(info->line, "##end") == 0)
+		{
 			type = ROOM_END;
+			if (end == 0)
+				end = 1;
+			else
+				return (FALSE);
+		}
 		else
 			type = ROOM_NORMAL;
 		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
@@ -179,5 +195,6 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 //		ft_printf("ymax : [%d]\n\n", info->ymax);
 
 	//////////////////////////////////////////////////////////
-*/	return (ft_strcmp("", info->line) == 0 || !ft_coord(info) ? FALSE : TRUE);
+*/	
+	return (ft_strcmp("", info->line) == 0 || !ft_coord(info) ? FALSE : TRUE);
 }

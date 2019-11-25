@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/21 17:50:21 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 14:29:00 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ t_info	init_info(void)
 	info.line = NULL;
 	info.stop_str = 0;
 	info.len_str = BUF;
+	info.start = NULL;
+	info.end = NULL;
 	info.ant_nb = 0;
 	info.room_nb = 0;
 	info.link_nb = 0;
 	info.lines_rqd = 0;
 	info.max_paths = 0;
+	info.coord = NULL;
 	info.xmax = 0;
 	info.ymax = 0;
 	info.xmin = 2147483647;
 	info.ymin = 2147483647;
-	info.start = NULL;
-	info.coord = NULL;
-	info.end = NULL;
 	return (info);
 }
 
@@ -52,17 +52,6 @@ t_room 	*init_room(void)
 	return (room);
 }
 
-BOOL	ft_start_end(t_info *info)
-{
-	if (info->start->link[0] == NULL || info->end->link[0] == NULL)
-		return (FALSE);
-	if (info->start->nbl <= info->end->nbl)
-		info->max_paths = info->start->nbl;
-	else
-		info->max_paths = info->end->nbl;
-	return (TRUE);
-}
-
 BOOL	ft_error(t_info info, char *str)
 {
 	free(str);
@@ -78,28 +67,19 @@ int		main(void)
 	t_ways	best;
 	char	*str;
 
-	if (!(str = ft_memalloc(BUF)))
-		return (FALSE);
+	str = ft_memalloc(BUF);
 	info = init_info();
-	if (!(room = init_room()))
+	if (!(room = init_room()) || !str)
 		return (FALSE);
 	info.first = room;
 	if (ft_storage(&info, room, &str) == FALSE)
 	{
+		ft_clean_list(&info);
 		ft_error(info, str);
-		if (room)
-			free(room);
 		return (FALSE);
 	}
-	if (ft_hashtab(&info, room) == FALSE)
-		if (ft_error(info, str) == FALSE)
-			return (FALSE);
-	if (ft_links(&info, &str) == FALSE)
-		if (ft_error(info, str) == FALSE)
-			return (FALSE);
-	if (ft_start_end(&info) == FALSE)
-		if (ft_error(info, str) == FALSE)
-			return (FALSE);
+	if (ft_hashtab(&info, room) == FALSE || ft_links(&info, &str) == FALSE)
+		return(ft_error(info, str));
 	if (VISU == 1)
 	{
 		ft_printf("#%d %d %d %d %d %d\n", info.room_nb, info.xmax, info.ymax, info.xmin, info.ymin, info.link_nb);
@@ -126,9 +106,9 @@ int		main(void)
 	return (TRUE);
 }
 
-/*
+
    __attribute__((destructor))
    void    end()
    {
    while(1);
-   }*/
+   }

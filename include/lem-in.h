@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/25 12:10:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 14:08:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-# define VISU 1
+# define VISU 0
 # define GOOD_PATH (1 << 1)
 # define CLEAN (1 << 2)
 # define REVERSE (1 << 3)
@@ -109,6 +109,7 @@ BOOL				ft_hashtab(t_info *t, t_room *r);
 BOOL				ft_links(t_info *t, char **str);
 t_room				*ft_weight(t_info *t, t_room *r, t_room *queue);
 void				ft_init_ways(t_ways **ways);
+void				ft_clean_list(t_info *info);
 void				ft_clean_steps(t_ways *ways, int mode);
 void				ft_clean_free(t_info *info);
 t_ways				*ft_calc_steps(t_ways *ways, t_info *info, int j);
