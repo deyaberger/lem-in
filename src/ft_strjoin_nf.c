@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:58:05 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/20 14:04:10 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 19:32:19 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*ft_strcat_from_n(char *dest, const char *src, int stop)
 		dest[i + j] = src[j];
 		j++;
 	}
-	dest[i + j] = '\0';
+	dest[i + j] = '\n';
+	dest[i + j + 1] = '\0';
 	return (dest);
 }
 
@@ -44,7 +45,7 @@ char	*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info)
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
 	str = NULL;
-	save = info->stop_str + ft_strlen(s2);
+	save = info->stop_str + ft_strlen(s2) + 1;
 	if (save < info->len_str)
 		ft_strcat_from_n(s1, s2, info->stop_str);
 	else if (save >= info->len_str)
@@ -54,10 +55,10 @@ char	*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info)
 			return (NULL);
 		ft_strcpy(str, s1);
 		ft_strcat_from_n(str, s2, info->stop_str);
-		info->stop_str += ft_strlen(s2);
+		info->stop_str += ft_strlen(s2) + 1;
 		ft_free_old(s1, s2, &a);
 		return (str);
 	}
-	info->stop_str += ft_strlen(s2);
+	info->stop_str += ft_strlen(s2) + 1;
 	return (s1);
 }

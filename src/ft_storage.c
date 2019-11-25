@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/25 14:37:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 19:32:36 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,6 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 //	get_next_line(info->fd, &info->line);
 	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
 		return (FALSE);
-	if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
-		return (FALSE);
 	if (info->line == NULL)
 		return (FALSE);
 	while (info->line[++type])
@@ -178,8 +176,6 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 		else
 			type = ROOM_NORMAL;
 		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
-			return (FALSE);
-		if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
 			return (FALSE);
 		free(info->line);
 	}

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 19:03:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 19:32:30 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,11 @@ BOOL	ft_links(t_info *info, char **str)
 {
 	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
 		return (FALSE);
-	if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
-		return (FALSE);
 	if (!(ft_cut_room(info)))
 		return (FALSE);
 	while (get_next_line(0, &info->line))
 	{
 		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
-			return (FALSE);
-		if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
 			return (FALSE);
 		if (info->line[0] == '#' && info->line[1] == '#')
 			return (FALSE);
