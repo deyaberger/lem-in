@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 13:11:38 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 19:03:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ BOOL	ft_cut_room(t_info *info)
 BOOL	ft_start_end(t_info *info)
 {
 	if (info->start->link[0] == NULL || info->end->link[0] == NULL)
+	{
+		info->max_paths = IMPOSSIBLE;
 		return (FALSE);
+	}
 	if (info->start->nbl <= info->end->nbl)
 		info->max_paths = info->start->nbl;
 	else
@@ -116,10 +119,7 @@ BOOL	ft_links(t_info *info, char **str)
 	if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
 		return (FALSE);
 	if (!(ft_cut_room(info)))
-	{
-		free(info->line);
 		return (FALSE);
-	}
 	while (get_next_line(0, &info->line))
 	{
 		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
@@ -127,10 +127,7 @@ BOOL	ft_links(t_info *info, char **str)
 		if (!(*str = ft_strjoin_nf(*str, "\n", 1, info)))
 			return (FALSE);
 		if (info->line[0] == '#' && info->line[1] == '#')
-		{
-			free(info->line);
 			return (FALSE);
-		}
 		if (info->line[0] == '#' && info->line[1] != '#')
 		{
 			if (!ft_strncmp(info->line, "#Here is the number of lines required: ", 39))
@@ -139,10 +136,7 @@ BOOL	ft_links(t_info *info, char **str)
 		}
 		else if (info->line[0] != '#')
 			if (!(ft_cut_room(info)))
-			{
-				free(info->line);
 				return (FALSE);
-			}
 	}
 	info->link_nb = info->link_nb / 2;
 	if (ft_start_end(info) == FALSE)

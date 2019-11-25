@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 14:58:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 19:05:47 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ void	ft_clean_list(t_info *info)
 {
 	t_room *room;
 	t_room *save;
+	int		i;
 
 	room = info->first;
 	save = room;
+	i = 0;
 	while (room != NULL)
 	{
 		if (room->next != NULL)
@@ -68,7 +70,15 @@ void	ft_clean_list(t_info *info)
 		else
 			save = NULL;
 		if (room->link)
+		{
+			while (room->link[i])
+			{
+				free(room->link[i]);
+				i++;
+			}
+			i = 0;
 			free(room->link);
+		}
 		free(room->name);
 		free(room);
 		room = save;

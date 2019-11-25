@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/25 17:10:58 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/25 19:09:54 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ t_room	*init_room(void)
 BOOL	ft_error(t_info info, char *str, t_ways best, int mode)
 {
 	free(str);
-	if (mode == 1)
+	if (mode == 1 && info.link_nb == 0)
 		ft_clean_list(&info);
+	if (mode == 1 && info.link_nb != 0 && info.max_paths != IMPOSSIBLE)
+		free(info.line);
 	if (mode == 2)
 		ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
