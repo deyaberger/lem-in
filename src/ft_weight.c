@@ -6,13 +6,13 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 17:09:04 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:10:07 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-int	ft_calc_weight(t_room *room, int i)
+int		ft_calc_weight(t_room *room, int i)
 {
 	int	weight;
 
@@ -42,9 +42,9 @@ void	ft_new_in(t_room *room, t_room **queue, t_room **ngb, int weight)
 BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, int i)
 {
 	t_link	*link;
-	int	mum;
-	int k;
-	int	m;
+	int		mum;
+	int		k;
+	int		m;
 
 	mum = 0;
 	k = 0;
@@ -58,12 +58,13 @@ BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, int i)
 		k = k | GOOD_PATH;
 	if (room->opti == 0 && link->status == UNUSED)
 		k = k | CLEAN;
-	if (room->opti == 1 && link->status == BACKWARD && room->link[m]->status == UNUSED)
+	if (room->opti == 1 && link->status == BACKWARD
+		&& room->link[m]->status == UNUSED)
 		k = k | REVERSE;
 	if (room->opti == 1 && room->link[m]->status == FORWARD)
 		k = k | OUT;
 	if ((k & GOOD_PATH) && ((k & CLEAN) || (k & REVERSE) || (k & OUT)))
-			return (TRUE);
+		return (TRUE);
 	return (FALSE);
 }
 
@@ -85,7 +86,7 @@ void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, int i)
 t_room	*ft_weight(t_info *info, t_room *room, t_room *queue)
 {
 	t_room	*ngb;
-	int	i;
+	int		i;
 
 	i = 0;
 	ngb = NULL;
