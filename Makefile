@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/11/22 11:08:03 by ncoursol         ###   ########.fr        #
+#    Updated: 2019/11/26 12:26:11 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,8 @@ LIB = $(FT_PRINTF)/$(NAME_PTF) \
 
 all: $(NAME)
 
+disp: $(NAME_DISP)
+
 $(LIB): FORCE
 	$(MAKE) -C $(LIBC)
 	$(MAKE) -C $(FT_PRINTF)
@@ -99,7 +101,7 @@ fclean: clean
 	rm -rf $(NAME_DISP)
 	echo "$(PINK)	--- Programm deleted ! ---	$(NO_COLOR)"
 
-re: fclean all
+re: fclean all disp
 
 .SILENT:
 
