@@ -6,13 +6,13 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 17:35:59 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:15:32 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-int	ft_create_space(t_ways **ways, t_info *info, int j)
+int		ft_create_space(t_ways **ways, t_info *info, int j)
 {
 	while ((*ways)->steps[j] != NULL && j < info->max_paths)
 		j++;
@@ -37,7 +37,7 @@ void	ft_find_room(t_room **room, int m)
 	(*room)->opti = 1;
 }
 
-int	ft_fill_space(t_room **room, t_info *info, t_ways **ways, int i)
+int		ft_fill_space(t_room **room, t_info *info, t_ways **ways, int i)
 {
 	int	m;
 	int	j;
