@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/26 12:22:09 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:31:11 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-# define VISU 1
+# define VISU 0
 # define SIZE_HASH 10
 # define IMPOSSIBLE -2
 # define GOOD_PATH (1 << 1)
@@ -28,6 +28,7 @@
 # define TRUE 1
 # define FALSE 0
 # define BAD -1
+# define COMPARE 0
 # define ROOM_START 1
 # define ROOM_END 2
 # define ROOM_NORMAL 0

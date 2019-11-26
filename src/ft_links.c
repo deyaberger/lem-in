@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 19:32:30 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:33:58 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,11 @@ t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 	return (link);
 }
 
-BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
+BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info, int i)
 {
-	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
-	while (one->link[i] != NULL
-			&& i < info->room_nb && one->link[i]->dest != two)
-		i++;
 	if (one->link[i] == NULL)
 	{
 		if (!(one->link[i] = ft_create_ways(one, two, info)))
@@ -59,18 +54,23 @@ BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info)
 
 BOOL	ft_calc_links(char *room1, char *room2, int s, t_info *info)
 {
+	int		i;
 	int		h1;
 	int		h2;
 	t_room	*one;
 	t_room	*two;
 
+	i = 0;
 	h1 = ft_coll(info, room1, ft_hashage(room1, s), s);
 	h2 = ft_coll(info, room2, ft_hashage(room2, s), s);
 	if (info->tab[h1] == NULL || info->tab[h2] == NULL)
 		return (FALSE);
 	one = info->tab[h1];
 	two = info->tab[h2];
-	ft_fill_links(one, two, info);
+	while (one->link[i] != NULL
+			&& i < info->room_nb && one->link[i]->dest != two)
+		i++;
+	ft_fill_links(one, two, info, i);
 	free(info->line);
 	return (TRUE);
 }
@@ -98,35 +98,20 @@ BOOL	ft_cut_room(t_info *info)
 	return (TRUE);
 }
 
-BOOL	ft_start_end(t_info *info)
-{
-	if (info->start->link[0] == NULL || info->end->link[0] == NULL)
-	{
-		info->max_paths = IMPOSSIBLE;
-		return (FALSE);
-	}
-	if (info->start->nbl <= info->end->nbl)
-		info->max_paths = info->start->nbl;
-	else
-		info->max_paths = info->end->nbl;
-	return (TRUE);
-}
-
 BOOL	ft_links(t_info *info, char **str)
 {
-	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
-		return (FALSE);
-	if (!(ft_cut_room(info)))
+	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info))
+		|| !(ft_cut_room(info)))
 		return (FALSE);
 	while (get_next_line(0, &info->line))
 	{
-		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
-			return (FALSE);
-		if (info->line[0] == '#' && info->line[1] == '#')
+		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info))
+			|| (info->line[0] == '#' && info->line[1] == '#'))
 			return (FALSE);
 		if (info->line[0] == '#' && info->line[1] != '#')
 		{
-			if (!ft_strncmp(info->line, "#Here is the number of lines required: ", 39))
+			if (!ft_strncmp(info->line,
+				"#Here is the number of lines required: ", 39))
 				info->lines_rqd = ft_atoi(info->line + 39);
 			free(info->line);
 		}
@@ -134,8 +119,10 @@ BOOL	ft_links(t_info *info, char **str)
 			if (!(ft_cut_room(info)))
 				return (FALSE);
 	}
-	info->link_nb = info->link_nb / 2;
-	if (ft_start_end(info) == FALSE)
-			return (FALSE);
+	if ((info->start->link[0] == NULL || info->end->link[0] == NULL)
+		&& (info->max_paths = IMPOSSIBLE) == IMPOSSIBLE)
+		return (FALSE);
+	info->max_paths = (info->start->nbl <= info->end->nbl ?
+						info->start->nbl : info->end->nbl);
 	return (TRUE);
 }

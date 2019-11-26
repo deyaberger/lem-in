@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/25 19:32:58 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:30:46 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_visu(t_info info, char *str, t_ways best, int mode)
 {
 	if (VISU == 1 && mode == 1 && best.steps == NULL)
 	{
+		info.link_nb = info.link_nb / 2;
 		ft_printf("#%d %d %d ", info.room_nb, info.xmax, info.ymax);
 		ft_printf("%d %d %d\n%s\n", info.xmin, info.ymin, info.link_nb, str);
 	}
