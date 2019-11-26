@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/26 13:48:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:26:07 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,16 @@ void	ft_clean_steps(t_ways *ways, int mode)
 		free(ways->path_info);
 }
 
-void	ft_clean_list(t_info *info)
+void	ft_clean_list(t_info *info, t_room *room)
 {
-	t_room *room;
-	t_room *save;
+	t_room	*save;
 	int		i;
 
-	room = info->first;
 	save = room;
 	i = 0;
 	while (room != NULL)
 	{
-		if (room->next != NULL)
-			save = room->next;
-		else
-			save = NULL;
+		save = (room->next != NULL ? room->next : NULL);
 		if (room->link)
 		{
 			while (room->link[i])
@@ -87,11 +82,11 @@ void	ft_clean_list(t_info *info)
 	free(info->line);
 }
 
-int	ft_free_rooms(t_info *info, int i)
+int		ft_free_rooms(t_info *info, int i)
 {
 	t_room	*room;
-	int	j;
-	int	k;
+	int		j;
+	int		k;
 
 	room = NULL;
 	j = 0;
@@ -122,7 +117,7 @@ void	ft_clean_free(t_info *info)
 
 	i = 0;
 	if (info->room_nb == -1)
-		ft_clean_list(info);
+		ft_clean_list(info, info->first);
 	while (i < info->room_nb * 10)
 		i = ft_free_rooms(info, i);
 	i = 0;
