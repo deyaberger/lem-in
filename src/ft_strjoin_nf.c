@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:58:05 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 19:32:19 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:17:12 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strcat_from_n(char *dest, const char *src, int stop)
 char	*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info)
 {
 	char	*str;
-	int 	save;
+	int		save;
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
