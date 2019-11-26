@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:17:03 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 14:49:44 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 15:41:58 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,12 @@ void	ft_print_result(t_info *info, t_ways **best, int i, int j)
 	}
 }
 
-void	ft_result(char *str, t_info info, t_ways *best)
+void	ft_result(char *str, t_info info, t_ways *best, int i)
 {
-	int	i;
 	int	j;
 	int	a;
 	int	total;
 
-	i = 0;
 	j = 0;
 	a = 1;
 	total = 0;
@@ -123,9 +121,5 @@ void	ft_result(char *str, t_info info, t_ways *best)
 		ft_printf("\n");
 		total++;
 	}
-	if (info.lines_rqd != 0)
-		ft_printf("\n#Here is the number of lines required: %d\n", info.lines_rqd);
-	else
-		ft_printf("\n#Here is the number of lines required: NOT SPECIFIED\n");
-	ft_printf("#Here is the number of lines actually used: %d\n", total);
+	ft_lines_rqd(info, total);
 }

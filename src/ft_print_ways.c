@@ -6,13 +6,25 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:30:21 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/22 17:46:14 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:44:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem-in.h"
 
-void		ft_print_ways(t_ways *ways)
+void	ft_lines_rqd(t_info info, int total)
+{
+	char	*str;
+
+	str = "#Here is the number of lines required: ";
+	if (info.lines_rqd != 0)
+		ft_printf("\n%s%d\n", str, info.lines_rqd);
+	else
+		ft_printf("\n%sNOT SPECIFIED\n", str);
+	ft_printf("#Here is the number of lines actually used: %d\n", total);
+}
+
+void	ft_print_ways(t_ways *ways)
 {
 	int	i;
 	int	j;

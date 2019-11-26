@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/26 13:49:05 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 15:41:56 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,14 @@ BOOL				ft_hashtab(t_info *t, t_room *r, int i);
 BOOL				ft_links(t_info *t, char **str);
 t_room				*ft_weight(t_info *t, t_room *r, t_room *queue);
 void				ft_init_ways(t_ways **ways);
-void				ft_clean_list(t_info *info);
+void				ft_clean_list(t_info *info, t_room *room);
 void				ft_clean_steps(t_ways *ways, int mode);
 void				ft_clean_free(t_info *info);
 t_ways				*ft_calc_steps(t_ways *ways, t_info *info, int j);
 t_ways				*ft_steps(t_info *t, t_room *r, t_ways *comp);
 t_ways				ft_bfs(t_info *t, t_room *r, t_ways best);
 BOOL				ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
-void				ft_result(char *str, t_info info, t_ways *best);
+void				ft_lines_rqd(t_info info, int total);
+void				ft_result(char *str, t_info info, t_ways *best, int i);
 
 #endif
