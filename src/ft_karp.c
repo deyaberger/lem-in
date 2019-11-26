@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/26 14:06:39 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:20:17 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_update_status(t_room *room)
 	}
 }
 
-BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
+BOOL	ft_fill_ways(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 {
 	room = info->end;
 	if (VISU == 1)
@@ -103,6 +103,13 @@ BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 			return (STOP);
 		}
 	}
+	return (TRUE);
+}
+
+BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
+{
+	if (ft_fill_ways(info, room, best, comp) == STOP)
+		return (STOP);
 	if (comp->nb_ways != NEVER_FILLED
 		&& comp->tot_max < best->tot_max && comp->tot_max != -1)
 	{
