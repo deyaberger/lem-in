@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/26 13:30:46 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:07:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ t_room	*init_room(void)
 BOOL	ft_error(t_info info, char *str, t_ways best, int mode)
 {
 	free(str);
-	if (mode == 1 && info.link_nb == 0)
+	if (mode == FAIL_HASH && info.link_nb == 0)
 		ft_clean_list(&info);
-	if (mode == 1 && info.link_nb != 0 && info.max_paths != IMPOSSIBLE)
+	if (mode == FAIL_HASH && info.link_nb != 0 && info.max_paths != IMPOSSIBLE)
 		free(info.line);
-	if (mode == 2)
+	if (mode == FAIL_BFS)
 		ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
 	ft_printf("ERROR\n");
@@ -97,13 +97,13 @@ int		main(void)
 		return (FALSE);
 	info.first = room;
 	if (ft_storage(&info, room, &str) == FALSE && ((info.room_nb = BAD) == BAD))
-		return (ft_error(info, str, best, 0));
+		return (ft_error(info, str, best, FAIL_STOR));
 	if (ft_hashtab(&info, room, 0) == FALSE || ft_links(&info, &str) == FALSE)
-		return (ft_error(info, str, best, 1));
+		return (ft_error(info, str, best, FAIL_HASH));
 	ft_visu(info, str, best, 1);
-	best = ft_bfs(&info, room);
+	best = ft_bfs(&info, room, best);
 	if (best.steps == NULL)
-		return (ft_error(info, str, best, 2));
+		return (ft_error(info, str, best, FAIL_BFS));
 	ft_visu(info, str, best, 2);
 	ft_result(str, info, &best);
 	free(str);

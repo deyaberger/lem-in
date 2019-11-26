@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/25 19:05:47 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:48:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free_steps(t_ways *ways, int mode)
 	{
 		while (ways->steps[j][k] != NULL)
 		{
-			if (mode != 2)
+			if (mode != MINI_FREE)
 				ways->steps[j][k]->opti = 0;
 			ways->steps[j][k] = NULL;
 			k++;
@@ -48,9 +48,9 @@ void	ft_clean_steps(t_ways *ways, int mode)
 	}
 	ways->nb_ways = 0;
 	ways->tot_max = 0;
-	if (mode == 1 && ways->steps != NULL)
+	if (mode == FINAL_FREE && ways->steps != NULL)
 		free(ways->steps);
-	if (mode == 1 && ways->path_info != NULL)
+	if (mode == FINAL_FREE && ways->path_info != NULL)
 		free(ways->path_info);
 }
 

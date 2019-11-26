@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:31:12 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/26 13:31:11 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:49:05 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define TRUE 1
 # define FALSE 0
 # define BAD -1
+# define FAIL_STOR 0
+# define FAIL_HASH 1
+# define FAIL_BFS 2
+# define FREE_FOR_REPLACE 0
+# define FINAL_FREE 1
+# define MINI_FREE 2
 # define COMPARE 0
 # define ROOM_START 1
 # define ROOM_END 2
@@ -118,7 +124,7 @@ void				ft_clean_steps(t_ways *ways, int mode);
 void				ft_clean_free(t_info *info);
 t_ways				*ft_calc_steps(t_ways *ways, t_info *info, int j);
 t_ways				*ft_steps(t_info *t, t_room *r, t_ways *comp);
-t_ways				ft_bfs(t_info *t, t_room *r);
+t_ways				ft_bfs(t_info *t, t_room *r, t_ways best);
 BOOL				ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
 void				ft_result(char *str, t_info info, t_ways *best);
 

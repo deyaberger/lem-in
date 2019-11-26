@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 17:12:57 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:06:39 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,26 +99,26 @@ BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 	{
 		if (!(comp = ft_steps(info, room, comp)))
 		{
-			ft_clean_steps(comp, 2);
+			ft_clean_steps(comp, FINAL_FREE);
 			return (STOP);
 		}
 	}
 	if (comp->nb_ways != NEVER_FILLED
 		&& comp->tot_max < best->tot_max && comp->tot_max != -1)
 	{
-		ft_clean_steps(best, 0);
+		ft_clean_steps(best, FREE_FOR_REPLACE);
 		if (ft_new_best(best, comp) == FALSE)
 		{
-			ft_clean_steps(comp, 2);
+			ft_clean_steps(comp, FINAL_FREE);
 			return (STOP);
 		}
-		ft_clean_steps(comp, 2);
+		ft_clean_steps(comp, MINI_FREE);
 		return (KEEP_SEARCHING);
 	}
 	else if (comp->nb_ways != NEVER_FILLED
 		&& (comp->tot_max > best->tot_max || comp->tot_max == -1))
 	{
-		ft_clean_steps(comp, 2);
+		ft_clean_steps(comp, FINAL_FREE);
 		return (STOP);
 	}
 	return (KEEP_SEARCHING);
