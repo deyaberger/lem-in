@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/26 15:41:50 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:43:25 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,14 @@ int		main(void)
 		return (ft_error(info, str, best, FAIL_STOR));
 	if (ft_hashtab(&info, room, 0) == FALSE || ft_links(&info, &str) == FALSE)
 		return (ft_error(info, str, best, FAIL_HASH));
+	if ((info.start->link[0] == NULL || info.end->link[0] == NULL)
+		&& (info.max_paths = IMPOSSIBLE) == IMPOSSIBLE)
+		return (ft_error(info, str, best, FAIL_HASH));
+	info.max_paths = (info.start->nbl <= info.end->nbl ?
+						info.start->nbl : info.end->nbl);
 	ft_visu(info, str, best, 1);
 	best = ft_bfs(&info, room, best);
-	if (best.steps == NULL)
+	if (best.steps == NULL || best.nb_ways == NONE)
 		return (ft_error(info, str, best, FAIL_BFS));
 	ft_visu(info, str, best, 2);
 	ft_result(str, info, &best, 0);

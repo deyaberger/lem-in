@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/26 13:33:58 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:44:10 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,13 @@ BOOL	ft_links(t_info *info, char **str)
 		return (FALSE);
 	while (get_next_line(0, &info->line))
 	{
-		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info))
-			|| (info->line[0] == '#' && info->line[1] == '#'))
+		if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
 			return (FALSE);
-		if (info->line[0] == '#' && info->line[1] != '#')
+		if (info->line[0] == '#')
 		{
+			if (!ft_strcmp(info->line, "##start")
+				|| !ft_strcmp(info->line, "##end"))
+				return (BAD);
 			if (!ft_strncmp(info->line,
 				"#Here is the number of lines required: ", 39))
 				info->lines_rqd = ft_atoi(info->line + 39);
@@ -117,12 +119,7 @@ BOOL	ft_links(t_info *info, char **str)
 		}
 		else if (info->line[0] != '#')
 			if (!(ft_cut_room(info)))
-				return (FALSE);
+				return (BAD);
 	}
-	if ((info->start->link[0] == NULL || info->end->link[0] == NULL)
-		&& (info->max_paths = IMPOSSIBLE) == IMPOSSIBLE)
-		return (FALSE);
-	info->max_paths = (info->start->nbl <= info->end->nbl ?
-						info->start->nbl : info->end->nbl);
 	return (TRUE);
 }
