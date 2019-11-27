@@ -6,29 +6,11 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 16:53:14 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:56:40 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
-
-BOOL		ft_coord(t_info *info)
-{
-	int		i;
-
-	i = 0;
-	if (info->xmax == 0 || info->ymax == 0)
-		return (FALSE);
-	if (!(info->coord = ft_memalloc(sizeof(int*) * info->xmax)))
-		return (FALSE);
-	while (i <= info->xmax)
-	{
-		if (!(info->coord[i] = ft_memalloc(sizeof(int) * info->ymax)))
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
-}
 
 int		ft_max_min(t_info *info, int mode, int i)
 {
@@ -174,5 +156,7 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 			return (FALSE);
 		free(info->line);
 	}
-	return (ft_strcmp("", info->line) == 0 || !ft_coord(info) ? FALSE : TRUE);
+	if (info->xmax == 0 || info->ymax == 0)
+		return (FALSE);
+	return (ft_strcmp("", info->line) == 0 ? FALSE : TRUE);
 }
