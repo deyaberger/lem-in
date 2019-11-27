@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/21 16:22:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/27 15:55:59 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		ft_del(t_list *link, t_list **begin)
 {
 	t_list	*tmp;
 	t_list	*prev;
-	int	i;
+	int		i;
 
 	prev = 0;
 	i = 0;
@@ -107,7 +107,7 @@ int			get_next_line(int fd, char **line)
 {
 	static t_list	*begin = NULL;
 	t_list			*link;
-	int			ret;
+	int				ret;
 	t_list			buf[0];
 
 	if (read(fd, buf, 0) == -1)
