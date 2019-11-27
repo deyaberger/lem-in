@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../../include/lem-in.h"
+#include "../../include/lem_in.h"
 
 char		*ft_after_line(char *x, char *tab)
 {
