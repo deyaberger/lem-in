@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 
 int		ft_create_space(t_ways **ways, t_info *info, int j)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 
 long	ft_calc_ants(t_info *info, t_ways **ways, int i)
 {

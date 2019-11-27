@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 
 int		ft_last_ant_in_path(t_ways *best, int i, int j)
 {

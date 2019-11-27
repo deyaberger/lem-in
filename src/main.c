@@ -6,11 +6,11 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 13:51:27 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/27 16:42:18 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 
 t_info	init_info(void)
 {
@@ -118,9 +118,9 @@ int		main(void)
 	return (TRUE);
 }
 
-
+/*
 __attribute__((destructor))
 void    end()
 {
 	while(1);
-}
+}*/

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 
 t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 {

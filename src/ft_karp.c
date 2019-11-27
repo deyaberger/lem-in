@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 
 t_ways	*ft_copy_comp(int j, t_ways *best, t_ways *comp)
 {

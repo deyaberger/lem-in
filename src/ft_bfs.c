@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 
 t_room	*ft_init_var(t_info *info, t_room *room, t_room *queue)
 {

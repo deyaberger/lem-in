@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/11/27 10:57:02 by ncoursol         ###   ########.fr        #
+#    Updated: 2019/11/27 15:53:15 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME = lem-in
 NAME_DISP = display
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-HFILE = ./include/lem-in.h
+HFILE = ./include/lem_in.h
 HFILE_DISP = ./include/display.h
 LIB_DIR = ./lib
 OBJ_DIR = ./obj
@@ -86,9 +86,9 @@ $(NAME): $(LIB) $(OBJ) Makefile $(HFILE)
 $(NAME_DISP): $(LIB) $(OBJ_DISP) Makefile $(HFILE_DISP)
 	$(CC) -o $(NAME_DISP) $(OBJ_DISP) $(LIB) -L lib/sdl -l SDL2-2.0.0 -l SDL2_image -l SDL2_mixer
 	echo "$(YELLOW)	--- $(GREEN)lem-in display$(YELLOW) Compiled ! ---	$(NO_COLOR)"
-		
 
-$(OBJ_DIR)/%.o:src/%.c $(HFILE) 
+
+$(OBJ_DIR)/%.o:src/%.c $(HFILE)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ_DIR)/obj_disp/%.o:src/src_display/%.c $(HFILE_DISP)
