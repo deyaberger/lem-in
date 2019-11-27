@@ -15,6 +15,7 @@ int		coord(t_input *t, t_room **r, int j)
 {
 	t_room	*s;
 
+	(*r)->name[j] = '\0';
 	(*r)->x = ft_atoi(t->line + j) - t->xmin;
 	j++;
 	while (t->line[j] != ' ')
@@ -31,7 +32,6 @@ int		coord(t_input *t, t_room **r, int j)
 
 int		get_room(t_input *t, t_room *r, int i, int j)
 {
-	r->type = 0;
 	while (i < t->room_nb)
 	{
 		get_next_line(0, &t->line);
@@ -43,12 +43,11 @@ int		get_room(t_input *t, t_room *r, int i, int j)
 		}
 		if (t->line[0] != '#')
 		{
-			while ( t->line[j] != ' ')
+			while (t->line[j] != ' ')
 				j++;
 			if (!(r->name = (char*)malloc(sizeof(char) * (j + 1))))
 				return (0);
 			ft_strncpy(r->name, t->line, j);
-			r->name[j] = '\0';
 			coord(t, &r, j);
 		}
 		else
@@ -60,16 +59,8 @@ int		get_room(t_input *t, t_room *r, int i, int j)
 	return (1);
 }
 
-int		get_info(t_input *t, t_room *r, t_disp *d)
+void	get_first_line(t_input *t, t_room *r, int i)
 {
-	int		i;
-
-	i = 2;
-	if (!(r = (t_room*)malloc(sizeof(*r))))
-        return (0);
-	r->next = NULL;
-	t->first = r;
-	get_next_line(0, &t->line);
 	t->room_nb = ft_atoi(t->line + 1);
 	while (t->line[i] != ' ')
 		i++;
@@ -94,9 +85,26 @@ int		get_info(t_input *t, t_room *r, t_disp *d)
 	get_next_line(0, &t->line);
 	t->ant_nb = ft_atoi(t->line);
 	free(t->line);
+}
+
+int		get_info(t_input *t, t_room *r, t_disp *d)
+{
+	int		i;
+
+	i = 2;
+	get_next_line(0, &t->line);
+	if (ft_strncmp(t->line, "ERROR", 5) == 0)
+		error(t->line, d);
+	if (!(r = (t_room*)malloc(sizeof(*r))))
+		return (0);
+	r->next = NULL;
+	t->first = r;
+	get_first_line(t, r, i);
+	r->type = 0;
+	get_room(t, r, 0, 0);
 	t->xmax -= t->xmin;
 	t->ymax -= t->ymin;
-	d->delay = 1000 / t->room_nb;
-	d->delay = (d->delay < 20 ? 0 : d->delay);
-	return (get_room(t, r, 0, 0));
+	d->delay = 1000 / (t->room_nb == 0 ? 1 : t->room_nb);
+	d->delay = (d->delay < 10 ? 0 : d->delay);
+	return (1);
 }

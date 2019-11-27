@@ -6,35 +6,11 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 13:39:28 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/19 18:43:37 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:34:29 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/display.h"
-
-void		init_menu(t_disp *d, int cursor)
-{
-	d->rback.x = 900;
-	d->rback.y = 780;
-	if (cursor == 1)
-	{
-		if (SDL_QueryTexture(d->startW, NULL, NULL,
-		&d->rback.w, &d->rback.h) < 0)
-			error("(menu.c) SDL_QueryTexture : ", d);
-		if (SDL_RenderCopy(d->rend, d->startW, NULL, &d->rback) < 0)
-			error("(menu.c) SDL_RenderCopy : ", d);
-	}
-	else
-	{
-		if (SDL_QueryTexture(d->start, NULL, NULL,
-		&d->rback.w, &d->rback.h) < 0)
-			error("(menu.c) SDL_QueryTexture : ", d);
-		if (SDL_RenderCopy(d->rend, d->start, NULL, &d->rback) < 0)
-			error("(menu.c) SDL_RenderCopy : ", d);
-	}
-	if (SDL_SetRenderDrawBlendMode(d->rend, SDL_BLENDMODE_NONE) < 0)
-		error("(menu.c) SDL_SetRenderDrawBlendMode error : ", d);
-}
 
 void		menu2(t_disp *d, int cursor)
 {

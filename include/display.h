@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:26:01 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/22 13:09:05 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:34:02 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_input
 	int				ymax;
 	int				xmin;
 	int				ymin;
+	int				running;
 	float			coefx;
 	float			coefy;
 	struct s_room	*first;
@@ -102,5 +103,17 @@ void				init_img_load(t_disp *d, SDL_Texture **tex, char *filename);
 int					get_info(t_input *t, t_room *r, t_disp *d);
 void				ft_trace_line(t_input *t, t_disp *d, int c);
 void				disp_karp(t_disp *d, t_input *t);
+void				disp_b(t_disp *d, t_input *t, t_room *s, int i);
+void				disp_k(t_disp *d, t_input *t, t_room *s, int i);
+void				disp_w(t_disp *d, t_input *t, t_room *s, int i);
+void				disp_links(t_disp *d, t_input *t);
+void				disp_room(t_disp *d, t_input *t);
+void				disp_choice(t_disp *d, t_input *t, int *c, int i);
+int					lem(t_disp *d, t_input *t, int c);
+void				event(t_disp *d, int i, int running);
+void				disp_w6(t_input *t, t_room **s, t_room **nb_one, int *i);
+int					disp_choice6(t_disp *d, t_input *t, int *c, int i);
+void				disp_links6(t_disp *d);
+void				init_menu(t_disp *d, int cursor);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 18:43:50 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/22 17:27:19 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:30:57 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		start(t_disp *d, float i)
 		SDL_Delay(75);
 		i -= 0.1;
 	}
-	Mix_VolumeMusic(0);
+	Mix_VolumeMusic(30);
 	Mix_FreeMusic(d->spy);
 	if (Mix_PlayMusic(d->deft, -1) == -1)
 		error("(main.c) SDL_Mix_PlayMusic : ", d);
@@ -111,15 +111,14 @@ int			main(void)
 	int			mode;
 
 	mode = 0;
-	get_info(&t, r, &d);
 	init_window(&d, &running);
+	get_info(&t, r, &d);
 	while (running)
 	{
 		while (SDL_PollEvent(&d.event))
-		{
-			if (d.event.type == SDL_QUIT || d.event.key.keysym.sym == SDLK_q)
+			if (d.event.type == SDL_QUIT
+			|| d.event.key.keysym.sym == SDLK_ESCAPE)
 				running = 0;
-		}
 		if (mode == 0)
 			disp(&d, &t);
 		mode = 1;

@@ -33,7 +33,7 @@ void			init(t_disp *d)
 		error("(main.c) SDL_CreateRenderer error : ", d);
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
 		error("(main.c) Mix_OpenAudio : ", d);
-	Mix_VolumeMusic(15);
+	Mix_VolumeMusic(30);
 	if ((d->spy = Mix_LoadMUS("img/spy.ogg")) == NULL)
 		error("(main.c) Mix_LoadMUS : ", d);
 	if ((d->deft = Mix_LoadMUS("img/deftones.ogg")) == NULL)

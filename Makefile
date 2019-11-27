@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/11/26 12:26:11 by dberger          ###   ########.fr        #
+#    Updated: 2019/11/27 10:57:02 by ncoursol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,14 @@ SRC_DISP = src/src_display/main.c \
            src/src_display/input.c \
            src/src_display/trace_line.c \
            src/src_display/ft_init.c \
-           src/src_display/disp_karp.c
+           src/src_display/disp_karp.c \
+           src/src_display/disp_karp_b.c \
+           src/src_display/disp_karp_k.c \
+           src/src_display/disp_karp_wf.c \
+           src/src_display/disp_choice.c \
+           src/src_display/disp_room.c \
+           src/src_display/disp_links.c \
+           src/src_display/disp_lem.c
 
 
 OBJ = $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(SRC))
