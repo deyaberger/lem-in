@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/26 18:43:25 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:51:27 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,18 @@ BOOL	ft_error(t_info info, char *str, t_ways best, int mode)
 	return (FALSE);
 }
 
-void	ft_visu(t_info info, char *str, t_ways best, int mode)
+BOOL	ft_visu(t_info *info, char *str, t_ways best, int mode)
 {
+	if ((info->start->link[0] == NULL || info->end->link[0] == NULL)
+		&& (info->max_paths = IMPOSSIBLE) == IMPOSSIBLE)
+		return (FALSE);
+	info->max_paths = (info->start->nbl <= info->end->nbl ?
+						info->start->nbl : info->end->nbl);
 	if (VISU == 1 && mode == 1 && best.steps == NULL)
 	{
-		info.link_nb = info.link_nb / 2;
-		ft_printf("#%d %d %d ", info.room_nb, info.xmax, info.ymax);
-		ft_printf("%d %d %d\n%s\n", info.xmin, info.ymin, info.link_nb, str);
+		info->link_nb = info->link_nb / 2;
+		ft_printf("#%d %d %d ", info->room_nb, info->xmax, info->ymax);
+		ft_printf("%d %d %d\n%s\n", info->xmin, info->ymin, info->link_nb, str);
 	}
 	if (VISU == 1 && mode == 2)
 	{
@@ -81,6 +86,7 @@ void	ft_visu(t_info info, char *str, t_ways best, int mode)
 		ft_print_ways(&best);
 		ft_printf("#0\n\n");
 	}
+	return (TRUE);
 }
 
 int		main(void)
@@ -98,18 +104,13 @@ int		main(void)
 	info.first = room;
 	if (ft_storage(&info, room, &str) == FALSE && ((info.room_nb = BAD) == BAD))
 		return (ft_error(info, str, best, FAIL_STOR));
-	if (ft_hashtab(&info, room, 0) == FALSE || ft_links(&info, &str) == FALSE)
+	if (ft_hashtab(&info, room, 0) == FALSE || ft_links(&info, &str) == FALSE
+		|| ft_visu(&info, str, best, 1) == FALSE)
 		return (ft_error(info, str, best, FAIL_HASH));
-	if ((info.start->link[0] == NULL || info.end->link[0] == NULL)
-		&& (info.max_paths = IMPOSSIBLE) == IMPOSSIBLE)
-		return (ft_error(info, str, best, FAIL_HASH));
-	info.max_paths = (info.start->nbl <= info.end->nbl ?
-						info.start->nbl : info.end->nbl);
-	ft_visu(info, str, best, 1);
 	best = ft_bfs(&info, room, best);
 	if (best.steps == NULL || best.nb_ways == NONE)
 		return (ft_error(info, str, best, FAIL_BFS));
-	ft_visu(info, str, best, 2);
+	ft_visu(&info, str, best, 2);
 	ft_result(str, info, &best, 0);
 	free(str);
 	ft_clean_steps(&best, 1);
@@ -117,9 +118,9 @@ int		main(void)
 	return (TRUE);
 }
 
-/*
+
 __attribute__((destructor))
 void    end()
 {
 	while(1);
-}*/
+}

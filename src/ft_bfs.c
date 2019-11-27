@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:59:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/26 14:05:46 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:51:24 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_finish_queue(t_info *info, t_room **room, t_room **queue)
 	}
 }
 
-BOOL	ft_shorter_way(t_info *info, t_room **room, t_room **queue)
+BOOL	ft_shorter_way(t_info *info, t_room **room, t_room **queue, t_ways comp)
 {
 	*room = info->start;
 	(*room)->in_q = IN_QUEUE;
@@ -69,7 +69,10 @@ BOOL	ft_shorter_way(t_info *info, t_room **room, t_room **queue)
 		*room = (*room)->next;
 	}
 	if (info->end->in_q == NOT_IN_QUEUE)
+	{
+		ft_clean_steps(&comp, FINAL_FREE);
 		return (STOP);
+	}
 	ft_finish_queue(info, room, queue);
 	return (KEEP_SEARCHING);
 }
@@ -92,7 +95,7 @@ t_ways	ft_bfs(t_info *info, t_room *room, t_ways best)
 			ft_printf("#B\n");
 		if (queue != NULL)
 			queue = ft_init_var(info, room, queue);
-		if (ft_shorter_way(info, &room, &queue) == STOP)
+		if (ft_shorter_way(info, &room, &queue, comp) == STOP)
 			return (best);
 		if (ft_karp(info, room, &best, &comp) == STOP)
 			return (best);
