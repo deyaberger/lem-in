@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:17:03 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/28 14:10:11 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/28 16:35:05 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ void	ft_result(char *str, t_info info, t_ways *best, int i)
 	j = 0;
 	a = 1;
 	total = 0;
-	if (VISU == 1)
+/*	if (VISU == 1)
 	{
 		info.link_nb = info.link_nb / 2;
 		ft_printf("#%d %d %d ", info.room_nb, info.xmax, info.ymax);
 		ft_printf("%d %d %d\n%s\n", info.xmin, info.ymin, info.link_nb, str);
 	}
-	if (VISU == 0)
+*/	if (VISU == 0)
 		ft_printf("%s\n", str);
 	while (info.end->ant_index != info.ant_nb)
 	{
@@ -127,11 +127,11 @@ void	ft_result(char *str, t_info info, t_ways *best, int i)
 		ft_printf("\n");
 		total++;
 	}
-	if (VISU == 1)
+/*	if (VISU == 1)
 	{
 		ft_printf("#F\n");
 		ft_print_ways(best);
 		ft_printf("#0\n\n");
 	}
-	ft_lines_rqd(info, total);
+*/	ft_lines_rqd(info, total);
 }
