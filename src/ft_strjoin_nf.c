@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:58:05 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/26 14:17:12 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/28 13:45:09 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info)
 		ft_free_old(s1, s2, &a);
 		return (str);
 	}
+	info->old_stop = info->stop_str;
 	info->stop_str += ft_strlen(s2) + 1;
 	return (s1);
 }

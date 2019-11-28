@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:59:41 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/28 12:48:26 by dberger          ###   ########.fr       */
+/*   Updated: 2019/11/28 14:33:13 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct		s_info
 	struct s_room	*end;
 	int				**coord;
 	int				stop_str;
+	int				old_stop;
 	int				len_str;
 	int				lines_rqd;
 	int				ant_nb;
