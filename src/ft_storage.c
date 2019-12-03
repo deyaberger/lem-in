@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 16:56:40 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:27:02 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 			return (FALSE);
 	type = -1;
 	info->ant_nb = ft_atol(info->line);
-	if (info->ant_nb <= 0 || info->ant_nb >= 2147483647)
+	if (info->ant_nb <= 0 || info->ant_nb > 2147483647)
 		return (FALSE);
 	free(info->line);
 	while (get_next_line(0, &info->line))
@@ -156,6 +156,8 @@ BOOL		ft_storage(t_info *info, t_room *room, char **str)
 			return (FALSE);
 		free(info->line);
 	}
+	if (start == 0 || end == 0)
+		return (FALSE);
 	if (info->xmax == 0 || info->ymax == 0)
 		return (FALSE);
 	return (ft_strcmp("", info->line) == 0 ? FALSE : TRUE);
