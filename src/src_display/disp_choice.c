@@ -4,17 +4,17 @@ void		disp_choice5(t_disp *d, int *c)
 {
 	if (*c == 0)
 	{
-		if (SDL_RenderCopy(d->rend, d->NeoT, NULL, &d->menu) < 0)
+		if (SDL_RenderCopy(d->rend, d->neo_t, NULL, &d->menu) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	else if (*c == 1)
 	{
-		if (SDL_RenderCopy(d->rend, d->TriniT, NULL, &d->menu) < 0)
+		if (SDL_RenderCopy(d->rend, d->trini_t, NULL, &d->menu) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	else
 	{
-		if (SDL_RenderCopy(d->rend, d->MorphT, NULL, &d->menu) < 0)
+		if (SDL_RenderCopy(d->rend, d->morph_t, NULL, &d->menu) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	if (SDL_SetRenderDrawColor(d->rend, 29, 128, 22, 250) < 0)
@@ -29,12 +29,12 @@ void		disp_choice4(t_disp *d, int *c)
 	d->rback.x = d->menu.x + 460;
 	if (*c == 2)
 	{
-		if (SDL_RenderCopy(d->rend, d->MorphC, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->morph_c, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	else
 	{
-		if (SDL_RenderCopy(d->rend, d->MorphB, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->morph_b, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	d->menu.w -= 24;
@@ -59,23 +59,23 @@ void		disp_choice3(t_disp *d, int *c)
 	d->rback.x = d->menu.x + 20;
 	if (*c == 0)
 	{
-		if (SDL_RenderCopy(d->rend, d->NeoC, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->neo_c, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	else
 	{
-		if (SDL_RenderCopy(d->rend, d->NeoB, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->neo_b, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	d->rback.x = d->menu.x + 240;
 	if (*c == 1)
 	{
-		if (SDL_RenderCopy(d->rend, d->TriniC, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->trini_c, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	else
 	{
-		if (SDL_RenderCopy(d->rend, d->TriniB, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->trini_b, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 }

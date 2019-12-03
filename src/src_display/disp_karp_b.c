@@ -2,7 +2,7 @@
 
 void			disp_b4(t_disp *d, t_input *t, t_room **s, int *j)
 {
-	if (SDL_RenderCopy(d->rend, d->pilsR, NULL, &d->rback) < 0)
+	if (SDL_RenderCopy(d->rend, d->pils_r, NULL, &d->rback) < 0)
 		error("(disp_karp.c) SDL_RenderCopy : ", d);
 	if (SDL_SetRenderTarget(d->rend, NULL) < 0)
 		error("(disp_karp.c) SDL_SetRenderTarget : ", d);
@@ -65,7 +65,7 @@ int				disp_b2(t_disp *d, t_input *t, t_room **s, t_room **nb_one)
 	d->rback.y = (*nb_one)->y * t->coefy + 24;
 	d->rback.w = 27;
 	d->rback.h = 64;
-	if (SDL_RenderCopy(d->rend, d->pilsB, NULL, &d->rback) < 0)
+	if (SDL_RenderCopy(d->rend, d->pils_b, NULL, &d->rback) < 0)
 		error("(disp_karp.c) SDL_RenderCopy : ", d);
 	if (SDL_SetRenderTarget(d->rend, NULL) < 0)
 		error("(disp_karp.c) SDL_SetRenderTarget : ", d);

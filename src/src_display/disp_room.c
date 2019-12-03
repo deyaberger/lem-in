@@ -1,5 +1,34 @@
 #include "../../include/display.h"
 
+void		error3(t_disp *d)
+{
+	SDL_DestroyTexture(d->morph_c);
+	SDL_DestroyTexture(d->neo_c);
+	SDL_DestroyTexture(d->trini_c);
+	SDL_DestroyTexture(d->morph_t);
+	SDL_DestroyTexture(d->neo_t);
+	SDL_DestroyTexture(d->trini_t);
+	SDL_DestroyTexture(d->pils_b);
+	SDL_DestroyTexture(d->pils_r);
+	SDL_DestroyTexture(d->sub);
+	SDL_DestroyRenderer(d->rend);
+	SDL_DestroyWindow(d->win);
+}
+
+void		lem6(t_disp *d, t_input *t, int **ant, int i)
+{
+	if (SDL_RenderCopy(d->rend, d->txt, NULL, &d->rback) < 0)
+		error("(disp.c) SDL_RenderCopy : ", d);
+	SDL_RenderPresent(d->rend);
+	i = 0;
+	while (i < t->ant_nb)
+	{
+		free(ant[i]);
+		i++;
+	}
+	free(ant);
+}
+
 void		disp_room3(t_disp *d, t_input *t, t_room **s)
 {
 	d->rback.x = ((*s)->x * t->coefx) + 75;

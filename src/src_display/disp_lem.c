@@ -115,8 +115,6 @@ int			lem(t_disp *d, t_input *t, int c)
 			free(t->line);
 	}
 	lem4(d, t, ant, &c);
-	if (SDL_RenderCopy(d->rend, d->txt, NULL, &d->rback) < 0)
-		error("(disp.c) SDL_RenderCopy : ", d);
-	SDL_RenderPresent(d->rend);
+	lem6(d, t, ant, i);
 	return (1);
 }

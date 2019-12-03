@@ -20,22 +20,22 @@ void	ft_fill_pix(t_input *t, t_disp *d, int c)
 	d->rback.h = 100;
 	if (c == 3)
 	{
-		if (SDL_RenderCopy(d->rend, d->Neo, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->neo, NULL, &d->rback) < 0)
 			error("(trace_line.c) SDL_RenderCopy : ", d);
 	}
 	else if (c == 4)
 	{
-		if (SDL_RenderCopy(d->rend, d->Trini, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->trini, NULL, &d->rback) < 0)
 			error("(trace_line.c) SDL_RenderCopy : ", d);
 	}
 	else if (c == 5)
 	{
-		if (SDL_RenderCopy(d->rend, d->Morph, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->morph, NULL, &d->rback) < 0)
 			error("(trace_line.c) SDL_RenderCopy : ", d);
 	}
 	else
 	{
-		if (SDL_RenderCopy(d->rend, d->Smith, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->smith, NULL, &d->rback) < 0)
 			error("(trace_line.c) SDL_RenderCopy : ", d);
 	}
 }

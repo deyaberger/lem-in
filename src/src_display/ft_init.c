@@ -38,8 +38,6 @@ void			init(t_disp *d)
 		error("(main.c) Mix_LoadMUS : ", d);
 	if ((d->deft = Mix_LoadMUS("img/deftones.ogg")) == NULL)
 		error("(main.c) Mix_LoadMUS : ", d);
-	if ((d->wake = Mix_LoadMUS("img/wake.ogg")) == NULL)
-		error("(main.c) Mix_LoadMUS : ", d);
 	if (Mix_PlayMusic(d->spy, -1) == -1)
 		error("(main.c) Mix_PlayMusic : ", d);
 	init2(d);
@@ -56,19 +54,19 @@ void			init_img_load(t_disp *d, SDL_Texture **tex, char *filename)
 
 void			init_img2(t_disp *d)
 {
-	init_img_load(d, &d->Morph, "img/matrix/Morph.xcf");
-	init_img_load(d, &d->MorphB, "img/matrix/MorphB.png");
-	init_img_load(d, &d->MorphC, "img/matrix/MorphC.png");
-	init_img_load(d, &d->MorphT, "img/matrix/MorphT.xcf");
-	init_img_load(d, &d->Neo, "img/matrix/Neo.xcf");
-	init_img_load(d, &d->NeoB, "img/matrix/NeoB.png");
-	init_img_load(d, &d->NeoC, "img/matrix/NeoC.png");
-	init_img_load(d, &d->NeoT, "img/matrix/NeoT.xcf");
-	init_img_load(d, &d->Trini, "img/matrix/Trini.xcf");
-	init_img_load(d, &d->TriniB, "img/matrix/TriniB.png");
-	init_img_load(d, &d->TriniC, "img/matrix/TriniC.png");
-	init_img_load(d, &d->TriniT, "img/matrix/TriniT.xcf");
-	init_img_load(d, &d->Smith, "img/matrix/SmithB.xcf");
+	init_img_load(d, &d->morph, "img/matrix/morph.xcf");
+	init_img_load(d, &d->morph_b, "img/matrix/morph_b.png");
+	init_img_load(d, &d->morph_c, "img/matrix/morph_c.png");
+	init_img_load(d, &d->morph_t, "img/matrix/morph_t.xcf");
+	init_img_load(d, &d->neo, "img/matrix/neo.xcf");
+	init_img_load(d, &d->neo_b, "img/matrix/neo_b.png");
+	init_img_load(d, &d->neo_c, "img/matrix/neo_c.png");
+	init_img_load(d, &d->neo_t, "img/matrix/neo_t.xcf");
+	init_img_load(d, &d->trini, "img/matrix/trini.xcf");
+	init_img_load(d, &d->trini_b, "img/matrix/trini_b.png");
+	init_img_load(d, &d->trini_c, "img/matrix/trini_c.png");
+	init_img_load(d, &d->trini_t, "img/matrix/trini_t.xcf");
+	init_img_load(d, &d->smith, "img/matrix/smith.xcf");
 }
 
 void			init_img(t_disp *d)
@@ -80,15 +78,15 @@ void			init_img(t_disp *d)
 	init_img_load(d, &d->leave, "img/leave.xcf");
 	init_img_load(d, &d->made, "img/made.xcf");
 	init_img_load(d, &d->arrow, "img/arrow.xcf");
-	init_img_load(d, &d->startW, "img/startW.xcf");
-	init_img_load(d, &d->leaveW, "img/leaveW.xcf");
+	init_img_load(d, &d->start_w, "img/start_w.xcf");
+	init_img_load(d, &d->leave_w, "img/leave_w.xcf");
 	init_img_load(d, &d->black, "img/black.jpg");
 	init_img_load(d, &d->fail, "img/fail.jpg");
 	init_img_load(d, &d->toss, "img/toss.png");
-	init_img_load(d, &d->tossS, "img/tossS.png");
-	init_img_load(d, &d->tossE, "img/tossE.png");
+	init_img_load(d, &d->r_start, "img/r_start.png");
+	init_img_load(d, &d->r_end, "img/r_end.png");
 	init_img_load(d, &d->sub, "img/subject.xcf");
-	init_img_load(d, &d->pilsB, "img/pilsB.xcf");
-	init_img_load(d, &d->pilsR, "img/pilsR.xcf");
+	init_img_load(d, &d->pils_b, "img/pils_b.xcf");
+	init_img_load(d, &d->pils_r, "img/pils_r.xcf");
 	init_img2(d);
 }

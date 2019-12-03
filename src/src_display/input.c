@@ -99,6 +99,7 @@ int		get_info(t_input *t, t_room *r, t_disp *d)
 		return (0);
 	r->next = NULL;
 	t->first = r;
+	d->first = r;
 	get_first_line(t, r, i);
 	r->type = 0;
 	get_room(t, r, 0, 0);

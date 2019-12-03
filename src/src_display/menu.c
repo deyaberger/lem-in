@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 13:39:28 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 13:34:29 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:45:38 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void		cursor_choice(t_disp *d, int cursor)
 {
 	if (cursor != 1)
 	{
-		if (SDL_QueryTexture(d->leaveW, NULL, NULL,
+		if (SDL_QueryTexture(d->leave_w, NULL, NULL,
 		&d->rback.w, &d->rback.h) < 0)
 			error("(menu.c) SDL_QueryTexture : ", d);
-		if (SDL_RenderCopy(d->rend, d->leaveW, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->leave_w, NULL, &d->rback) < 0)
 			error("(menu.c) SDL_RenderCopy : ", d);
 		d->rback.x = 1450;
 		d->rback.y = 990;

@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 18:43:50 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 13:30:57 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:25:48 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,28 @@
 
 void		error(char *src, t_disp *d)
 {
-	if (d->delay != -1)
+	t_room	*f;
+
+	f = d->first;
+	if (d->delay >= 0)
 		ft_printf("%s%s\n", src, SDL_GetError());
-	Mix_FreeMusic(d->deft);
+	if (d->delay != -2)
+	{
+		while (f->next != NULL)
+		{
+			free(f->name);
+			f = f->next;
+		}
+		free(f);
+	}
+	if (d->deft != NULL)
+		Mix_FreeMusic(d->deft);
+	if (d->spy != NULL)
+		Mix_FreeMusic(d->spy);
+	Mix_FreeChunk(d->menu1);
+	Mix_FreeChunk(d->menu2);
+	error2(d);
 	Mix_CloseAudio();
-	SDL_DestroyRenderer(d->rend);
-	SDL_DestroyWindow(d->win);
 	SDL_Quit();
 	exit(1);
 }
@@ -38,12 +54,13 @@ void		leave(t_disp *d, float i)
 		SDL_Delay(100);
 		i -= 0.1;
 	}
-	Mix_FreeMusic(d->spy);
 	if (SDL_QueryTexture(d->black, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
 		error("(main.c) SDL_QueryTexture : ", d);
 	if (SDL_RenderCopy(d->rend, d->black, NULL, &d->rback) < 0)
 		error("(main.c) SDL_RenderCopy : ", d);
 	SDL_RenderPresent(d->rend);
+	d->delay = -2;
+	error("fin", d);
 }
 
 void		start(t_disp *d, float i)
@@ -57,6 +74,7 @@ void		start(t_disp *d, float i)
 	}
 	Mix_VolumeMusic(30);
 	Mix_FreeMusic(d->spy);
+	d->spy = NULL;
 	if (Mix_PlayMusic(d->deft, -1) == -1)
 		error("(main.c) SDL_Mix_PlayMusic : ", d);
 	if (SDL_QueryTexture(d->back2, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
@@ -117,15 +135,13 @@ int			main(void)
 	{
 		while (SDL_PollEvent(&d.event))
 			if (d.event.type == SDL_QUIT
-			|| d.event.key.keysym.sym == SDLK_ESCAPE)
+					|| d.event.key.keysym.sym == SDLK_ESCAPE)
 				running = 0;
 		if (mode == 0)
 			disp(&d, &t);
 		mode = 1;
 	}
-	Mix_CloseAudio();
-	SDL_DestroyRenderer(d.rend);
-	SDL_DestroyWindow(d.win);
-	SDL_Quit();
+	d.delay = -1;
+	error("fin", &d);
 	return (1);
 }

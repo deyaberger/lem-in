@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 11:26:01 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 13:34:02 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/03 13:10:28 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-typedef struct      s_disp
+typedef struct		s_disp
 {
 	int				w;
 	int				h;
@@ -32,32 +32,32 @@ typedef struct      s_disp
 	SDL_Texture		*black;
 	SDL_Texture		*fail;
 	SDL_Texture		*toss;
-	SDL_Texture		*tossS;
-	SDL_Texture		*tossE;
+	SDL_Texture		*r_start;
+	SDL_Texture		*r_end;
 	SDL_Texture		*title;
 	SDL_Texture		*start;
 	SDL_Texture		*leave;
 	SDL_Texture		*made;
 	SDL_Texture		*arrow;
-	SDL_Texture		*startW;
-	SDL_Texture		*leaveW;
+	SDL_Texture		*start_w;
+	SDL_Texture		*leave_w;
 	SDL_Texture		*txt;
 	SDL_Texture		*txt2;
-	SDL_Texture		*Morph;
-	SDL_Texture		*Smith;
-	SDL_Texture		*Neo;
-	SDL_Texture		*Trini;
-	SDL_Texture		*MorphB;
-	SDL_Texture		*NeoB;
-	SDL_Texture		*TriniB;
-	SDL_Texture		*MorphC;
-	SDL_Texture		*NeoC;
-	SDL_Texture		*TriniC;
-	SDL_Texture		*MorphT;
-	SDL_Texture		*NeoT;
-	SDL_Texture		*TriniT;
-	SDL_Texture		*pilsB;
-	SDL_Texture		*pilsR;
+	SDL_Texture		*morph;
+	SDL_Texture		*smith;
+	SDL_Texture		*neo;
+	SDL_Texture		*trini;
+	SDL_Texture		*morph_b;
+	SDL_Texture		*neo_b;
+	SDL_Texture		*trini_b;
+	SDL_Texture		*morph_c;
+	SDL_Texture		*neo_c;
+	SDL_Texture		*trini_c;
+	SDL_Texture		*morph_t;
+	SDL_Texture		*neo_t;
+	SDL_Texture		*trini_t;
+	SDL_Texture		*pils_b;
+	SDL_Texture		*pils_r;
 	SDL_Texture		*sub;
 	Mix_Music		*spy;
 	Mix_Music		*wake;
@@ -67,6 +67,7 @@ typedef struct      s_disp
 	SDL_Rect		rback;
 	SDL_Rect		menu;
 	int				delay;
+	struct s_room	*first;
 }					t_disp;
 
 typedef struct		s_input
@@ -90,7 +91,7 @@ typedef struct		s_room
 	char			*name;
 	int				x;
 	int				y;
-	int				type; //start(1) | end(2) | rien(0)
+	int				type;
 	struct s_room	*next;
 }					t_room;
 
@@ -114,6 +115,9 @@ void				event(t_disp *d, int i, int running);
 void				disp_w6(t_input *t, t_room **s, t_room **nb_one, int *i);
 int					disp_choice6(t_disp *d, t_input *t, int *c, int i);
 void				disp_links6(t_disp *d);
+void				lem6(t_disp *d, t_input *t, int **ant, int i);
 void				init_menu(t_disp *d, int cursor);
+void				error3(t_disp *d);
+void				error2(t_disp *d);
 
 #endif

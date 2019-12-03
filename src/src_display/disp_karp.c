@@ -6,10 +6,10 @@ void		init_menu(t_disp *d, int cursor)
 	d->rback.y = 780;
 	if (cursor == 1)
 	{
-		if (SDL_QueryTexture(d->startW, NULL, NULL,
+		if (SDL_QueryTexture(d->start_w, NULL, NULL,
 					&d->rback.w, &d->rback.h) < 0)
 			error("(menu.c) SDL_QueryTexture : ", d);
-		if (SDL_RenderCopy(d->rend, d->startW, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->start_w, NULL, &d->rback) < 0)
 			error("(menu.c) SDL_RenderCopy : ", d);
 	}
 	else
@@ -77,9 +77,8 @@ void		disp_karp2(t_disp *d, t_input *t)
 		error("(disp_karp.c) SDL_SetRenderTarget : ", d);
 	while (t->line[0] != '#')
 	{
+		free(t->line);
 		get_next_line(0, &t->line);
-		if (t->line[0] != '#')
-			free(t->line);
 	}
 	d->delay = d->delay * 8;
 	t->running = 1;
@@ -111,4 +110,5 @@ void		disp_karp(t_disp *d, t_input *t)
 			get_next_line(0, &t->line);
 		}
 	}
+	free(t->line);
 }

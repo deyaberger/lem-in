@@ -8,14 +8,14 @@ void		disp_links5(t_disp *d, t_input *t, t_room **s, int *i)
 	d->rback.h = 50;
 	if ((*s)->type == 1)
 	{
-		if (SDL_RenderCopy(d->rend, d->tossS, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->r_start, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 		t->xmax = (*s)->x;
 		t->ymax = (*s)->y;
 	}
 	else if ((*s)->type == 2)
 	{
-		if (SDL_RenderCopy(d->rend, d->tossE, NULL, &d->rback) < 0)
+		if (SDL_RenderCopy(d->rend, d->r_end, NULL, &d->rback) < 0)
 			error("(disp.c) SDL_RenderCopy : ", d);
 	}
 	else

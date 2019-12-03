@@ -1,5 +1,33 @@
 #include "../../include/display.h"
 
+void			error2(t_disp *d)
+{
+	SDL_DestroyTexture(d->back);
+	SDL_DestroyTexture(d->back2);
+	SDL_DestroyTexture(d->black);
+	SDL_DestroyTexture(d->fail);
+	SDL_DestroyTexture(d->toss);
+	SDL_DestroyTexture(d->r_start);
+	SDL_DestroyTexture(d->r_end);
+	SDL_DestroyTexture(d->title);
+	SDL_DestroyTexture(d->start);
+	SDL_DestroyTexture(d->leave);
+	SDL_DestroyTexture(d->made);
+	SDL_DestroyTexture(d->arrow);
+	SDL_DestroyTexture(d->start_w);
+	SDL_DestroyTexture(d->leave_w);
+	SDL_DestroyTexture(d->txt);
+	SDL_DestroyTexture(d->txt2);
+	SDL_DestroyTexture(d->morph);
+	SDL_DestroyTexture(d->smith);
+	SDL_DestroyTexture(d->neo);
+	SDL_DestroyTexture(d->trini);
+	SDL_DestroyTexture(d->morph_b);
+	SDL_DestroyTexture(d->neo_b);
+	SDL_DestroyTexture(d->trini_b);
+	error3(d);
+}
+
 void			disp_k3(t_disp *d, t_input *t, t_room **s, t_room **nb_one)
 {
 	if (SDL_RenderDrawLine(d->rend, (*nb_one)->x * t->coefx + 100,

@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 12:12:20 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 13:35:24 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/03 12:52:00 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		replace_room(t_disp *d, t_input *t)
 	d->rback.y = (s->y * t->coefy) + 75;
 	d->rback.w = 50;
 	d->rback.h = 50;
-	if (SDL_RenderCopy(d->rend, d->tossS, NULL, &d->rback) < 0)
+	if (SDL_RenderCopy(d->rend, d->r_start, NULL, &d->rback) < 0)
 		error("(disp.c) SDL_RenderCopy : ", d);
 	s = t->first;
 	while (s->type != 2)
@@ -88,7 +88,7 @@ void		replace_room(t_disp *d, t_input *t)
 	d->rback.y = (s->y * t->coefy) + 75;
 	d->rback.w = 50;
 	d->rback.h = 50;
-	if (SDL_RenderCopy(d->rend, d->tossE, NULL, &d->rback) < 0)
+	if (SDL_RenderCopy(d->rend, d->r_end, NULL, &d->rback) < 0)
 		error("(disp.c) SDL_RenderCopy : ", d);
 	if (SDL_SetRenderTarget(d->rend, NULL) < 0)
 		error("(disp.c) SDL_SetRenderTarget", d);
