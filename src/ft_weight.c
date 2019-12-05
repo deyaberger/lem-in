@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 17:50:55 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/28 16:31:43 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/05 18:50:53 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,16 @@ BOOL	ft_check_link(t_room *ngb, t_info *info, t_room *room, int i)
 	if (ngb == room->mum)
 		mum = i;
 	if (ngb != room->mum && ngb != info->start)
-		k = k | GOOD_PATH;
+		k = k + GOOD_PATH;
 	if (room->opti == 0 && link->status == UNUSED)
-		k = k | CLEAN;
+		k = k + CLEAN;
 	if (room->opti == 1 && link->status == BACKWARD
 		&& room->link[m]->status == UNUSED)
-		k = k | REVERSE;
+		k = k + REVERSE;
 	if (room->opti == 1 && room->link[m]->status == FORWARD)
-		k = k | OUT;
-	if ((k & GOOD_PATH) && ((k & CLEAN) || (k & REVERSE) || (k & OUT)))
-		return (TRUE);
-	return (FALSE);
+		k = k + OUT;
+	return ((k == GOOD_PATH + CLEAN) || (k == GOOD_PATH + REVERSE)
+			|| (k == GOOD_PATH + OUT) ? TRUE : FALSE);
 }
 
 void	ft_add_to_queue(t_room *room, t_room **queue, t_room **ngb, int i)
