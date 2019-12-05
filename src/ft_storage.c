@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/12/05 10:09:33 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/05 15:19:21 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int		ft_check(t_info *info, int type, int i)
 			return (3);
 		i++;
 	}
-	if (info->line[i] != ' ' || info->line[i + 1] < '0' || info->line[i + 1] > '9')
+	if (info->line[i] != ' ' || info->line[i + 1] < '0'
+		|| info->line[i + 1] > '9')
 		return (3);
 	i++;
 	if (ft_check2(info, i, &j) != 1)
@@ -90,11 +91,11 @@ BOOL	ft_store(t_info *info, t_room **room, int type, int i)
 	return (i == 3 ? FALSE : TRUE);
 }
 
-BOOL		ft_storage(t_info *info, t_room *room, char **str)
+BOOL	ft_storage(t_info *info, t_room *room, char **str)
 {
-	int		type;
-	int		start;
-	int		end;
+	int	type;
+	int	start;
+	int	end;
 
 	start = 0;
 	end = 0;

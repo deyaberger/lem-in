@@ -1,19 +1,18 @@
-  
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 18:28:25 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/11/27 16:42:18 by dberger          ###   ########.fr       */
+/*   Created: 2019/12/05 14:45:56 by dberger           #+#    #+#             */
+/*   Updated: 2019/12/05 15:16:48 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
 
-t_info	init_info(void)
+t_info	init_info(int argc, char **argv)
 {
 	t_info	info;
 
@@ -33,6 +32,10 @@ t_info	init_info(void)
 	info.ymax = 0;
 	info.xmin = 2147483647;
 	info.ymin = 2147483647;
+	info.option = 0;
+	if (argc == 2)
+		if (!ft_strcmp(argv[1], "-c"))
+			info.option = 1;
 	return (info);
 }
 
@@ -90,7 +93,7 @@ BOOL	ft_visu(t_info *info, char *str, t_ways best, int mode)
 	return (TRUE);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	t_info	info;
 	t_room	*room;
@@ -98,7 +101,7 @@ int		main(void)
 	char	*str;
 
 	str = ft_memalloc(BUF);
-	info = init_info();
+	info = init_info(argc, argv);
 	best.steps = NULL;
 	if (!(room = init_room()) || !str)
 		return (FALSE);

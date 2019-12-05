@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 15:36:09 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/26 14:15:32 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/03 12:33:36 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_create_space(t_ways **ways, t_info *info, int j)
 		j++;
 	if (!((*ways)->steps[j] = ft_memalloc(sizeof(t_room) * info->end->weight)))
 		return (BAD);
-	if (!((*ways)->path_info[j] = ft_memalloc(sizeof(int) * 5)))
+	if (!((*ways)->path_info[j] = ft_memalloc(sizeof(long) * 5)))
 		return (BAD);
 	(*ways)->path_info[j][LENGTH] = NONE;
 	(*ways)->path_info[j][ANTS] = NONE;

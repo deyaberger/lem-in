@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:05:16 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/13 14:41:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/03 12:36:50 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ long	ft_calc_ants(t_info *info, t_ways **ways, int i)
 
 void	ft_min_max(t_ways **ways, int i)
 {
-	int steps;
+	long steps;
 
 	steps = (*ways)->path_info[i][STEPS];
 	if (steps > (*ways)->tot_max)
@@ -40,21 +40,21 @@ void	ft_min_max(t_ways **ways, int i)
 		(*ways)->min = steps;
 }
 
-void	ft_one_path_steps(t_ways **ways, int i, int a)
+void	ft_one_path_steps(t_ways **ways, int i, long a)
 {
-	int len;
-	int steps;
+	long len;
+	long steps;
 
 	len = (*ways)->path_info[i][LENGTH];
 	steps = len + a - 1;
 	(*ways)->path_info[i][STEPS] = steps;
 }
 
-void	ft_left_over(t_info *info, t_ways **ways, int nb)
+void	ft_left_over(t_info *info, t_ways **ways, long nb)
 {
-	int i;
-	int a;
-	int left;
+	long i;
+	long a;
+	long left;
 
 	i = 0;
 	a = 0;
@@ -75,9 +75,9 @@ void	ft_left_over(t_info *info, t_ways **ways, int nb)
 
 t_ways	*ft_calc_steps(t_ways *ways, t_info *info, int j)
 {
-	int	i;
-	int	nb;
-	int	a;
+	int		i;
+	long	nb;
+	long	a;
 
 	i = 0;
 	nb = 0;

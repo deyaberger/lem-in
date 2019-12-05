@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 16:59:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/28 16:31:30 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/05 15:14:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_ways	ft_init_steps(int size)
 	if (!(ways.steps = ft_memalloc(sizeof(t_room*) * size)))
 		return (ways);
 	ways.nb_ways = NEVER_FILLED;
-	if (!(ways.path_info = ft_memalloc(sizeof(int*) * size)))
+	if (!(ways.path_info = ft_memalloc(sizeof(long*) * size)))
 		return (ways);
 	return (ways);
 }
