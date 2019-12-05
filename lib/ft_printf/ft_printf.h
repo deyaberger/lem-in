@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 18:04:24 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/23 15:25:17 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/05 16:52:18 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@
 
 # define BUFF_SZ 71
 
-# define F_SPACE	(1 << 0)
-# define F_HASH		(1 << 1)
-# define F_MINUS	(1 << 2)
-# define F_PLUS		(1 << 3)
-# define F_ZERO		(1 << 4)
-# define F_POINT	(1 << 5)
+# define F_SPACE	0
+# define F_HASH		0
+# define F_MINUS	0
+# define F_PLUS		0
+# define F_ZERO		0
+# define F_POINT	0
 
-# define M_HH		(1 << 0)
-# define M_H		(1 << 1)
-# define M_L		(1 << 2)
-# define M_BIGL		(1 << 3)
-# define M_LL		(1 << 4)
-# define M_Z		(1 << 5)
-# define M_J		(1 << 6)
+# define M_HH		0
+# define M_H		0
+# define M_L		0
+# define M_BIGL		0
+# define M_LL		0
+# define M_Z		0
+# define M_J		0
 
 # define PF_BLACK	"\033[30m"
 # define PF_RED		"\033[31m"
