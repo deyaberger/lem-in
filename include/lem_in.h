@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:59:41 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/28 16:53:12 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/05 10:07:50 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,10 @@ t_ways				ft_bfs(t_info *t, t_room *r, t_ways best);
 BOOL				ft_karp(t_info *t, t_room *r, t_ways *best, t_ways *comp);
 void				ft_lines_rqd(t_info info, int total);
 void				ft_result(char *str, t_info info, t_ways *best, int i);
+int					ft_check2(t_info *info, int i, int *j);
+BOOL				ft_storage2(t_info *info, char **str);
+BOOL				ft_storage3(t_info *info, int *start, int *end, int *type);
+BOOL				ft_storage4(t_info *info, int start, int end);
+int					ft_max_min(t_info *info, int mode, int i);
 
 #endif

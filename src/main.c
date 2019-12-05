@@ -118,10 +118,3 @@ int		main(void)
 	ft_clean_free(&info);
 	return (TRUE);
 }
-
-/*
-__attribute__((destructor))
-void    end()
-{
-	while(1);
-}*/

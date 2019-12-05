@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/11/27 15:53:15 by dberger          ###   ########.fr        #
+#    Updated: 2019/12/03 16:43:11 by ncoursol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ NAME_LIBC = libft.a
 
 SRC = src/main.c \
 	src/ft_storage.c \
+	src/ft_storage2.c \
 	src/ft_print_ways.c \
 	src/ft_hashtab.c \
 	src/ft_bfs.c \
