@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:17:03 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/03 13:10:13 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/06 15:24:02 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,14 @@ void	ft_result(char *str, t_info info, t_ways *best, int i)
 {
 	int	j;
 	int	a;
-	int	total;
 
 	j = 0;
 	a = 1;
-	total = 0;
+	info.max_paths = 0;
 	if (VISU == 0)
 		ft_printf("%s\n", str);
+	if (ft_particular(best, info) == FALSE)
+		return ;
 	while (info.end->ant_index != info.ant_nb)
 	{
 		while (i < best->nb_ways)
@@ -118,8 +119,8 @@ void	ft_result(char *str, t_info info, t_ways *best, int i)
 		i = 0;
 		j = 0;
 		ft_print_result(&info, &best, i, j);
-		ft_printf("\n");
-		total++;
+		info.max_paths = info.max_paths + 1;
 	}
-	ft_lines_rqd(info, total);
+	ft_printf("\n");
+	ft_lines_rqd(info, info.max_paths);
 }

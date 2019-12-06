@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:30:21 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 15:16:40 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/06 15:28:52 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,46 @@ void	ft_lines_rqd(t_info info, int total)
 			ft_printf("\n%sNOT SPECIFIED\n", str);
 		ft_printf("#Here is the number of lines actually used: %d\n", total);
 	}
+}
+
+BOOL	ft_s_with_e(t_info info)
+{
+	int	j;
+	int	k;
+
+	j = 0;
+	k = 0;
+	while (info.start->link[j] && k == 0)
+	{
+		if (info.start->link[j]->dest == info.end)
+			k = 1;
+		j++;
+	}
+	return (k == 1 ? TRUE : FALSE);
+}
+
+BOOL	ft_particular(t_ways *best, t_info info)
+{
+	int	j;
+
+	j = 0;
+	if (ft_s_with_e(info) == TRUE
+		|| (best->nb_ways == 1 && best->path_info[0][LENGTH] == 1))
+	{
+		j++;
+		while (j <= info.ant_nb)
+		{
+			if (j == info.ant_nb)
+				ft_printf("L%d-%s", j, info.end->name);
+			else
+				ft_printf("L%d-%s ", j, info.end->name);
+			j++;
+		}
+		ft_printf("\n");
+		ft_lines_rqd(info, 1);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 void	ft_print_ways(t_ways *ways)
