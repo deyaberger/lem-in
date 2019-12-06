@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/26 14:20:17 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/06 19:10:19 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ BOOL	ft_new_best(t_ways *best, t_ways *comp)
 	return (TRUE);
 }
 
+/*
+** It is simple: we go from end to start through the mum of each rooms.
+** if the link between one room and it's mum is unused, we change it's
+** status to "used" : so from the room to it's mum it is now a "backward" link
+** and from the mum to this room it is a "forward" link.
+*/
+
 void	ft_update_status(t_room *room)
 {
 	t_link	*link;
@@ -80,6 +87,10 @@ void	ft_update_status(t_room *room)
 	}
 }
 
+/*
+** Here we update the status and then fill the steps in best or comp.
+*/
+
 BOOL	ft_fill_ways(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 {
 	room = info->end;
@@ -105,6 +116,16 @@ BOOL	ft_fill_ways(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 	}
 	return (TRUE);
 }
+
+/*
+** In KARP we first update the status of "flows", of our links. Then we cross
+** all the links from start that are going forward and stock the corresponding
+** rooms in a structure ("best" if it is the first time, "comp" to compare it to
+** "best"). If "best" is still better in terms of total steps than "comp", we stop
+** our search and erase comp. On the contrary, if "comp" allow us to send our ants
+** from start to end in less steps, then "comp" becomes the new "best", and we
+** continue our BFS for a possible optimisation.
+*/
 
 BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 {
