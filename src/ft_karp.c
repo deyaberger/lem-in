@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 19:00:23 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/06 19:10:19 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/06 19:26:31 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ t_ways	*ft_copy_comp(int j, t_ways *best, t_ways *comp)
 	}
 	return (best);
 }
+
+/*
+** We have found a more optimal "set of paths", so we erase our old "best"
+** option, create a new one that will have the values of our 'compare' option.
+*/
 
 BOOL	ft_new_best(t_ways *best, t_ways *comp)
 {
@@ -121,10 +126,10 @@ BOOL	ft_fill_ways(t_info *info, t_room *room, t_ways *best, t_ways *comp)
 ** In KARP we first update the status of "flows", of our links. Then we cross
 ** all the links from start that are going forward and stock the corresponding
 ** rooms in a structure ("best" if it is the first time, "comp" to compare it to
-** "best"). If "best" is still better in terms of total steps than "comp", we stop
-** our search and erase comp. On the contrary, if "comp" allow us to send our ants
-** from start to end in less steps, then "comp" becomes the new "best", and we
-** continue our BFS for a possible optimisation.
+** "best"). If "best" is still better in terms of total steps than "comp", we
+** stop our search and erase comp. On the contrary, if "comp" allow us to send
+** our ants from start to end in less steps, then "comp" becomes the new "best",
+** and we continue our BFS for a possible optimisation.
 */
 
 BOOL	ft_karp(t_info *info, t_room *room, t_ways *best, t_ways *comp)
