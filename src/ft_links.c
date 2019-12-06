@@ -6,11 +6,18 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 13:16:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 15:17:27 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/06 18:30:34 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
+
+/*
+** Link will be a simple structure, with a pointer to a destination room (dest)
+** a status: 0 since the links haven't yet been crossed or used by any path.
+** nbl stands for number of links (stock in one room), link_nb for number total
+** of links (stock in info).
+*/
 
 t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 {
@@ -24,6 +31,11 @@ t_link	*ft_create_ways(t_room *from, t_room *dest, t_info *info)
 	info->link_nb = info->link_nb + 1;
 	return (link);
 }
+
+/*
+** If we receive: A-B: in A we will have a link to the room B, in A we will
+** have a link to the room A.
+*/
 
 BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info, int i)
 {
@@ -52,6 +64,12 @@ BOOL	ft_fill_links(t_room *one, t_room *two, t_info *info, int i)
 	return (TRUE);
 }
 
+/*
+** When a room is link to another one, we first need to check if the room
+** exist in our hashtab (ft_coll), then if we already linked those two rooms
+** together we want to ignore this information to not have twice the same link
+*/
+
 BOOL	ft_calc_links(char *room1, char *room2, int s, t_info *info)
 {
 	int		i;
@@ -75,6 +93,14 @@ BOOL	ft_calc_links(char *room1, char *room2, int s, t_info *info)
 	return (TRUE);
 }
 
+/*
+** In ft_cut_room we should receive a string like "room1-room2"
+** Instead of allocating memory to check the validity of each name of rooms
+** we just change the pointer on the string or it's end:
+** Room2 becomes the string after the sign "-", and Room1 becomes the string
+** before the sign "-".
+*/
+
 BOOL	ft_cut_room(t_info *info)
 {
 	char	*room1;
@@ -97,6 +123,14 @@ BOOL	ft_cut_room(t_info *info)
 		return (FALSE);
 	return (TRUE);
 }
+
+/*
+** When we arrive in ft_links, what is stock in info->line should be the first
+** link we found while reading the map in ft_storage. Then we need to continue
+** the reading of our map with get_next_line. We ignore any comment or command,
+** except the one that gives us the number of lines required that we will stock
+** in "info->line_rqd".
+*/
 
 BOOL	ft_links(t_info *info, char **str)
 {
