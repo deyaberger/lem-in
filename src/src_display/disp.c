@@ -100,6 +100,7 @@ void		disp(t_disp *d, t_input *t)
 	int		w;
 	int		h;
 	int		c;
+	char	*line;
 
 	c = 0;
 	SDL_GetWindowSize(d->win, &w, &h);

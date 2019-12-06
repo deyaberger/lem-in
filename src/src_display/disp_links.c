@@ -106,7 +106,7 @@ int			disp_links2(t_input *t, t_room *s, SDL_Point *pts, int *j)
 	get_next_line(0, &t->line);
 	if (t->line[0] == 0)
 		return (0);
-	if (t->line[0] != '#')
+	if (t->line[0] != '#' && *j < t->link_nb * 2)
 	{
 		while (t->line[i] != '-')
 			i++;

@@ -70,7 +70,7 @@ BOOL		ft_storage3(t_info *info, int *start, int *end, int *type)
 		else
 			return (FALSE);
 	}
-	else
+	else if (info->line[0] != '#')
 		*type = ROOM_NORMAL;
 	return (TRUE);
 }

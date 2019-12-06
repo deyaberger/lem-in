@@ -120,7 +120,8 @@ int			lem(t_disp *d, t_input *t, int c)
 		ant[i][1] = (t->ymax * t->coefy) + 100;
 		i++;
 	}
-	while (t->line[0] != 'L')
+	while (t->line[0] != 'L' || strchr(t->line, '-') == NULL
+	|| t->line[1] > '9' || t->line[1] < '0')
 	{
 		get_next_line(0, &t->line);
 		if (t->line[0] != 'L')

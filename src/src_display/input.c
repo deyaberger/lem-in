@@ -16,6 +16,7 @@ int		coord(t_input *t, t_room **r, int j)
 {
 	t_room	*s;
 
+	ft_strncpy(r->name, t->line, j);
 	(*r)->name[j] = '\0';
 	(*r)->x = ft_atoi(t->line + j) - t->xmin;
 	j++;
@@ -36,7 +37,8 @@ int		get_room(t_input *t, t_room *r, int i, int j)
 	while (i < t->room_nb)
 	{
 		get_next_line(0, &t->line);
-		if (t->line[0] == '#' && t->line[1] == '#')
+		if (ft_strcmp(t->line, "##start") == 0
+		|| ft_strcmp(t->line, "##end") == 0)
 		{
 			r->type = (t->line[2] == 's' ? 1 : 2);
 			free(t->line);
@@ -48,7 +50,6 @@ int		get_room(t_input *t, t_room *r, int i, int j)
 				j++;
 			if (!(r->name = (char*)malloc(sizeof(char) * (j + 1))))
 				return (0);
-			ft_strncpy(r->name, t->line, j);
 			coord(t, &r, j);
 		}
 		else
@@ -95,7 +96,10 @@ int		get_info(t_input *t, t_room *r, t_disp *d)
 	i = 2;
 	get_next_line(0, &t->line);
 	if (ft_strncmp(t->line, "ERROR", 5) == 0)
+	{
+		d->delay = -2;
 		error(t->line, d);
+	}
 	if (!(r = (t_room*)malloc(sizeof(*r))))
 		return (0);
 	r->next = NULL;
