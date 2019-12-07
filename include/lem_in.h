@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:59:41 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 10:07:50 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/06 15:24:06 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-# define VISU 1
+# define VISU 0
 # define SIZE_HASH 10
 # define IMPOSSIBLE -2
-# define GOOD_PATH (1 << 1)
-# define CLEAN (1 << 2)
-# define REVERSE (1 << 3)
-# define OUT (1 << 4)
+# define GOOD_PATH 1
+# define CLEAN 256
+# define REVERSE -7
+# define OUT 98
 # define BOOL int
 # define BUF 200
 # define TRUE 1
@@ -77,6 +77,7 @@ typedef struct		s_info
 	int				ymax;
 	int				xmin;
 	int				ymin;
+	int				option;
 }					t_info;
 
 typedef struct		s_room
@@ -110,6 +111,7 @@ typedef struct		s_ways
 }					t_ways;
 
 char				*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info);
+BOOL				ft_particular(t_ways *best, t_info info);
 void				ft_print_ways(t_ways *ways);
 t_room				*init_room(void);
 BOOL				ft_storage(t_info *t, t_room *r, char **str);
