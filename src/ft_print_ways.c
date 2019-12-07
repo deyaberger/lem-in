@@ -6,11 +6,17 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:30:21 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/06 15:28:52 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:58:00 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
+
+/*
+** If in our arguments we have "-c", it means we want to compare the number
+** of lines (Steps) required by the generator for a particular map, and the
+** number of lines we actually use with our algorithm ("total");
+*/
 
 void	ft_lines_rqd(t_info info, int total)
 {
@@ -27,6 +33,10 @@ void	ft_lines_rqd(t_info info, int total)
 	}
 }
 
+/*
+** ft_s_with_e search if one of the links of start is end or not.
+*/
+
 BOOL	ft_s_with_e(t_info info)
 {
 	int	j;
@@ -42,6 +52,12 @@ BOOL	ft_s_with_e(t_info info)
 	}
 	return (k == 1 ? TRUE : FALSE);
 }
+
+/*
+** If start is linked to end then, no matter how many ants there is (1 or 100)
+** we can just list them all in the "end" room since it can contain several ants
+** at the same time, so it is automatically the most performant option.
+*/
 
 BOOL	ft_particular(t_ways *best, t_info info)
 {
@@ -66,6 +82,11 @@ BOOL	ft_particular(t_ways *best, t_info info)
 	}
 	return (TRUE);
 }
+
+/*
+** For the output we need to print the name of each room where we move
+** an ant.
+*/
 
 void	ft_print_ways(t_ways *ways)
 {
