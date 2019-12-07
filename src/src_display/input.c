@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:23:01 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 15:23:03 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 14:44:08 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		coord(t_input *t, t_room **r, int j)
 {
 	t_room	*s;
 
-	ft_strncpy(r->name, t->line, j);
+	ft_strncpy((*r)->name, t->line, j);
 	(*r)->name[j] = '\0';
 	(*r)->x = ft_atoi(t->line + j) - t->xmin;
 	j++;
