@@ -508,15 +508,15 @@ extern DECLSPEC int SDLCALL SDL_BuildAudioCVT(SDL_AudioCVT * cvt,
 
 /**
  *  Once you have initialized the \c cvt structure using SDL_BuildAudioCVT(),
- *  created an audio buffer \c cvt->buf, and filled it with \c cvt->len bytes of
+ *  created an audio buffer \c cvinfo->buf, and filled it with \c cvinfo->len bytes of
  *  audio data in the source format, this function will convert it in-place
  *  to the desired format.
  *
  *  The data conversion may expand the size of the audio data, so the buffer
- *  \c cvt->buf should be allocated after the \c cvt structure is initialized by
- *  SDL_BuildAudioCVT(), and should be \c cvt->len*cvt->len_mult bytes long.
+ *  \c cvinfo->buf should be allocated after the \c cvt structure is initialized by
+ *  SDL_BuildAudioCVT(), and should be \c cvinfo->len*cvinfo->len_mult bytes long.
  *
- *  \return 0 on success or -1 if \c cvt->buf is NULL.
+ *  \return 0 on success or -1 if \c cvinfo->buf is NULL.
  */
 extern DECLSPEC int SDLCALL SDL_ConvertAudio(SDL_AudioCVT * cvt);
 

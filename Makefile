@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/24 14:43:37 by dberger           #+#    #+#              #
-#    Updated: 2019/12/03 16:43:11 by ncoursol         ###   ########.fr        #
+#    Updated: 2019/12/05 18:38:40 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,11 @@ LIB = $(FT_PRINTF)/$(NAME_PTF) \
 
 .PHONY: all clean fclean re
 
-all: $(NAME)
+all: mkdir $(NAME) $(NAME_DISP)
+
+mkdir:
+		mkdir -p $(OBJ_DIR)
+		mkdir -p $(OBJ_DIR)/obj_disp
 
 disp: $(NAME_DISP)
 
@@ -100,6 +104,7 @@ clean:
 	$(MAKE) $@ -C $(FT_PRINTF)
 	rm -rf $(OBJ_DIR)/$(OBJ)
 	rm -rf $(OBJ_DIR)/obj_disp/$(OBJ_DISP)
+	rm -rf $(OBJ_DIR)
 	echo "$(BLUE)	--- Binary deleted ! ---	$(NO_COLOR)"
 
 fclean: clean

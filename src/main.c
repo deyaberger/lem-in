@@ -6,11 +6,17 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 14:45:56 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 19:28:32 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 16:20:06 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
+
+/*
+** Info has all the general informations about our anthill: number of ants,
+** rooms, links, the pointer to the rooms start and end, line and str will help
+** us read the map and stock it for the final print.
+*/
 
 t_info	init_info(int argc, char **argv)
 {
@@ -39,6 +45,11 @@ t_info	init_info(int argc, char **argv)
 	return (info);
 }
 
+/*
+** For each rooms, we need to know to what other rooms they are linked to,
+** "nbl" is the number of links, the rest will help us during the algorithm.
+*/
+
 t_room	*init_room(void)
 {
 	t_room *room;
@@ -47,15 +58,19 @@ t_room	*init_room(void)
 		return (NULL);
 	room->link = NULL;
 	room->mum = NULL;
+	room->name = NULL;
+	room->next = NULL;
 	room->nbl = 0;
-	room->ant_index = 0;
 	room->in_q = 0;
 	room->weight = 0;
 	room->opti = 0;
-	room->name = NULL;
-	room->next = NULL;
+	room->ant_index = 0;
 	return (room);
 }
+
+/*
+** This function frees the necessary data before printing the message error.
+*/
 
 BOOL	ft_error(t_info info, char *str, t_ways best, int mode)
 {
@@ -70,6 +85,14 @@ BOOL	ft_error(t_info info, char *str, t_ways best, int mode)
 	ft_printf("ERROR\n");
 	return (FALSE);
 }
+
+/*
+** To use the visualisator, we need to change the variable "VISU" in lem-in.h
+** from 0 to 1. Before that we check if there is both start and end have links,
+** otherwise we don't even need to move forward since there won't be any path
+** possible. In "max_path" we reduce the number of iteration we will need to do
+** in our BFS, since we can't have more ways than start and end have links.
+*/
 
 BOOL	ft_visu(t_info *info, char *str, t_ways best, int mode)
 {
@@ -92,6 +115,13 @@ BOOL	ft_visu(t_info *info, char *str, t_ways best, int mode)
 	}
 	return (TRUE);
 }
+
+/*
+** In our Lem-in we first store the map and check if it is correct
+** (hastab and links), then we find the optimal number of possible ways
+** with ft_bfs, and then we "send" and print the ants moving in the rooms
+** from start to end, finally we free everything we have allocated in memory.
+*/
 
 int		main(int argc, char **argv)
 {

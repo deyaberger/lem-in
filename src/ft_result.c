@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:17:03 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/06 15:24:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/06 18:15:24 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ void	ft_result(char *str, t_info info, t_ways *best, int i)
 		i = 0;
 		j = 0;
 		ft_print_result(&info, &best, i, j);
+		ft_printf("\n");
 		info.max_paths = info.max_paths + 1;
 	}
-	ft_printf("\n");
 	ft_lines_rqd(info, info.max_paths);
 }

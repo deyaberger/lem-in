@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:59:41 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/06 15:24:06 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 16:18:33 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
 
-# define VISU 0
+# define VISU 1
 # define SIZE_HASH 10
 # define IMPOSSIBLE -2
 # define GOOD_PATH 1

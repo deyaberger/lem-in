@@ -49,7 +49,7 @@
  **    (1) Initialize a context buffer mdContext using MD5Init        **
  **    (2) Call MD5Update on mdContext and M                          **
  **    (3) Call MD5Final on mdContext                                 **
- **  The message digest is now in mdContext->digest[0...15]           **
+ **  The message digest is now in mdContexinfo->digest[0...15]           **
  ***********************************************************************
 */
 
