@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:17:03 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/06 18:15:24 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 18:13:56 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ t_ways	*ft_new_ants(t_ways *best, int *a, int *i, int j)
 	return (best);
 }
 
+/*
+** "ant index" is the index of the ant we have sent in a room: it goes from 1
+** to the total number of ants "ant_nb". "ANT ARRIVED" is the number of ants
+** we have sent in one path since we started.
+*/
+
 void	ft_print_result(t_info *info, t_ways **best, int i, int j)
 {
 	t_room	*room;
@@ -95,6 +101,15 @@ void	ft_print_result(t_info *info, t_ways **best, int i, int j)
 		i++;
 	}
 }
+
+/*
+** In "str" we have stock the map we got in the first place. We check in
+** ft_particular if start is not link to end, if not we move forward for the
+** final output: we move our ants from one room to the other, then add a new one
+** to the party ;)
+** We reused the int "info_max_paths" that is no longer useful, to stock the
+** total of iteration we are doing (corresponding to the final number of steps).
+*/
 
 void	ft_result(char *str, t_info info, t_ways *best, int i)
 {
