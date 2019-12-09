@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/07 17:52:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:43:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void	ft_clean_list(t_info *info, t_room *room)
 		room = save;
 	}
 	info->room_nb = 0;
-	free(info->line);
+	if (info->line[0])
+		free(info->line);
 }
 
 /*
