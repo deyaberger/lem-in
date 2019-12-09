@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:21:45 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 15:21:46 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/09 14:44:35 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ void		lem2(t_disp *d, t_input *t, int **ant, int *c)
 		}
 		lem3(d, t, &i);
 	}
+	SDL_RenderPresent(d->rend);
 }
 
 void		lem4(t_disp *d, t_input *t, int **ant, int *c)
 {
 	d->delay = 6;
-	while (t->line[0] != '#')
+	while (t->line[0] == 'L')
 	{
 		t->link_nb = 0;
 		while (t->link_nb == 0)
@@ -92,12 +93,12 @@ void		lem4(t_disp *d, t_input *t, int **ant, int *c)
 			if (SDL_RenderCopy(d->rend, d->txt, NULL, &d->rback) < 0)
 				error("(disp.c) SDL_RenderCopy : ", d);
 			lem2(d, t, ant, c);
-			SDL_RenderPresent(d->rend);
 		}
 		free(t->line);
 		get_next_line(0, &t->line);
 	}
-	free(t->line);
+	if (t->line[0] != '\0')
+		free(t->line);
 	d->rback.x = 0;
 	d->rback.y = 0;
 	if (SDL_QueryTexture(d->txt, NULL, NULL, &d->rback.w, &d->rback.h) < 0)
