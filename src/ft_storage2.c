@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:19:58 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/07 16:23:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:06:57 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ BOOL		ft_storage4(t_info *info, int start, int end)
 {
 	if (start == 0 || end == 0)
 		return (FALSE);
-	if (info->xmax == 0 || info->ymax == 0)
+	if (info->xmax == -1 || info->ymax == -1)
 		return (FALSE);
 	return (TRUE);
 }

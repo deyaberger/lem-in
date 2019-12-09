@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 14:45:56 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/07 16:20:06 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:06:46 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_info	init_info(int argc, char **argv)
 	info.lines_rqd = 0;
 	info.max_paths = 0;
 	info.coord = NULL;
-	info.xmax = 0;
-	info.ymax = 0;
+	info.xmax = -1;
+	info.ymax = -1;
 	info.xmin = 2147483647;
 	info.ymin = 2147483647;
 	info.option = 0;
