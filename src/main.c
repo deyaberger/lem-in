@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 14:45:56 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/09 15:06:46 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/09 16:04:38 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,10 @@ int		main(int argc, char **argv)
 	ft_clean_steps(&best, 1);
 	ft_clean_free(&info);
 	return (TRUE);
+}
+
+__attribute__((destructor))
+void	end()
+{
+	while (1);
 }
