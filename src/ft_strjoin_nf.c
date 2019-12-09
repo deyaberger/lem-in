@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:58:05 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/28 16:59:20 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 18:15:54 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ char	*ft_strcat_from_n(char *dest, const char *src, int stop)
 	dest[i + j + 1] = '\0';
 	return (dest);
 }
+
+/*
+** This function copies s2 in s1, and create a new string if s1 is not big
+** enough while freeing the old s1. It also adds a "\n" to each line we add.
+*/
 
 char	*ft_strjoin_nf(char *s1, char *s2, int a, t_info *info)
 {

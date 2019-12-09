@@ -6,11 +6,18 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 12:29:31 by dberger           #+#    #+#             */
-/*   Updated: 2019/11/27 13:51:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:52:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
+
+/*
+** MINI_FREE corresponds to when we want to free comp after we have given its
+** values to the new best. But we want to keep the structure to store the next
+** combination of paths we will find. "opti" is when a room belongs to one of
+** "best" paths.
+*/
 
 void	ft_free_steps(t_ways *ways, int mode)
 {
@@ -35,6 +42,13 @@ void	ft_free_steps(t_ways *ways, int mode)
 	}
 }
 
+/*
+** We can only clean steps after we have allocated space for them: so
+** after at least one iteration of bfs and karp. We use this function also
+** everytime we find a better combination of paths than the last one and
+** we want to erase "best" and create a new one with the values of "comp".
+*/
+
 void	ft_clean_steps(t_ways *ways, int mode)
 {
 	int i;
@@ -53,6 +67,12 @@ void	ft_clean_steps(t_ways *ways, int mode)
 	if (mode == FINAL_FREE && ways->path_info != NULL)
 		free(ways->path_info);
 }
+
+/*
+** If we encounter an error in ft_storrage, it means we only have a list
+** chained of rooms, and not a hashtab yet. Same thing happens if we find an
+** error in the first link we encounter.
+*/
 
 void	ft_clean_list(t_info *info, t_room *room)
 {
@@ -82,6 +102,13 @@ void	ft_clean_list(t_info *info, t_room *room)
 	free(info->line);
 }
 
+/*
+** For each room we have in our hashtab, we need to free their links
+** (if they have any) - but not what is stock in the links since it is
+** simply other rooms that we are about to free in this same function.
+** Finally we free the rooms names.
+*/
+
 int		ft_free_rooms(t_info *info, int i)
 {
 	t_room	*room;
@@ -110,6 +137,13 @@ int		ft_free_rooms(t_info *info, int i)
 	i++;
 	return (i);
 }
+
+/*
+** What we free depends on where we are in the process. Maybe we have
+** encounter an error during program, so there are only a few things we
+** have allocated in memory yet.
+** "coord" are the coordinates of the rooms (we use it for the visualisator)
+*/
 
 void	ft_clean_free(t_info *info)
 {

@@ -6,11 +6,18 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:05:16 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/03 12:36:50 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:24:34 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
+
+/*
+** The number of ants we can send in one path ("a") will depend on the total
+** number of ants in the anthill ("ants"), the sum of the length of all paths
+** found ("tpl"), the number of paths ("nb_ways"), the length of the path we
+** are on ("len").
+*/
 
 long	ft_calc_ants(t_info *info, t_ways **ways, int i)
 {
@@ -29,6 +36,13 @@ long	ft_calc_ants(t_info *info, t_ways **ways, int i)
 	return (a);
 }
 
+/*
+** We want to know which path is the shorter one so we can send more ants
+** in this path. "tot_max" stock the length of the longest path since
+** it corresponds to the number of total number of steps we will have when
+** sending all our ants.
+*/
+
 void	ft_min_max(t_ways **ways, int i)
 {
 	long steps;
@@ -40,6 +54,11 @@ void	ft_min_max(t_ways **ways, int i)
 		(*ways)->min = steps;
 }
 
+/*
+** Steps corresponds to number of steps necessary to move in one path,
+** X number of ants (calculated in ft_calc_ants).
+*/
+
 void	ft_one_path_steps(t_ways **ways, int i, long a)
 {
 	long len;
@@ -49,6 +68,11 @@ void	ft_one_path_steps(t_ways **ways, int i, long a)
 	steps = len + a - 1;
 	(*ways)->path_info[i][STEPS] = steps;
 }
+
+/*
+** We are doing divisions of "int" so the numbers are rounded to
+** decimal and might not match the final number of ants.
+*/
 
 void	ft_left_over(t_info *info, t_ways **ways, long nb)
 {
@@ -72,6 +96,14 @@ void	ft_left_over(t_info *info, t_ways **ways, long nb)
 		left--;
 	}
 }
+
+/*
+** this function will help us, in BFS, to choose between the combinasion
+** of paths stock in "BEST" and the new one we have found in "COMP". Maybe
+** "COMP" proposes more different paths, but maybe they are way longer than
+** those of "BEST" and it would take much longer to move all our ants from
+** start to end.
+*/
 
 t_ways	*ft_calc_steps(t_ways *ways, t_info *info, int j)
 {
