@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:22:16 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 15:22:18 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/09 13:58:30 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			init(t_disp *d)
 		error("(main.c) SDL_CreateRenderer error : ", d);
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
 		error("(main.c) Mix_OpenAudio : ", d);
-	Mix_VolumeMusic(30);
+	Mix_VolumeMusic(25);
 	if ((d->spy = Mix_LoadMUS("img/spy.ogg")) == NULL)
 		error("(main.c) Mix_LoadMUS : ", d);
 	if ((d->deft = Mix_LoadMUS("img/deftones.ogg")) == NULL)

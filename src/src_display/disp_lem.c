@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:21:45 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/09 14:44:35 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/09 21:03:11 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		lem4(t_disp *d, t_input *t, int **ant, int *c)
 		free(t->line);
 		get_next_line(0, &t->line);
 	}
-	if (t->line[0] != '\0')
+	if (t->line[0] == 'L')
 		free(t->line);
 	d->rback.x = 0;
 	d->rback.y = 0;

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:21:53 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/05 15:21:55 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:16:47 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ int			disp_links2(t_input *t, t_room *s, SDL_Point *pts, int *j)
 		pts[*j].x = (s->x * t->coefx) + 100;
 		pts[*j].y = (s->y * t->coefy) + 100;
 	}
+	*j = (t->line[0] == '#' ? *j : *j + 1);
 	free(t->line);
-	*j += 1;
 	return (1);
 }
 

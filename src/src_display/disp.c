@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 12:12:20 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/12/03 12:52:00 by ncoursol         ###   ########.fr       */
+/*   Updated: 2019/12/09 15:15:42 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ void		event(t_disp *d, int i, int running)
 			error("\n", d);
 		}
 		if (d->event.key.keysym.sym == SDLK_KP_MINUS)
+		{
 			d->delay += (d->delay / 4);
+			d->delay = (d->delay > 1500 ? 1500 : d->delay);
+		}
 		if (d->event.key.keysym.sym == SDLK_KP_PLUS)
+		{
 			d->delay -= (d->delay / 4);
+			d->delay = (d->delay < 20 ? 20 : d->delay);
+		}
 		while (d->event.key.keysym.sym == SDLK_SPACE)
 			SDL_PollEvent(&d->event);
 	}
