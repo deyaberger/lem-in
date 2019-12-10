@@ -6,7 +6,7 @@
 /*   By: ncoursol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 15:13:04 by ncoursol          #+#    #+#             */
-/*   Updated: 2019/12/09 18:06:01 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/10 12:20:08 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_check(t_info *info, int type, int i)
 		i++;
 	}
 	if (info->line[i] != ' ' || info->line[i + 1] < '0'
-		|| info->line[i + 1] > '9')
+			|| info->line[i + 1] > '9')
 		return (3);
 	i++;
 	if (ft_check2(info, i, &j) != 1)
@@ -96,7 +96,10 @@ BOOL	ft_space(t_info *info)
 	if (ft_strchr(info->line, ' ') == NULL && info->line[0] != '#')
 	{
 		if (info->line[0] == '\0')
+		{
 			free(info->line);
+			info->line = NULL;
+		}
 		return (FALSE);
 	}
 	return (TRUE);
@@ -126,7 +129,7 @@ BOOL	ft_storage(t_info *info, t_room *room, char **str)
 			return (FALSE);
 		free(info->line);
 	}
-	if (!ft_storage4(info, start, end))
+	if (!ft_storage4(info, start, end) || info->line == NULL)
 		return (FALSE);
 	return (ft_strcmp("", info->line) == 0 ? FALSE : TRUE);
 }

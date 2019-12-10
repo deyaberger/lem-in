@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:59:41 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/09 15:33:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/10 11:18:39 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../lib/ft_printf/ft_printf.h"
 # include "../lib/libft/libft.h"
+# include <unistd.h>
 
 # define VISU 0
 # define SIZE_HASH 10

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 14:45:56 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/09 16:04:38 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/10 12:25:29 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,10 @@ int		main(int argc, char **argv)
 	return (TRUE);
 }
 
-__attribute__((destructor))
-void	end()
-{
-	while (1);
-}
+/*
+** __attribute__((destructor))
+**	void	end()
+** {
+**	while (1);
+** }
+*/

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:19:58 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/09 17:52:44 by dberger          ###   ########.fr       */
+/*   Updated: 2019/12/10 11:58:52 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,13 @@ BOOL		ft_storage2(t_info *info, char **str)
 	ret = get_next_line(0, &info->line);
 	if (ret == -1 || ret == 0 || info->line == NULL)
 		return (FALSE);
-	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
+	if (info->line[0] == 0)
+	{
+		free(info->line);
+		info->line = NULL;
 		return (FALSE);
-	if (info->line == NULL)
+	}
+	if (!(*str = ft_strjoin_nf(*str, info->line, 1, info)))
 		return (FALSE);
 	while (info->line[++type])
 		if (!ft_isdigit(info->line[type]))
