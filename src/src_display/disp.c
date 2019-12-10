@@ -110,8 +110,13 @@ void		disp(t_disp *d, t_input *t)
 
 	c = 0;
 	SDL_GetWindowSize(d->win, &w, &h);
-	t->coefx = (((float)w - 200) / (float)t->xmax);
-	t->coefy = (((float)h - 200) / (float)t->ymax);
+	t->coefx = (t->xmax <= 1 ? w - 200 : t->coefx);
+	t->coefy = (t->xmax <= 1 ? h - 200 : t->coefy);
+	if (t->xmax > 1 && t->ymax > 1)
+	{
+		t->coefx = (((float)w - 200) / (float)t->xmax);
+		t->coefy = (((float)h - 200) / (float)t->ymax);
+	}
 	disp_room(d, t);
 	disp_links(d, t);
 	disp_karp(d, t);
