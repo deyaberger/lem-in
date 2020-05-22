@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2020 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -508,15 +508,15 @@ extern DECLSPEC int SDLCALL SDL_BuildAudioCVT(SDL_AudioCVT * cvt,
 
 /**
  *  Once you have initialized the \c cvt structure using SDL_BuildAudioCVT(),
- *  created an audio buffer \c cvinfo->buf, and filled it with \c cvinfo->len bytes of
+ *  created an audio buffer \c cvt->buf, and filled it with \c cvt->len bytes of
  *  audio data in the source format, this function will convert it in-place
  *  to the desired format.
  *
  *  The data conversion may expand the size of the audio data, so the buffer
- *  \c cvinfo->buf should be allocated after the \c cvt structure is initialized by
- *  SDL_BuildAudioCVT(), and should be \c cvinfo->len*cvinfo->len_mult bytes long.
+ *  \c cvt->buf should be allocated after the \c cvt structure is initialized by
+ *  SDL_BuildAudioCVT(), and should be \c cvt->len*cvt->len_mult bytes long.
  *
- *  \return 0 on success or -1 if \c cvinfo->buf is NULL.
+ *  \return 0 on success or -1 if \c cvt->buf is NULL.
  */
 extern DECLSPEC int SDLCALL SDL_ConvertAudio(SDL_AudioCVT * cvt);
 

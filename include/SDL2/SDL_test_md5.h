@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2020 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -49,7 +49,7 @@
  **    (1) Initialize a context buffer mdContext using MD5Init        **
  **    (2) Call MD5Update on mdContext and M                          **
  **    (3) Call MD5Final on mdContext                                 **
- **  The message digest is now in mdContexinfo->digest[0...15]           **
+ **  The message digest is now in mdContext->digest[0...15]           **
  ***********************************************************************
 */
 

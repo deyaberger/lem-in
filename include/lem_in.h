@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:59:41 by dberger           #+#    #+#             */
-/*   Updated: 2019/12/10 11:18:39 by dberger          ###   ########.fr       */
+/*   Updated: 2020/01/31 16:26:19 by ncoursol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../lib/libft/libft.h"
 # include <unistd.h>
 
-# define VISU 0
+# define VISU 1
 # define SIZE_HASH 10
 # define IMPOSSIBLE -2
 # define GOOD_PATH 1
