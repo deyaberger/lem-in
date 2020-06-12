@@ -86,3 +86,8 @@ L3-1
 `make` then `./lemin < mapfile | ./display`
 
 ### Example:
+![](img/screenshot/image1.png)
+
+![](img/screenshot/image2.png)
+
+![](img/screenshot/image3.png)
